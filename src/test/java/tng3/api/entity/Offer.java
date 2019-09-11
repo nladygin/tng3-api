@@ -4,17 +4,23 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
-import java.util.HashMap;
-
 
 @Configuration
 @ComponentScan("tng3.api")
 @PropertySource({"data.properties"})
-public class Visit implements Entity {
+public class Offer implements Entity {
 
-    public String clockIn;
-    public String clockOut;
-    public Outlet outlet;
+    public int id;
+    public String folder;
+    public int folderID;
+    public String folderImage;
+    public String name;
+    public String description;
+    public int duration;
+    public float price;
+    public boolean pakkage;
+    public String type;
+    public String image;
 
 
 
@@ -23,6 +29,6 @@ public class Visit implements Entity {
         return null;
     }
 
-    public Visit(){}
+    public Offer(){}
 
 }

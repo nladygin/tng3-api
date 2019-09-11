@@ -4,23 +4,38 @@ package tng3.api;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.apache.commons.lang3.time.DateUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import tng3.api.entity.APIResponse;
 import tng3.api.entity.Entity;
 import tng3.api.entity.Token;
 
-import java.security.SecureRandom;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
 import static io.restassured.RestAssured.given;
 import static org.apache.http.HttpStatus.SC_OK;
 
+
+
 @Component
+@PropertySource({"data.properties"})
 public class Utils {
 
     @Autowired
@@ -28,6 +43,9 @@ public class Utils {
 
     @Autowired
     private Token token;
+
+    @Value("${lang}")
+    private String lang;
 
     private final Logger log = LogManager.getLogger();
 
@@ -43,7 +61,6 @@ public class Utils {
         return makeURL(endpoint, token, null);
     }
 
-
     public String makeURL(String endpoint, String token, HashMap<String, String> additional){
         String additionalString = "";
         if (additional != null) {
@@ -58,7 +75,7 @@ public class Utils {
         return appConfig.serverURL
                 + endpoint
                 + "?app_id=" + appConfig.appID
-                + "&lang=" + appConfig.lang
+                + "&lang=" + lang
                 + ((token != null) ? "&session_id=" + token : "")
                 + additionalString;
     }
@@ -72,7 +89,6 @@ public class Utils {
     public APIResponse go(String endpoint, Method method, Entity body){
         return go(endpoint,method,body,null);
     }
-
 
     public APIResponse go(String endpoint, Method method, Entity body, HashMap<String, String> additional){
         String url = makeURL(endpoint, token.getSessionID(), additional);
@@ -102,10 +118,23 @@ public class Utils {
     }
 
 
-    public String generateSalt(){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-        return dateFormat.format( new Date() );
+    public String generateDate(String dateFormat, int dayShift){
+        SimpleDateFormat f = new SimpleDateFormat(dateFormat);
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.DAY_OF_MONTH, dayShift);
+        return f.format( DateUtils.ceiling(cal.getTime(), Calendar.HOUR) );
     }
+
+
+    public String generateDateMS(int dayShift){
+        LocalDateTime localDateTime = LocalDateTime.parse(generateDate("dd.MM.YYYY HH:mm", dayShift),
+                DateTimeFormatter.ofPattern("dd.MM.uuuu HH:mm") );
+            long millis = localDateTime
+                    .atZone(ZoneId.systemDefault())
+                    .toInstant().toEpochMilli();
+        return String.valueOf(millis);
+    }
+
 
 
 

@@ -1,14 +1,11 @@
 package tng3.api.entity;
 
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Objects;
 
 public class APIResponse {
 
     private boolean success;
-//    private HashMap<String, Object> payload;
     private Object payload;
     private HashMap<String, Object> error;
 
@@ -17,9 +14,6 @@ public class APIResponse {
         return success;
     }
 
-//    public HashMap<String, Object> getPayload(){
-//        return payload;
-//    }
     public Object getPayload(){
         return payload;
     }
