@@ -44,6 +44,7 @@ public class DocTest extends BaseTest {
         HashMap<String, String> additional = new HashMap<>();
             additional.put("offset", offset);
             additional.put("count", count);
+
                 APIResponse response = utils.go(endpoint, Method.GET, null, additional);
                 assertThat(response.getSuccess(), equalTo(true));
     }

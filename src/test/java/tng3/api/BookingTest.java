@@ -55,6 +55,7 @@ public class BookingTest extends BaseTest {
         HashMap<String, String> additional = new HashMap<>();
             additional.put("from", utils.generateDate("ddMMYYYY", 0));
             additional.put("to", utils.generateDate("ddMMYYYY", 7));
+
                 APIResponse response = utils.go(endpoint, Method.GET, null, additional);
                 assertThat(response.getSuccess(), equalTo(true));
     }
@@ -67,6 +68,7 @@ public class BookingTest extends BaseTest {
             additional.put("therapist_id", therapistID);
             additional.put("offer_id", offerID);
             additional.put("from", utils.generateDate("dd.MM.YYYY HH:mm", 0));
+
                 APIResponse response = utils.go(endpoint, Method.POST, null, additional);
                 assertThat(response.getSuccess(), equalTo(true));
     }
@@ -79,6 +81,7 @@ public class BookingTest extends BaseTest {
             additional.put("therapist_id", therapistID);
             additional.put("offer_id", offerID);
             additional.put("from_ms", utils.generateDateMS(0));
+
                 APIResponse response = utils.go(endpoint, Method.POST, null, additional);
                 assertThat(response.getSuccess(), equalTo(true));
     }
@@ -91,9 +94,12 @@ public class BookingTest extends BaseTest {
             additional.put("therapist_id", therapistID);
             additional.put("offer_id", offerID);
             additional.put("from_ms", utils.generateDateMS(0));
+
                 APIResponse response = utils.go(endpoint, Method.POST, null, additional);
                 assertThat(response.getSuccess(), equalTo(true));
+
                     int bookingID = (int) response.getPayload();
+
                         response = utils.go(endpoint + "/" + bookingID, Method.DELETE, bookingComment);
                         assertThat(response.getSuccess(), equalTo(true));
     }
@@ -106,11 +112,15 @@ public class BookingTest extends BaseTest {
             additional.put("therapist_id", therapistID);
             additional.put("offer_id", offerID);
             additional.put("from_ms", utils.generateDateMS(0));
+
                 APIResponse response = utils.go(endpoint, Method.POST, null, additional);
                 assertThat(response.getSuccess(), equalTo(true));
+
                     int bookingID = (int) response.getPayload();
+
                         response = utils.go(endpoint + "/" + bookingID + "/fee", Method.GET);
                         assertThat(response.getSuccess(), equalTo(true));
+
                             response = utils.go(endpoint + "/" + bookingID, Method.DELETE, bookingComment);
                             assertThat(response.getSuccess(), equalTo(true));
     }
@@ -123,11 +133,15 @@ public class BookingTest extends BaseTest {
             additional.put("therapist_id", therapistID);
             additional.put("offer_id", offerID);
             additional.put("from_ms", utils.generateDateMS(0));
+
                 APIResponse response = utils.go(endpoint, Method.POST, null, additional);
                 assertThat(response.getSuccess(), equalTo(true));
+
                     int bookingID = (int) response.getPayload();
+
                         response = utils.go(endpoint + "/" + bookingID + "/rate", Method.POST, bookingRate);
                         assertThat(response.getSuccess(), equalTo(true));
+
                             response = utils.go(endpoint + "/" + bookingID, Method.DELETE, bookingComment);
                             assertThat(response.getSuccess(), equalTo(true));
     }

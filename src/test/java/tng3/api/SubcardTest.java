@@ -34,17 +34,16 @@ public class SubcardTest extends BaseTest {
 
     @Test
     public void addEditDeleteSubcard(){
-        APIResponse response;
-            //add
-            response = utils.go(endpoint, Method.POST, subcard);
-            assertThat(response.getSuccess(), equalTo(true));
-                int id = ((HashMap<String,Integer>) response.getPayload()).get("id");
-            //edit
-            response = utils.go(endpoint + "/" + id, Method.POST, subcard);
-            assertThat(response.getSuccess(), equalTo(true));
-            //delete
-            response = utils.go(endpoint + "/" + id, Method.DELETE, subcard);
-            assertThat(response.getSuccess(), equalTo(true));
+        APIResponse response = utils.go(endpoint, Method.POST, subcard);
+        assertThat(response.getSuccess(), equalTo(true));
+
+            int id = ((HashMap<String,Integer>) response.getPayload()).get("id");
+
+                response = utils.go(endpoint + "/" + id, Method.POST, subcard);
+                assertThat(response.getSuccess(), equalTo(true));
+
+                    response = utils.go(endpoint + "/" + id, Method.DELETE, subcard);
+                    assertThat(response.getSuccess(), equalTo(true));
     }
 
 

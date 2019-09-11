@@ -46,13 +46,16 @@ public class TicketTest extends BaseTest {
     public void replaceTicket(){
         APIResponse response = utils.go(endpoint, Method.GET);
         assertThat(response.getSuccess(), equalTo(true));
+
             String originalCode = (String) (
                     (HashMap<String, Object>)
                             ((ArrayList)
                                     (response.getPayload())).get(0)
                     ).get("number");
+
                         HashMap<String, String> additional = new HashMap<>();
                         additional.put("empl", emplMagstripe);
+
                             response = utils.go(endpoint + "/replace/" + originalCode + "/" + originalCode + "01", Method.POST, null, additional);
                             assertThat(response.getSuccess(), equalTo(true));
     }

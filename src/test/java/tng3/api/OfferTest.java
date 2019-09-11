@@ -49,6 +49,7 @@ public class OfferTest extends BaseTest {
             additional.put("outlet_id", outletID);
             additional.put("offset", offset);
             additional.put("count", count);
+
                 APIResponse response = utils.go(endpoint, Method.GET, null, additional);
                 assertThat(response.getSuccess(), equalTo(true));
     }
@@ -60,6 +61,7 @@ public class OfferTest extends BaseTest {
             additional.put("outlet_id", outletID);
             additional.put("offset", offset);
             additional.put("count", count);
+
                 APIResponse response = utils.go(endpoint + "/" + id + "/therapists", Method.GET, null, additional);
                 assertThat(response.getSuccess(), equalTo(true));
     }
@@ -73,6 +75,7 @@ public class OfferTest extends BaseTest {
             additional.put("count", count);
             additional.put("from", utils.generateDate("ddMMYYYY", 0));
             additional.put("to", utils.generateDate("ddMMYYYY", 7));
+
                 APIResponse response = utils.go(endpoint + "/" + id + "/availability", Method.GET, null, additional);
                 assertThat(response.getSuccess(), equalTo(true));
     }
@@ -85,6 +88,7 @@ public class OfferTest extends BaseTest {
             additional.put("offset", offset);
             additional.put("count", count);
             additional.put("from", utils.generateDate("dd.MM.YYYY HH:mm", 0));
+
                 APIResponse response = utils.go(endpoint + "/" + id + "/capacity", Method.GET, null, additional);
                 assertThat(response.getSuccess(), equalTo(true));
     }
@@ -93,12 +97,13 @@ public class OfferTest extends BaseTest {
     @Test
     public void getCapacityForOfferFromMS(){
         HashMap<String, String> additional = new HashMap<>();
-        additional.put("outlet_id", outletID);
-        additional.put("offset", offset);
-        additional.put("count", count);
-        additional.put("from_ms", utils.generateDateMS(0));
-        APIResponse response = utils.go(endpoint + "/" + id + "/capacity", Method.GET, null, additional);
-        assertThat(response.getSuccess(), equalTo(true));
+            additional.put("outlet_id", outletID);
+            additional.put("offset", offset);
+            additional.put("count", count);
+            additional.put("from_ms", utils.generateDateMS(0));
+
+                APIResponse response = utils.go(endpoint + "/" + id + "/capacity", Method.GET, null, additional);
+                assertThat(response.getSuccess(), equalTo(true));
     }
 
 }

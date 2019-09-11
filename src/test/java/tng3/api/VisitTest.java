@@ -36,8 +36,8 @@ public class VisitTest extends BaseTest {
         HashMap<String, String> additional = new HashMap<>();
             additional.put("hotel", "1");
 
-            APIResponse response = utils.go(endpoint, Method.GET);
-            assertThat(response.getSuccess(), equalTo(true));
+                APIResponse response = utils.go(endpoint, Method.GET);
+                assertThat(response.getSuccess(), equalTo(true));
     }
 
 }

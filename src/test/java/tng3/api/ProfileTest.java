@@ -43,7 +43,6 @@ public class ProfileTest extends BaseTest {
     public void postProfile(){
         APIResponse response = utils.go(endpoint, Method.POST, profile);
         assertThat(response.getSuccess(), equalTo(true));
-
     }
 
 

@@ -36,6 +36,7 @@ public class ClassTest extends BaseTest {
     public void getClasses(){
         HashMap<String, String> additional = new HashMap<>();
             additional.put("outlet_id", outletID);
+
                 APIResponse response = utils.go(endpoint, Method.GET, null, additional);
                 assertThat(response.getSuccess(), equalTo(true));
     }
