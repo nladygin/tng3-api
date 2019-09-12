@@ -1,5 +1,6 @@
 package tng3.api;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class CheckInTest extends BaseTest {
     private final String endpoint = "/checkin";
 
 
+    @Ignore
     @Test
     public void getCheckin(){
         APIResponse response = utils.go(endpoint, Method.GET);
