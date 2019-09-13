@@ -320,5 +320,20 @@ public class ProfileTest extends BaseTest {
 
 
 
+    @Test
+    public void postProfileWithBadUDFS1(){
+        APIResponse response = utils.go(endpoint, Method.GET);
+        assertThat(response.getSuccess(), equalTo(true));
+
+            Profile profile = new Profile((LinkedHashMap<String, Object>) response.getPayload());
+            profile.udfs1=utils.generateString(1001);
+
+                response = utils.go(endpoint, Method.POST, profile);
+                assertThat(response.getSuccess(), equalTo(false));
+                assertThat(utils.getErrorCode(response.getError()), equalTo(118));
+    }
+
+
+
 
 }
