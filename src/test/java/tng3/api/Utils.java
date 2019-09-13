@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -164,8 +165,7 @@ public class Utils {
     }
 
     public String generateString(int length){
-        UUID uuid = UUID.randomUUID();
-        return uuid.toString().replaceAll("-","").substring(0,length);
+        return RandomStringUtils.randomAlphabetic(length);
     }
 
 
