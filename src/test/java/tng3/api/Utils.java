@@ -1,6 +1,8 @@
 package tng3.api;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -15,19 +17,12 @@ import tng3.api.entity.APIResponse;
 import tng3.api.entity.Entity;
 import tng3.api.entity.Token;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.sql.Timestamp;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 
 import static io.restassured.RestAssured.given;
 import static org.apache.http.HttpStatus.SC_OK;
@@ -82,6 +77,8 @@ public class Utils {
 
 
 
+
+
     public APIResponse go(String endpoint, Method method){
         return go(endpoint,method,null);
     }
@@ -118,12 +115,35 @@ public class Utils {
     }
 
 
+
+
+
+    public Entity toEntity(String jsonString, Class cl){
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+            Entity entity = null;
+            try {
+                entity = (Entity) mapper.readValue(jsonString, cl);
+            } catch (IOException e) {
+                log.error(e.getStackTrace().toString());
+            }
+
+        return entity;
+    }
+
+
+
+
+
     public String generateDate(String dateFormat, int dayShift){
         SimpleDateFormat f = new SimpleDateFormat(dateFormat);
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.DAY_OF_MONTH, dayShift);
         return f.format( DateUtils.ceiling(cal.getTime(), Calendar.HOUR) );
     }
+
+
+
 
 
     public String generateDateMS(int dayShift){
@@ -138,6 +158,37 @@ public class Utils {
 
 
 
+
+    public String generateString(){
+        return generateString(5);
+    }
+
+    public String generateString(int length){
+        UUID uuid = UUID.randomUUID();
+        return uuid.toString().replaceAll("-","").substring(0,length);
+    }
+
+
+
+
+
+
+    public long generateDigits() {
+        return generateDigits(10);
+    }
+
+    public long generateDigits(int length) {
+        int m = (int) Math.pow(10, length-1);
+        return Math.abs(m + new Random().nextInt(9 * m));
+    }
+
+
+
+
+
+    public int getErrorCode(Object error){
+        return ((HashMap<String, Integer>) error).get("code");
+    }
 
 
 
