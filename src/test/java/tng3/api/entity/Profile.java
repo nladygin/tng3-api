@@ -1,31 +1,25 @@
 package tng3.api.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import tng3.api.Utils;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Objects;
 
 
-@Configuration
-@PropertySource({"data.properties"})
 public class Profile implements Entity {
 
-    @JsonIgnore
-    @Value("${profile}")
-    private String data;
+    private Utils utils = new Utils();
 
     private final Logger log = LogManager.getLogger();
 
 
+    public int id;
     public String lastName;
     public String firstName;
     public String secondName;
@@ -41,6 +35,7 @@ public class Profile implements Entity {
     public String notes;
     public String company;
     public String jobTitle;
+    public String lang;
     public String passport;
     public String validTill;
     public String cardType;
@@ -55,121 +50,157 @@ public class Profile implements Entity {
 
 
 
-    @PostConstruct
-    public void init() {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        try {
-            this.lastName           = mapper.readValue(data, Profile.class).lastName;
-            this.firstName          = mapper.readValue(data, Profile.class).firstName;
-            this.secondName         = mapper.readValue(data, Profile.class).secondName;
-            this.secondName         = mapper.readValue(data, Profile.class).gender;
-            this.birthDate          = mapper.readValue(data, Profile.class).birthDate;
-            this.country            = mapper.readValue(data, Profile.class).country;
-            this.zipCode            = mapper.readValue(data, Profile.class).zipCode;
-            this.streetAddress      = mapper.readValue(data, Profile.class).streetAddress;
-            this.city               = mapper.readValue(data, Profile.class).city;
-            this.phone              = mapper.readValue(data, Profile.class).phone;
-            this.cellPhone          = mapper.readValue(data, Profile.class).cellPhone;
-            this.email              = mapper.readValue(data, Profile.class).email;
-            this.notes              = mapper.readValue(data, Profile.class).notes;
-            this.company            = mapper.readValue(data, Profile.class).company;
-            this.jobTitle           = mapper.readValue(data, Profile.class).jobTitle;
-            this.passport           = mapper.readValue(data, Profile.class).passport;
-            this.validTill          = mapper.readValue(data, Profile.class).validTill;
-            this.cardType           = mapper.readValue(data, Profile.class).cardType;
-            this.cardStatus         = mapper.readValue(data, Profile.class).cardStatus;
-            this.magstripe          = mapper.readValue(data, Profile.class).magstripe;
-            this.udfs1              = mapper.readValue(data, Profile.class).udfs1;
-            this.privacyOptions     = mapper.readValue(data, Profile.class).privacyOptions;
-            this.password           = mapper.readValue(data, Profile.class).password;
-        } catch (IOException e) {
-            log.error(e.getStackTrace().toString());
-        }
+    public Profile(
+                   int id,
+                   String lastName,
+                   String firstName,
+                   String secondName,
+                   String gender,
+                   String birthDate,
+                   String country,
+                   String zipCode,
+                   String streetAddress,
+                   String city,
+                   String phone,
+                   String cellPhone,
+                   String email,
+                   String notes,
+                   String company,
+                   String jobTitle,
+                   String lang,
+                   String passport,
+                   String validTill,
+                   String cardType,
+                   String cardStatus,
+                   String magstripe,
+                   String udfs1,
+                   String picture,
+                   String password) {
+        this.id             = id;
+        this.lastName       = (lastName == null) ? "API " + utils.generateString() : lastName;
+        this.firstName      = (firstName == null) ? "auto" : firstName;
+        this.secondName     = (secondName == null) ? "tester" : secondName;
+        this.gender         = (gender == null) ?  "M" : gender;
+        this.birthDate      = (birthDate == null) ? utils.generateDate("YYYY-MM-dd", -365*20) : birthDate;
+        this.country        = (country == null) ? "RU" : country;
+        this.zipCode        = (zipCode == null) ? "620000" : zipCode;
+        this.streetAddress  = (streetAddress == null) ? "Lenin str" : streetAddress;
+        this.city           = (city == null) ? "Ekb" : city;
+        this.phone          = (phone == null) ? String.valueOf(utils.generateDigits(11)) : phone;
+        this.cellPhone      = (cellPhone == null) ? String.valueOf(utils.generateDigits(11)) : cellPhone;
+        this.email          = (email == null) ? utils.generateString() + "@autotest.test" : email;
+        this.notes          = (notes == null) ? "profile notes " + utils.generateString() : notes;
+        this.company        = (company == null) ? "HRS" : company;
+        this.jobTitle       = (jobTitle == null) ? "auto tester" : jobTitle;
+        this.lang           = (lang == null) ? "RU" : lang;
+        this.passport       = (passport == null) ? utils.generateString(10) : passport;
+        this.validTill      = (validTill == null) ? utils.generateDate("YYYY-MM-dd", 365) : validTill;
+        this.cardType       = (cardType == null) ? "default" : cardType;
+        this.cardStatus     = (cardStatus == null) ? "Active" : cardStatus;
+        this.magstripe      = (magstripe == null) ? utils.generateString(10) : magstripe;
+        this.udfs1          = (udfs1 == null) ? "udfs 1 value" : udfs1;
+        this.privacyOptions = new PrivacyOptions();
+        this.picture        = (picture == null) ? null : picture;
+        this.password       = (password == null) ? "123" : password;
     }
+
+
+    public Profile(LinkedHashMap<String, Object> o){
+        this(
+                (int) o.get("id"),
+                (String) o.get("lastName"),
+                (String) o.get("firstName"),
+                (String) o.get("secondName"),
+                (String) o.get("gender"),
+                (String) o.get("birthDate"),
+                (String) o.get("country"),
+                (String) o.get("zipCode"),
+                (String) o.get("streetAddress"),
+                (String) o.get("city"),
+                (String) o.get("phone"),
+                (String) o.get("cellPhone"),
+                (String) o.get("email"),
+                (String) o.get("notes"),
+                (String) o.get("company"),
+                (String) o.get("jobTitle"),
+                (String) o.get("lang"),
+                (String) o.get("passport"),
+                (String) o.get("validTill"),
+                (String) o.get("cardType"),
+                (String) o.get("cardStatus"),
+                (String) o.get("magstripe"),
+                (String) o.get("udfs1"),
+                (String) o.get("picture"),
+                "123"
+        );
+    }
+
+
+
+    public Profile(){
+        this(0,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
+    }
+
 
 
     @Override
     public String asJsonString() {
-        return data;
-    }
-
-
-
-
-/*
-    @Value("${profile.lastName}")           private String lastName;
-    @Value("${profile.firstName}")          private String firstName;
-    @Value("${profile.secondName}")         private String secondName;
-    @Value("${profile.gender}")             private String gender;
-    @Value("${profile.birthDate}")          private String birthDate;
-    @Value("${profile.country}")            private String country;
-    @Value("${profile.zipCode}")            private String zipCode;
-    @Value("${profile.streetAddress}")      private String streetAddress;
-    @Value("${profile.city}")               private String city;
-    @Value("${profile.phone}")              private String phone;
-    @Value("${profile.cellPhone}")          private String cellPhone;
-    @Value("${profile.email}")              private String email;
-    @Value("${profile.notes}")              private String notes;
-    @Value("${profile.company}")            private String company;
-    @Value("${profile.jobTitle}")           private String jobTitle;
-    @Value("${profile.passport}")           private String passport;
-    @Value("${profile.validTill}")          private String validTill;
-    @Value("${profile.cardType}")           private String cardType;
-    @Value("${profile.cardStatus}")         private String cardStatus;
-    @Value("${profile.magstripe}")          private String magstripe;
-    @Value("${profile.udfs1}")              private String udfs1;
-    @Value("#{${profile.privacyOptions}}")  private HashMap<String, Boolean> privacyOptions;
-    @Value("${profile.password}")           private String password;
-
-
-
-
-
-    public String asJsonString() {
-        String privacyOpt;
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        String json = null;
         try {
-            privacyOpt = new ObjectMapper().writeValueAsString(privacyOptions);
-        } catch (JsonProcessingException e) {
-            privacyOpt = "";
+            json = mapper.writeValueAsString(this);
+        } catch (IOException e) {
+            log.error(e.getStackTrace());
         }
-            return
-                    "{" +
-                            "\"lastName\":\"" + lastName + salt + "\"," +
-                            "\"firstName\":\"" + firstName + "\"," +
-                            "\"secondName\":\"" + secondName + "\"," +
-                            "\"gender\":\"" + gender + "\"," +
-                            "\"birthDate\":\"" + birthDate + "\"," +
-                            "\"country\":\"" + country + "\"," +
-                            "\"zipCode\":\"" + zipCode + "\"," +
-                            "\"streetAddress\":\"" + streetAddress + "\"," +
-                            "\"city\":\"" + city + "\"," +
-                            "\"phone\":\"" + phone + salt + "\"," +
-                            "\"cellPhone\":\"" + cellPhone + salt + "\"," +
-                            "\"email\":\"" + email + "\"," +
-                            "\"notes\":\"" + notes + "\"," +
-                            "\"company\":\"" + company + "\"," +
-                            "\"jobTitle\":\"" + jobTitle + "\"," +
-                            "\"passport\":\"" + passport + "\"," +
-                            "\"validTill\":\"" + validTill + "\"," +
-                            "\"cardType\":\"" + cardType + "\"," +
-                            "\"cardStatus\":\"" + cardStatus + "\"," +
-                            "\"magstripe\":\"" + magstripe + salt + "\"," +
-                            "\"udfs1\":\"" + udfs1 + "\"," +
-                            "\"privacyOptions\":" + privacyOpt +
-                    "}";
+        return json;
     }
 
 
-    public String getEmail() {
-        return email;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Profile profile = (Profile) o;
+        return Objects.equals(lastName, profile.lastName) &&
+                Objects.equals(firstName, profile.firstName) &&
+                Objects.equals(secondName, profile.secondName) &&
+                Objects.equals(gender, profile.gender) &&
+                Objects.equals(birthDate, profile.birthDate) &&
+                Objects.equals(country, profile.country) &&
+                Objects.equals(zipCode, profile.zipCode) &&
+                Objects.equals(streetAddress, profile.streetAddress) &&
+                Objects.equals(city, profile.city) &&
+                Objects.equals(phone, profile.phone) &&
+                Objects.equals(cellPhone, profile.cellPhone) &&
+                Objects.equals(email, profile.email) &&
+                Objects.equals(notes, profile.notes) &&
+                Objects.equals(company, profile.company) &&
+                Objects.equals(jobTitle, profile.jobTitle) &&
+                Objects.equals(passport, profile.passport) &&
+                Objects.equals(validTill, profile.validTill) &&
+                Objects.equals(cardType, profile.cardType) &&
+                Objects.equals(cardStatus, profile.cardStatus) &&
+                Objects.equals(magstripe, profile.magstripe) &&
+                Objects.equals(udfs1, profile.udfs1) &&
+                Objects.equals(privacyOptions, profile.privacyOptions) &&
+                Objects.equals(picture, profile.picture);
     }
 
-    public String getPassword() {
-        return password;
+    @Override
+    public int hashCode() {
+        return Objects.hash(lastName, firstName, secondName, gender, birthDate, country, zipCode, streetAddress, city, phone, cellPhone, email, notes, company, jobTitle, passport, validTill, cardType, cardStatus, magstripe, udfs1, privacyOptions, picture, password);
     }
 
-    public Profile(){}
+    class PrivacyOptions extends HashMap<String, Boolean> {
 
- */
+        public PrivacyOptions(){
+            this.put("allowEmail", true);
+            this.put("allowSMS", false);
+            this.put("allowPush", true);
+        }
+    }
+
+
 }
