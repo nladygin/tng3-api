@@ -193,6 +193,10 @@ public class Profile implements Entity {
         return Objects.hash(lastName, firstName, secondName, gender, birthDate, country, zipCode, streetAddress, city, phone, cellPhone, email, notes, company, jobTitle, passport, validTill, cardType, cardStatus, magstripe, udfs1, privacyOptions, picture, password);
     }
 
+
+
+
+
     class PrivacyOptions extends HashMap<String, Boolean> {
 
         public PrivacyOptions(){
