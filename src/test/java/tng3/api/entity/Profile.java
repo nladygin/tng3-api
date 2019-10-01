@@ -179,10 +179,10 @@ public class Profile implements Entity {
                 Objects.equals(company, profile.company) &&
                 Objects.equals(jobTitle, profile.jobTitle) &&
                 Objects.equals(passport, profile.passport) &&
-                Objects.equals(validTill, profile.validTill) &&
+//                Objects.equals(validTill, profile.validTill) &&
                 Objects.equals(cardType, profile.cardType) &&
                 Objects.equals(cardStatus, profile.cardStatus) &&
-                Objects.equals(magstripe, profile.magstripe) &&
+//                Objects.equals(magstripe, profile.magstripe) &&
                 Objects.equals(udfs1, profile.udfs1) &&
                 Objects.equals(privacyOptions, profile.privacyOptions) &&
                 Objects.equals(picture, profile.picture);

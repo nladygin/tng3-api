@@ -17,9 +17,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class SubcardTest extends BaseTest {
 
     @Autowired
-    private Subcard subcard;
-
-    @Autowired
     private Utils utils;
 
     private final String endpoint = "/profile/subcards";
@@ -34,16 +31,18 @@ public class SubcardTest extends BaseTest {
 
     @Test
     public void addEditDeleteSubcard(){
-        APIResponse response = utils.go(endpoint, Method.POST, subcard);
-        assertThat(response.getSuccess(), equalTo(true));
+        Subcard subcard = new Subcard();
 
-            int id = ((HashMap<String,Integer>) response.getPayload()).get("id");
+            APIResponse response = utils.go(endpoint, Method.POST, subcard);
+            assertThat(response.getSuccess(), equalTo(true));
 
-                response = utils.go(endpoint + "/" + id, Method.POST, subcard);
-                assertThat(response.getSuccess(), equalTo(true));
+                int id = ((HashMap<String,Integer>) response.getPayload()).get("id");
 
-                    response = utils.go(endpoint + "/" + id, Method.DELETE, subcard);
+                    response = utils.go(endpoint + "/" + id, Method.POST, subcard);
                     assertThat(response.getSuccess(), equalTo(true));
+
+                        response = utils.go(endpoint + "/" + id, Method.DELETE, subcard);
+                        assertThat(response.getSuccess(), equalTo(true));
     }
 
 

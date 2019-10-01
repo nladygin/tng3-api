@@ -1,65 +1,82 @@
 package tng3.api.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import tng3.api.Utils;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.util.Objects;
 
-@Configuration
-@ComponentScan("tng3.api")
-@PropertySource({"data.properties"})
 public class Subcard implements Entity {
 
-    @JsonIgnore
-    @Value("${subcards}")
-    private String data;
-
-    @Autowired
-    private Utils utils;
+    private Utils utils = new Utils();
 
     private final Logger log = LogManager.getLogger();
 
 
+    public int id;
     public String name;
+    public String cardType;
     public String magstripe;
     public String birthDate;
     public String validTill;
 
 
 
+    public Subcard(
+                    int id,
+                    String name,
+                    String cardType,
+                    String magstripe,
+                    String birthDate,
+                    String validTill
+                   ) {
+        this.id         = id;
+        this.name       = (name == null) ? "subcard " + utils.generateDigits() : name;
+        this.cardType   = (cardType == null) ? "default" : cardType;
+        this.magstripe  = (magstripe == null) ? "autoMS" + utils.generateDigits(6) : magstripe;
+        this.birthDate  = (birthDate == null) ? utils.generateDate("YYYY-MM-dd", -365*20)  : birthDate;
+        this.validTill  = (validTill == null) ? utils.generateDate("YYYY-MM-dd", 365)  : validTill;
+    }
 
-    @PostConstruct
-    public void init() {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        try {
-            this.name = mapper.readValue(data, Subcard.class).name;
-            this.magstripe = mapper.readValue(data, Subcard.class).magstripe + utils.generateDateMS(0);
-            this.birthDate = mapper.readValue(data, Subcard.class).birthDate;
-            this.validTill = mapper.readValue(data, Subcard.class).validTill;
-        } catch (IOException e) {
-            log.error(e.getStackTrace());
-        }
+    public Subcard(){
+        this(0,null,null,null,null,null);
     }
 
 
 
     @Override
     public String asJsonString() {
-        return data;
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        String json = null;
+        try {
+            json = mapper.writeValueAsString(this);
+        } catch (IOException e) {
+            log.error(e.getStackTrace());
+        }
+        return json;
     }
 
 
-    public Subcard(){}
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Subcard subcard = (Subcard) o;
+        return
+                Objects.equals(name, subcard.name) &&
+                Objects.equals(cardType, subcard.cardType) &&
+                Objects.equals(magstripe, subcard.magstripe) &&
+                Objects.equals(birthDate, subcard.birthDate) &&
+                Objects.equals(validTill, subcard.validTill);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, cardType, magstripe, birthDate, validTill);
+    }
 }
