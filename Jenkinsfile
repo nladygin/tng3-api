@@ -12,8 +12,15 @@ node {
     
     stage('Test') {
         try {
-            bat 'mvn clean test'
-        } finally {    
+            timeout(time: 15, unit: 'MINUTES') {
+                bat 'mvn clean test'
+            }
+        }
+        catch (FlowInterruptedException err) {
+                echo 'TIMEOUT!!!'
+//                throw err
+        }
+        finally {
             testResult = junit 'target/surefire-reports/*.xml'
         }
     }
