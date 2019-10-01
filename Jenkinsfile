@@ -16,7 +16,7 @@ node {
                 bat 'mvn clean test'
             }
         }
-        catch (FlowInterruptedException err) {
+        catch (org.jenkinsci.plugins.workflow.steps.FlowInterruptedException err) {
                 echo 'TIMEOUT!!!'
 //                throw err
         }
