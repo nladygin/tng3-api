@@ -11,13 +11,15 @@ node {
     }
     
     stage('Test') {
+        timeoutFlag = false
         try {
-            timeout(time: 15, unit: 'MINUTES') {
+            timeout(time: 20, unit: 'MINUTES') {
                 bat 'mvn clean test'
             }
         }
         catch (org.jenkinsci.plugins.workflow.steps.FlowInterruptedException err) {
                 echo 'TIMEOUT!!!'
+                timeoutFlag = true
 //                throw err
         }
         finally {
@@ -41,7 +43,7 @@ node {
             stage('Notification') {
                 mail to:"nladygin@hrsinternational.com", 
                 subject:"test result: ${currentBuild.fullDisplayName}", 
-                body: "Build number: #${env.BUILD_NUMBER}\nBuild status: ${currentBuild.currentResult}\nBranch name: ${gitResult.GIT_BRANCH}\nResult summary: Total: ${testResult.getTotalCount()} / Passed: ${testResult.getPassCount()} / Failed: ${testResult.getFailCount()} / Skiped: ${testResult.getSkipCount()}\nJob total time: ${currentBuild.durationString}\nBuild URL: ${BUILD_URL}"
+                body: "Build number: #${env.BUILD_NUMBER}\nBuild status: ${currentBuild.currentResult} (Timeout: ${timeoutFlag})\nBranch name: ${gitResult.GIT_BRANCH}\nResult summary: Total: ${testResult.getTotalCount()} / Passed: ${testResult.getPassCount()} / Failed: ${testResult.getFailCount()} / Skiped: ${testResult.getSkipCount()}\nJob total time: ${currentBuild.durationString}\nBuild URL: ${BUILD_URL}"
             }
         }, failFast: false
     )
