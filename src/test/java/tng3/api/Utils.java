@@ -40,8 +40,8 @@ public class Utils {
     @Autowired
     private Token token;
 
-    @Value("${lang}")
-    private String lang;
+    @Autowired
+    private Config config;
 
     private final Logger log = LogManager.getLogger();
 
@@ -71,7 +71,7 @@ public class Utils {
         return appConfig.serverURL
                 + endpoint
                 + "?app_id=" + appConfig.appID
-                + "&lang=" + lang
+                + "&lang=" + config.lang
                 + ((token != null) ? "&session_id=" + token : "")
                 + additionalString;
     }
