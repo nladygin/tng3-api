@@ -5,7 +5,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tng3.api.entity.APIResponse;
-import tng3.api.entity.Visit;
 
 import java.util.HashMap;
 
@@ -17,12 +16,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class VisitTest extends BaseTest {
 
     @Autowired
-    private Visit visit;
-
-    @Autowired
     private Utils utils;
 
     private final String endpoint = "/visit";
+
 
 
     @Test
@@ -30,6 +27,7 @@ public class VisitTest extends BaseTest {
         APIResponse response = utils.go(endpoint, Method.GET);
         assertThat(response.getSuccess(), equalTo(true));
     }
+
 
     @Test
     public void getHotelVisits(){
