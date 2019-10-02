@@ -26,4 +26,16 @@ public class Config {
     @Value("${doc.account}")
     public String docAccount;
 
+    @Value("${offer.offset}")
+    public String offerOffset;
+
+    @Value("${offer.count}")
+    public String offerCount;
+
+    @Value("${offer.id}")
+    public String offerID;
+
+    @Value("${offer.therapist_id}")
+    public String offerTherapistID;
+
 }
