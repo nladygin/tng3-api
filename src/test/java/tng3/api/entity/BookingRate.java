@@ -1,54 +1,51 @@
 package tng3.api.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import tng3.api.Utils;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 
 
-@Configuration
-@ComponentScan("tng3.api")
-@PropertySource({"data.properties"})
 public class BookingRate implements Entity {
 
-    @JsonIgnore
-    @Value("${booking.rate}")
-    private String data;
-
-    private final Logger log = LogManager.getLogger();
-
-
-    public int stars;
+    public Integer stars;
     public String comment;
 
 
 
-    @PostConstruct
-    public void init() {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        try {
-            this.stars = mapper.readValue(data, BookingRate.class).stars;
-            this.comment = mapper.readValue(data, BookingRate.class).comment;
-        } catch (IOException e) {
-            log.error(e.getStackTrace());
-        }
+
+    public BookingRate(Integer stars, String comment) {
+        this.stars = (stars == null) ? 5 : stars;
+        this.comment = (comment == null) ? "Excellent" : comment;
     }
+
+    public BookingRate(){
+        this(null, null);
+    }
+
+
 
 
     @Override
     public String asJsonString() {
-        return data;
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        String json = null;
+        try {
+            json = mapper.writeValueAsString(this);
+        } catch (IOException e) {
+            log.error(e.getStackTrace());
+        }
+        return json;
     }
 
-    public BookingRate(){}
 
+
+
+
+    private Utils utils = new Utils();
+    private final Logger log = LogManager.getLogger();
 }

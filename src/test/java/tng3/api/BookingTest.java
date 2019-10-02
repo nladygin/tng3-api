@@ -3,8 +3,6 @@ package tng3.api;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tng3.api.entity.*;
 
@@ -15,32 +13,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@PropertySource({"data.properties"})
 public class BookingTest extends BaseTest {
 
-    @Autowired
-    private Booking booking;
-
-    @Autowired
-    private BookingComment bookingComment;
-
-    @Autowired
-    private BookingRate bookingRate;
-
-    @Autowired
-    private Utils utils;
-
-    @Value("${outlet_id}")
-    private String outletID;
-
-    @Value("${booking.therapist_id}")
-    private String therapistID;
-
-    @Value("${booking.offer_id}")
-    private String offerID;
-
-
     private final String endpoint = "/bookings";
+
+
 
 
     @Test
@@ -64,9 +41,9 @@ public class BookingTest extends BaseTest {
     @Test
     public void createBookingFrom(){
         HashMap<String, String> additional = new HashMap<>();
-            additional.put("outlet_id", outletID);
-            additional.put("therapist_id", therapistID);
-            additional.put("offer_id", offerID);
+            additional.put("outlet_id", config.outletID);
+            additional.put("therapist_id", config.bookingTherapistID);
+            additional.put("offer_id", config.bookingOfferID);
             additional.put("from", utils.generateDate("dd.MM.YYYY HH:mm", 0));
 
                 APIResponse response = utils.go(endpoint, Method.POST, null, additional);
@@ -77,9 +54,9 @@ public class BookingTest extends BaseTest {
     @Test
     public void createBookingFromMS(){
         HashMap<String, String> additional = new HashMap<>();
-            additional.put("outlet_id", outletID);
-            additional.put("therapist_id", therapistID);
-            additional.put("offer_id", offerID);
+            additional.put("outlet_id", config.outletID);
+            additional.put("therapist_id", config.bookingTherapistID);
+            additional.put("offer_id", config.bookingOfferID);
             additional.put("from_ms", utils.generateDateMS(0));
 
                 APIResponse response = utils.go(endpoint, Method.POST, null, additional);
@@ -90,9 +67,9 @@ public class BookingTest extends BaseTest {
     @Test
     public void createAndDeleteBooking(){
         HashMap<String, String> additional = new HashMap<>();
-            additional.put("outlet_id", outletID);
-            additional.put("therapist_id", therapistID);
-            additional.put("offer_id", offerID);
+            additional.put("outlet_id", config.outletID);
+            additional.put("therapist_id", config.bookingTherapistID);
+            additional.put("offer_id", config.bookingOfferID);
             additional.put("from_ms", utils.generateDateMS(0));
 
                 APIResponse response = utils.go(endpoint, Method.POST, null, additional);
@@ -108,9 +85,9 @@ public class BookingTest extends BaseTest {
     @Test
     public void createGetFeeAndDeleteBooking(){
         HashMap<String, String> additional = new HashMap<>();
-            additional.put("outlet_id", outletID);
-            additional.put("therapist_id", therapistID);
-            additional.put("offer_id", offerID);
+            additional.put("outlet_id", config.outletID);
+            additional.put("therapist_id", config.bookingTherapistID);
+            additional.put("offer_id", config.bookingOfferID);
             additional.put("from_ms", utils.generateDateMS(0));
 
                 APIResponse response = utils.go(endpoint, Method.POST, null, additional);
@@ -129,9 +106,9 @@ public class BookingTest extends BaseTest {
     @Test
     public void createRateAndDeleteBooking(){
         HashMap<String, String> additional = new HashMap<>();
-            additional.put("outlet_id", outletID);
-            additional.put("therapist_id", therapistID);
-            additional.put("offer_id", offerID);
+            additional.put("outlet_id", config.outletID);
+            additional.put("therapist_id", config.bookingTherapistID);
+            additional.put("offer_id", config.bookingOfferID);
             additional.put("from_ms", utils.generateDateMS(0));
 
                 APIResponse response = utils.go(endpoint, Method.POST, null, additional);
@@ -147,6 +124,78 @@ public class BookingTest extends BaseTest {
     }
 
 
+    @Test
+    public void deleteNonexistentBooking(){
+        APIResponse response = utils.go(endpoint + "/" + "666", Method.DELETE, bookingComment);
+        assertThat(response.getSuccess(), equalTo(false));
+        assertThat(utils.getErrorCode(response.getError()), equalTo(121));
+    }
 
 
+    @Test
+    public void createBadBooking(){
+        HashMap<String, String> additional = new HashMap<>();
+            additional.put("outlet_id", config.outletID);
+            additional.put("therapist_id", config.bookingTherapistID);
+            additional.put("offer_id", config.bookingOfferID);
+            additional.put("from", utils.generateDate("dd.MM.YYYY HH:mm", 365));
+
+                APIResponse response = utils.go(endpoint, Method.POST, null, additional);
+                assertThat(response.getSuccess(), equalTo(false));
+                assertThat(utils.getErrorCode(response.getError()), equalTo(200));
+    }
+
+
+    @Test
+    public void getFeeBadBooking(){
+        APIResponse response = utils.go(endpoint + "/" + "666" + "/fee", Method.GET);
+        assertThat(response.getSuccess(), equalTo(false));
+        assertThat(utils.getErrorCode(response.getError()), equalTo(121));
+    }
+
+
+    @Test
+    public void rateBadBooking(){
+        APIResponse response = utils.go(endpoint + "/" + "666" + "/rate", Method.POST, bookingRate);
+        assertThat(response.getSuccess(), equalTo(false));
+        assertThat(utils.getErrorCode(response.getError()), equalTo(121));
+    }
+
+
+    @Test
+    public void createWrongRateAndDeleteBooking(){
+        HashMap<String, String> additional = new HashMap<>();
+            additional.put("outlet_id", config.outletID);
+            additional.put("therapist_id", config.bookingTherapistID);
+            additional.put("offer_id", config.bookingOfferID);
+            additional.put("from_ms", utils.generateDateMS(0));
+
+                APIResponse response = utils.go(endpoint, Method.POST, null, additional);
+                assertThat(response.getSuccess(), equalTo(true));
+
+                    int bookingID = (int) response.getPayload();
+
+                        response = utils.go(endpoint + "/" + bookingID + "/rate", Method.POST, new BookingRate(10, "WOW"));
+                        assertThat(response.getSuccess(), equalTo(false));
+                        assertThat(utils.getErrorCode(response.getError()), equalTo(124));
+
+                            response = utils.go(endpoint + "/" + bookingID, Method.DELETE, bookingComment);
+                            assertThat(response.getSuccess(), equalTo(true));
+    }
+
+
+
+
+
+
+
+
+    private BookingComment bookingComment = new BookingComment();
+    private BookingRate bookingRate = new BookingRate();
+
+    @Autowired
+    private Utils utils;
+
+    @Autowired
+    private Config config;
 }

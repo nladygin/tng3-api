@@ -38,4 +38,10 @@ public class Config {
     @Value("${offer.therapist_id}")
     public String offerTherapistID;
 
+    @Value("${booking.therapist_id}")
+    public String bookingTherapistID;
+
+    @Value("${booking.offer_id}")
+    public String bookingOfferID;
+
 }
