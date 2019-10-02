@@ -32,7 +32,7 @@ public class VisitTest extends BaseTest {
     @Test
     public void getHotelVisits(){
         HashMap<String, String> additional = new HashMap<>();
-            additional.put("hotel", "1");
+            additional.put("hotel", "true");
 
                 APIResponse response = utils.go(endpoint, Method.GET);
                 assertThat(response.getSuccess(), equalTo(true));

@@ -5,8 +5,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tng3.api.entity.APIResponse;
-import tng3.api.entity.Account;
-import tng3.api.entity.Outlet;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -14,9 +12,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class OutletTest extends BaseTest {
-
-    @Autowired
-    private Outlet outlet;
 
     @Autowired
     private Utils utils;
