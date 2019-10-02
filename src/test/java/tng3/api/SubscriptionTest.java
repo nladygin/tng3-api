@@ -5,8 +5,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tng3.api.entity.APIResponse;
-import tng3.api.entity.Account;
-import tng3.api.entity.Subscription;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -14,12 +12,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SubscriptionTest extends BaseTest {
-
-    @Autowired
-    private Subscription subscription;
-
-    @Autowired
-    private Utils utils;
 
     private final String endpoint = "/subscriptions";
 
@@ -30,4 +22,7 @@ public class SubscriptionTest extends BaseTest {
         assertThat(response.getSuccess(), equalTo(true));
     }
 
+
+    @Autowired
+    private Utils utils;
 }
