@@ -190,6 +190,9 @@ public class Utils {
         return ((HashMap<String, Integer>) error).get("code");
     }
 
+    public String getErrorMessage(Object error){
+        return ((HashMap<String, String>) error).get("message");
+    }
 
 
 

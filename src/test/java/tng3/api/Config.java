@@ -17,4 +17,13 @@ public class Config {
     @Value("${emplMagstripe}")
     public String emplMagstripe;
 
+    @Value("${doc.offset}")
+    public String docOffset;
+
+    @Value("${doc.count}")
+    public String docCount;
+
+    @Value("${doc.account}")
+    public String docAccount;
+
 }

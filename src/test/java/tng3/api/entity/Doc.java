@@ -1,32 +1,48 @@
 package tng3.api.entity;
 
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import tng3.api.Utils;
 
+import java.io.IOException;
 import java.util.List;
 
 
-@Configuration
-@ComponentScan("tng3.api")
-@PropertySource({"data.properties"})
 public class Doc implements Entity {
 
     public String date;
     public Outlet outlet;
-    public float total;
-    public float discount;
+    public Double total;
+    public Double discount;
     public String image;
     public int id;
     public List<DocAccount> accounts;
 
 
 
-    @Override
-    public String asJsonString() {
-        return null;
-    }
-
     public Doc(){}
 
+
+
+    @Override
+    public String asJsonString() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        String json = null;
+        try {
+            json = mapper.writeValueAsString(this);
+        } catch (IOException e) {
+            log.error(e.getStackTrace());
+        }
+        return json;
+    }
+
+
+
+
+
+    private Utils utils = new Utils();
+    private final Logger log = LogManager.getLogger();
 }

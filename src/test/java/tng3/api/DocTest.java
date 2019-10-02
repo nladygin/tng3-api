@@ -17,24 +17,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@PropertySource({"data.properties"})
 public class DocTest extends BaseTest {
-
-    @Autowired
-    private Doc doc;
-
-    @Autowired
-    private Utils utils;
-
-    @Value("${doc.offset}")
-    private String offset;
-
-    @Value("${doc.count}")
-    private String count;
-
-    @Value("${doc.account}")
-    private String account;
-
 
     private final String endpoint = "/docs";
 
@@ -42,8 +25,8 @@ public class DocTest extends BaseTest {
     @Test
     public void getDocs(){
         HashMap<String, String> additional = new HashMap<>();
-            additional.put("offset", offset);
-            additional.put("count", count);
+            additional.put("offset", config.docOffset);
+            additional.put("count", config.docCount);
 
                 APIResponse response = utils.go(endpoint, Method.GET, null, additional);
                 assertThat(response.getSuccess(), equalTo(true));
@@ -53,9 +36,9 @@ public class DocTest extends BaseTest {
     @Test
     public void getDocsByAccount(){
         HashMap<String, String> additional = new HashMap<>();
-            additional.put("offset", offset);
-            additional.put("count", count);
-            additional.put("account",account);
+            additional.put("offset", config.docOffset);
+            additional.put("count", config.docCount);
+            additional.put("account", config.docAccount);
 
                 APIResponse response = utils.go(endpoint, Method.GET, null, additional);
                 assertThat(response.getSuccess(), equalTo(true));
@@ -65,8 +48,8 @@ public class DocTest extends BaseTest {
     @Test
     public void getDocsByFromTill(){
         HashMap<String, String> additional = new HashMap<>();
-            additional.put("offset", offset);
-            additional.put("count",count);
+            additional.put("offset", config.docOffset);
+            additional.put("count", config.docCount);
             additional.put("from", utils.generateDate("dd.MM.YYYY", -30));
             additional.put("till", utils.generateDate("dd.MM.YYYY", 0));
 
@@ -74,4 +57,43 @@ public class DocTest extends BaseTest {
                 assertThat(response.getSuccess(), equalTo(true));
     }
 
+
+    @Test
+    public void getDocsWithBadOffset(){
+        HashMap<String, String> additional = new HashMap<>();
+            additional.put("offset", "-1");
+            additional.put("count", config.docCount);
+            additional.put("from", utils.generateDate("dd.MM.YYYY", -30));
+            additional.put("till", utils.generateDate("dd.MM.YYYY", 0));
+
+                APIResponse response = utils.go(endpoint, Method.GET, null, additional);
+                assertThat(response.getSuccess(), equalTo(false));
+                assertThat(utils.getErrorCode(response.getError()), equalTo(0));
+                assertThat(utils.getErrorMessage(response.getError()), equalTo("Bad offset"));
+    }
+
+
+    @Test
+    public void getDocsWithBadCount(){
+        HashMap<String, String> additional = new HashMap<>();
+            additional.put("offset", config.docOffset);
+            additional.put("count", "0");
+            additional.put("from", utils.generateDate("dd.MM.YYYY", -30));
+            additional.put("till", utils.generateDate("dd.MM.YYYY", 0));
+
+                APIResponse response = utils.go(endpoint, Method.GET, null, additional);
+                assertThat(response.getSuccess(), equalTo(false));
+                assertThat(utils.getErrorCode(response.getError()), equalTo(0));
+                assertThat(utils.getErrorMessage(response.getError()), equalTo("Bad count"));
+    }
+
+
+
+
+
+    @Autowired
+    private Utils utils;
+
+    @Autowired
+    private Config config;
 }
