@@ -17,11 +17,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class PasswordTest extends BaseTest {
 
-    @Autowired
-    private Utils utils;
-
     private final String endpoint = "/profile/password";
     private final String endpointGet = "/profile";
+
 
 
     @Test
@@ -57,4 +55,9 @@ public class PasswordTest extends BaseTest {
                 assertThat(response.getSuccess(), equalTo(true));
     }
 
+
+
+
+    @Autowired
+    private Utils utils;
 }

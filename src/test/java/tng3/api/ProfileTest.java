@@ -16,10 +16,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ProfileTest extends BaseTest {
 
-
-    @Autowired
-    private Utils utils;
-
     private final String endpoint = "/profile";
 
 
@@ -336,4 +332,6 @@ public class ProfileTest extends BaseTest {
 
 
 
+    @Autowired
+    private Utils utils;
 }

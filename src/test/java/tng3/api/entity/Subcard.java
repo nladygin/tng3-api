@@ -11,11 +11,6 @@ import java.util.Objects;
 
 public class Subcard implements Entity {
 
-    private Utils utils = new Utils();
-
-    private final Logger log = LogManager.getLogger();
-
-
     public int id;
     public String name;
     public String cardType;
@@ -79,4 +74,9 @@ public class Subcard implements Entity {
     public int hashCode() {
         return Objects.hash(name, cardType, magstripe, birthDate, validTill);
     }
+
+
+
+    private Utils utils = new Utils();
+    private final Logger log = LogManager.getLogger();
 }

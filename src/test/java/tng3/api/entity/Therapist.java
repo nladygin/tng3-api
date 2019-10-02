@@ -11,10 +11,6 @@ import java.io.IOException;
 
 public class Therapist implements Entity {
 
-    private Utils utils = new Utils();
-
-    private final Logger log = LogManager.getLogger();
-
     public int id;
     public String name;
     public String position;
@@ -43,4 +39,9 @@ public class Therapist implements Entity {
         return json;
     }
 
+
+
+
+    private Utils utils = new Utils();
+    private final Logger log = LogManager.getLogger();
 }

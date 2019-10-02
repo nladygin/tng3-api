@@ -13,11 +13,6 @@ import java.util.List;
 
 public class Outlet implements Entity {
 
-    private Utils utils = new Utils();
-
-    private final Logger log = LogManager.getLogger();
-
-
     public String id;
     public HashMap<String, Float> coord;
     public String phone;
@@ -50,4 +45,8 @@ public class Outlet implements Entity {
     }
 
 
+
+
+    private Utils utils = new Utils();
+    private final Logger log = LogManager.getLogger();
 }

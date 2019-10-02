@@ -14,11 +14,6 @@ import java.util.Objects;
 
 public class Profile implements Entity {
 
-    private Utils utils = new Utils();
-
-    private final Logger log = LogManager.getLogger();
-
-
     public int id;
     public String lastName;
     public String firstName;
@@ -207,4 +202,6 @@ public class Profile implements Entity {
     }
 
 
+    private Utils utils = new Utils();
+    private final Logger log = LogManager.getLogger();
 }

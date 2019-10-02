@@ -13,9 +13,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class OutletTest extends BaseTest {
 
-    @Autowired
-    private Utils utils;
-
     private final String endpoint = "/outlets";
 
 
@@ -25,4 +22,9 @@ public class OutletTest extends BaseTest {
         assertThat(response.getSuccess(), equalTo(true));
     }
 
+
+
+
+    @Autowired
+    private Utils utils;
 }

@@ -16,8 +16,8 @@ public class AppConfig {
     @Value("${app_id}")
     public String appID;
 
-    @Value("${lang}")
-    public String lang;
+//    @Value("${lang}")
+//    public String lang;
 
 
 

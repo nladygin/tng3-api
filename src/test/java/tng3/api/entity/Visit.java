@@ -11,11 +11,6 @@ import java.io.IOException;
 
 public class Visit implements Entity {
 
-    private Utils utils = new Utils();
-
-    private final Logger log = LogManager.getLogger();
-
-
     public String clockIn;
     public String clockOut;
     public Outlet outlet;
@@ -51,4 +46,8 @@ public class Visit implements Entity {
     }
 
 
+
+
+    private Utils utils = new Utils();
+    private final Logger log = LogManager.getLogger();
 }

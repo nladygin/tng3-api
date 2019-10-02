@@ -12,11 +12,6 @@ import java.util.Objects;
 
 public class Account implements Entity {
 
-    private Utils utils = new Utils();
-
-    private final Logger log = LogManager.getLogger();
-
-
     public String code;
     public String name;
     public Double balance;
@@ -24,6 +19,8 @@ public class Account implements Entity {
     public Boolean transfer;
     public String type;
     public Object payment_calendar;
+
+
 
 
     public Account(
@@ -77,4 +74,7 @@ public class Account implements Entity {
     }
 
 
+
+    private Utils utils = new Utils();
+    private final Logger log = LogManager.getLogger();
 }

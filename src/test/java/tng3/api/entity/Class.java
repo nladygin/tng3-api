@@ -11,12 +11,6 @@ import java.io.IOException;
 
 public class Class implements Entity {
 
-    private Utils utils = new Utils();
-
-    private final Logger log = LogManager.getLogger();
-
-
-
     public int id;
     public String startTime;
     public String endTime;
@@ -49,4 +43,9 @@ public class Class implements Entity {
         return json;
     }
 
+
+
+
+    private Utils utils = new Utils();
+    private final Logger log = LogManager.getLogger();
 }

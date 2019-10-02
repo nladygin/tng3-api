@@ -11,7 +11,6 @@ import java.io.IOException;
 
 public class Coupon implements Entity {
 
-
     public String campaignName;
     public String code;
     public String validTill;

@@ -17,13 +17,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @PropertySource({"data.properties"})
 public class ClassTest extends BaseTest {
 
-
-    @Autowired
-    private Utils utils;
-
-    @Autowired
-    private Config config;
-
     private final String endpoint = "/classes";
 
 
@@ -36,4 +29,13 @@ public class ClassTest extends BaseTest {
                 assertThat(response.getSuccess(), equalTo(true));
     }
 
+
+
+
+
+    @Autowired
+    private Utils utils;
+
+    @Autowired
+    private Config config;
 }

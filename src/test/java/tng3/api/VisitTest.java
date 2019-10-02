@@ -15,9 +15,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class VisitTest extends BaseTest {
 
-    @Autowired
-    private Utils utils;
-
     private final String endpoint = "/visit";
 
 
@@ -38,4 +35,9 @@ public class VisitTest extends BaseTest {
                 assertThat(response.getSuccess(), equalTo(true));
     }
 
+
+
+
+    @Autowired
+    private Utils utils;
 }

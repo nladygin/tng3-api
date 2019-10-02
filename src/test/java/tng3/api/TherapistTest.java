@@ -15,12 +15,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class TherapistTest extends BaseTest {
 
-    @Autowired
-    private Utils utils;
-
-    @Autowired
-    private Config config;
-
     private final String endpoint = "/therapist";
 
 
@@ -34,4 +28,13 @@ public class TherapistTest extends BaseTest {
             assertThat(response.getSuccess(), equalTo(true));
     }
 
+
+
+
+
+    @Autowired
+    private Utils utils;
+
+    @Autowired
+    private Config config;
 }

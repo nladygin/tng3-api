@@ -16,9 +16,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SubcardTest extends BaseTest {
 
-    @Autowired
-    private Utils utils;
-
     private final String endpoint = "/profile/subcards";
 
 
@@ -46,4 +43,7 @@ public class SubcardTest extends BaseTest {
     }
 
 
+
+    @Autowired
+    private Utils utils;
 }
