@@ -1,57 +1,64 @@
 package tng3.api.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import tng3.api.Utils;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.util.List;
 
 
-@Configuration
-@ComponentScan("tng3.api")
-@PropertySource({"data.properties"})
 public class AccountTopUp implements Entity {
 
-    @JsonIgnore
-    @Value("${bill.accounttopup}")
-    private String data;
-
-    private final Logger log = LogManager.getLogger();
-
-
-    public int outletID;
+    public Integer outletId;
     public String purchaseType;
-    public float total;
+    public Double total;
 
 
 
-    @PostConstruct
-    public void init() {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        try {
-            this.outletID = mapper.readValue(data, AccountTopUp.class).outletID;
-            this.purchaseType = mapper.readValue(data, AccountTopUp.class).purchaseType;
-            this.total = mapper.readValue(data, AccountTopUp.class).total;
-        } catch (IOException e) {
-            log.error(e.getStackTrace());
-        }
+
+
+
+    public AccountTopUp(
+                        Integer outletID,
+                        String purchaseType,
+                        Double total
+    ){
+        this.outletId       = (outletID == null) ? 81 : outletID;
+        this.purchaseType   = (purchaseType == null) ? "DEPOSIT" : purchaseType;
+        this.total          = (total == null) ? 13 : total;
     }
+
+    public AccountTopUp(){
+        this(null,null,null);
+    }
+
+
+
+
+
+
+
 
 
     @Override
     public String asJsonString() {
-        return data;
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        String json = null;
+        try {
+            json = mapper.writeValueAsString(this);
+        } catch (IOException e) {
+            log.error(e.getStackTrace());
+        }
+        return json;
     }
 
-    public AccountTopUp(){}
 
+
+
+
+    private Utils utils = new Utils();
+    private final Logger log = LogManager.getLogger();
 }

@@ -1,35 +1,19 @@
 package tng3.api.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import tng3.api.Utils;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 
 
-@Configuration
-@ComponentScan("tng3.api")
-@PropertySource({"data.properties"})
 public class Payment implements Entity {
 
-    @JsonIgnore
-    @Value("${bill.payment}")
-    private String data;
-
-    private final Logger log = LogManager.getLogger();
-
-
-
-    public int tenderId;
+    public Integer tenderId;
     public String name;
-    public double amount;
+    public Double amount;
     public String reference;
     public String exUid;
     public String account;
@@ -37,22 +21,32 @@ public class Payment implements Entity {
 
 
 
-    @PostConstruct
-    public void init() {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        try {
-            this.tenderId = mapper.readValue(data, Payment.class).tenderId;
-            this.name = mapper.readValue(data, Payment.class).name;
-            this.amount = mapper.readValue(data, Payment.class).amount;
-            this.reference = mapper.readValue(data, Payment.class).reference;
-            this.exUid = mapper.readValue(data, Payment.class).exUid;
-            this.account = mapper.readValue(data, Payment.class).account;
-            this.voucher = mapper.readValue(data, Payment.class).voucher;
-        } catch (IOException e) {
-            log.error(e.getStackTrace());
-        }
+
+
+
+    public Payment(
+                    Integer tenderId,
+                    String name,
+                    Double amount,
+                    String reference,
+                    String exUid,
+                    String account,
+                    String voucher
+    ){
+        this.tenderId       = (tenderId == null) ? 4 : tenderId;
+        this.name           = (name == null) ? "DUMMY" : name;
+        this.amount         = (amount == null) ? 0 : amount;
+        this.reference      = (reference == null) ? "payment reference" : reference;
+        this.exUid          = (exUid == null) ? "7645-3476-asd" : exUid;
+        this.account        = (account == null) ? null : account;
+        this.voucher        = (voucher == null) ? null : voucher;
     }
+
+    public Payment(){
+        this(null,null,null,null,null,null,null);
+    }
+
+
 
 
     public Payment setAmount(double amount) {
@@ -65,11 +59,35 @@ public class Payment implements Entity {
         return this;
     }
 
-    @Override
-    public String asJsonString() {
-        return data;
+    public Payment setTenderName(String name) {
+        this.name = name;
+        return this;
     }
 
-    public Payment(){}
 
+
+
+
+
+
+
+    @Override
+    public String asJsonString() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        String json = null;
+        try {
+            json = mapper.writeValueAsString(this);
+        } catch (IOException e) {
+            log.error(e.getStackTrace());
+        }
+        return json;
+    }
+
+
+
+
+
+    private Utils utils = new Utils();
+    private final Logger log = LogManager.getLogger();
 }

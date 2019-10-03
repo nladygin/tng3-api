@@ -1,34 +1,18 @@
 package tng3.api.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import tng3.api.Utils;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Objects;
 
 
-@Configuration
-@ComponentScan("tng3.api")
-@PropertySource({"data.properties"})
 public class Bill implements Entity {
-
-    @JsonIgnore
-    private String data;
-
-    private final Logger log = LogManager.getLogger();
-
-
-
 
     public int id;
     public String checkNum;
@@ -46,6 +30,10 @@ public class Bill implements Entity {
     public String voucherTypeID;
     public String voucherNum;
     public String reference;
+
+
+
+    public Bill(){}
 
 
 
@@ -69,40 +57,56 @@ public class Bill implements Entity {
     }
 
 
-/*
-    public void load() {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        try {
-            this.id = mapper.readValue(data, Bill.class).id;
-            this.checkNum = mapper.readValue(data, Bill.class).checkNum;
-            this.date = mapper.readValue(data, Bill.class).date;
-            this.outletID = mapper.readValue(data, Bill.class).outletID;
-            this.total = mapper.readValue(data, Bill.class).total;
-            this.ttlDue = mapper.readValue(data, Bill.class).ttlDue;
-            this.discount = mapper.readValue(data, Bill.class).discount;
-            this.coupon = mapper.readValue(data, Bill.class).coupon;
-            this.closed = mapper.readValue(data, Bill.class).closed;
-            this.items = mapper.readValue(data, Bill.class).items;
-            this.payments = mapper.readValue(data, Bill.class).payments;
-            this.purchaseType = mapper.readValue(data, Bill.class).purchaseType;
-            this.account = mapper.readValue(data, Bill.class).account;
-            this.voucherTypeID = mapper.readValue(data, Bill.class).voucherTypeID;
-            this.voucherNum = mapper.readValue(data, Bill.class).voucherNum;
-            this.reference = mapper.readValue(data, Bill.class).reference;
-        } catch (IOException e) {
-            log.error(e.getStackTrace());
-        }
-    }
-*/
+
 
 
 
     @Override
     public String asJsonString() {
-        return null;
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        String json = null;
+        try {
+            json = mapper.writeValueAsString(this);
+        } catch (IOException e) {
+            log.error(e.getStackTrace());
+        }
+        return json;
     }
 
-    public Bill(){}
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Bill bill = (Bill) o;
+        return id == bill.id &&
+//                date == bill.date &&
+                outletID == bill.outletID &&
+                Double.compare(bill.total, total) == 0 &&
+                Double.compare(bill.ttlDue, ttlDue) == 0 &&
+                Double.compare(bill.discount, discount) == 0 &&
+                closed == bill.closed &&
+                Objects.equals(checkNum, bill.checkNum) &&
+                Objects.equals(coupon, bill.coupon) &&
+                Objects.equals(items, bill.items) &&
+                Objects.equals(payments, bill.payments) &&
+                Objects.equals(purchaseType, bill.purchaseType) &&
+                Objects.equals(account, bill.account) &&
+                Objects.equals(voucherTypeID, bill.voucherTypeID) &&
+                Objects.equals(voucherNum, bill.voucherNum) &&
+                Objects.equals(reference, bill.reference);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, checkNum, date, outletID, total, ttlDue, discount, coupon, closed, items, payments, purchaseType, account, voucherTypeID, voucherNum, reference);
+    }
+
+
+
+
+
+    private Utils utils = new Utils();
+    private final Logger log = LogManager.getLogger();
 }

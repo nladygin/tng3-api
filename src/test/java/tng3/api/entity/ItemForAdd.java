@@ -1,53 +1,48 @@
 package tng3.api.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import tng3.api.Utils;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.util.List;
+import java.util.ArrayList;
 
 
-@Configuration
-@ComponentScan("tng3.api")
-@PropertySource({"data.properties"})
-public class ItemForAdd implements Entity {
-
-    @JsonIgnore
-    @Value("${bill.itemforadd}")
-    private String data;
-
-    private final Logger log = LogManager.getLogger();
+public class ItemForAdd extends ArrayList implements Entity {
 
 
-    public List<Item> items;
-
-
-
-    @PostConstruct
-    public void init() {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        try {
-            this.items = mapper.readValue(data, ItemForAdd.class).items;
-        } catch (IOException e) {
-            log.error(e.getStackTrace());
-        }
+    public ItemForAdd(
+            Item item
+    ){
+        add((item == null) ? new Item() : item);
     }
+
+    public ItemForAdd(){
+        this(null);
+    }
+
+
 
 
     @Override
     public String asJsonString() {
-        return data;
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        String json = null;
+        try {
+            json = mapper.writeValueAsString(this);
+        } catch (IOException e) {
+            log.error(e.getStackTrace());
+        }
+        return json;
     }
 
-    public ItemForAdd(){}
 
+
+
+
+    private Utils utils = new Utils();
+    private final Logger log = LogManager.getLogger();
 }
