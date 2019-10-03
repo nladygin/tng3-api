@@ -13,7 +13,7 @@ node {
     stage('Test') {
         timeoutFlag = false
         try {
-            timeout(time: 20, unit: 'MINUTES') {
+            timeout(time: 30, unit: 'MINUTES') {
                 bat 'mvn clean test'
             }
         }
