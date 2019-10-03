@@ -23,8 +23,8 @@ public class OfferTest extends BaseTest {
     public void getOffers(){
         HashMap<String, String> additional = new HashMap<>();
             additional.put("outlet_id", config.outletID);
-            additional.put("offset", config.offerOffset);
-            additional.put("count", config.offerCount);
+            additional.put("offset", config.offset);
+            additional.put("count", config.count);
 
                 APIResponse response = utils.go(endpoint, Method.GET, null, additional);
                 assertThat(response.getSuccess(), equalTo(true));
@@ -35,8 +35,8 @@ public class OfferTest extends BaseTest {
     public void getTherapistsForOffer(){
         HashMap<String, String> additional = new HashMap<>();
             additional.put("outlet_id", config.outletID);
-            additional.put("offset", config.offerOffset);
-            additional.put("count", config.offerCount);
+            additional.put("offset", config.offset);
+            additional.put("count", config.count);
 
                 APIResponse response = utils.go(endpoint + "/" + config.offerID + "/therapists", Method.GET, null, additional);
                 assertThat(response.getSuccess(), equalTo(true));
@@ -47,8 +47,8 @@ public class OfferTest extends BaseTest {
     public void getAvailabilityForOffer(){
         HashMap<String, String> additional = new HashMap<>();
             additional.put("outlet_id", config.outletID);
-            additional.put("offset", config.offerOffset);
-            additional.put("count", config.offerCount);
+            additional.put("offset", config.offset);
+            additional.put("count", config.count);
             additional.put("from", utils.generateDate("ddMMYYYY", 0));
             additional.put("to", utils.generateDate("ddMMYYYY", 7));
 
@@ -60,10 +60,10 @@ public class OfferTest extends BaseTest {
     @Test
     public void getAvailabilityWithTherapistForOffer(){
         HashMap<String, String> additional = new HashMap<>();
-            additional.put("therapist_id", config.offerTherapistID);
+            additional.put("therapist_id", config.therapistID);
             additional.put("outlet_id", config.outletID);
-            additional.put("offset", config.offerOffset);
-            additional.put("count", config.offerCount);
+            additional.put("offset", config.offset);
+            additional.put("count", config.count);
             additional.put("from", utils.generateDate("ddMMYYYY", 0));
             additional.put("to", utils.generateDate("ddMMYYYY", 7));
 
@@ -76,8 +76,8 @@ public class OfferTest extends BaseTest {
     public void getCapacityForOfferFrom(){
         HashMap<String, String> additional = new HashMap<>();
             additional.put("outlet_id", config.outletID);
-            additional.put("offset", config.offerOffset);
-            additional.put("count", config.offerCount);
+            additional.put("offset", config.offset);
+            additional.put("count", config.count);
             additional.put("from", utils.generateDate("dd.MM.YYYY HH:mm", 0));
 
                 APIResponse response = utils.go(endpoint + "/" + config.offerID + "/capacity", Method.GET, null, additional);
@@ -89,8 +89,8 @@ public class OfferTest extends BaseTest {
     public void getCapacityForOfferFromMS(){
         HashMap<String, String> additional = new HashMap<>();
             additional.put("outlet_id", config.outletID);
-            additional.put("offset", config.offerOffset);
-            additional.put("count", config.offerCount);
+            additional.put("offset", config.offset);
+            additional.put("count", config.count);
             additional.put("from_ms", utils.generateDateMS(0));
 
                 APIResponse response = utils.go(endpoint + "/" + config.offerID + "/capacity", Method.GET, null, additional);

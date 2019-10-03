@@ -10,19 +10,27 @@ public class Config {
 
     @Value("${lang}")           public String lang;
     @Value("${outlet_id}")      public String outletID;
-    @Value("${emplMagstripe}")  public String emplMagstripe;
+    @Value("${empl_magstripe}") public String emplMagstripe;
+    @Value("${offset}")         public String offset;
+    @Value("${count}")          public String count;
+    @Value("${account}")        public String account;
+    @Value("${offer_id}")       public String offerID;
+    @Value("${therapist_id}")   public String therapistID;
 
-    @Value("${doc.offset}")     public String docOffset;
-    @Value("${doc.count}")      public String docCount;
-    @Value("${doc.account}")    public String docAccount;
 
-    @Value("${offer.offset}")       public String offerOffset;
-    @Value("${offer.count}")        public String offerCount;
-    @Value("${offer.id}")           public String offerID;
-    @Value("${offer.therapist_id}") public String offerTherapistID;
 
-    @Value("${booking.therapist_id}")   public String bookingTherapistID;
-    @Value("${booking.offer_id}")       public String bookingOfferID;
+
+//    @Value("${doc.offset}")     public String docOffset;
+//    @Value("${doc.count}")      public String docCount;
+//    @Value("${doc.account}")    public String docAccount;
+
+//    @Value("${offer.offset}")       public String offerOffset;
+//    @Value("${offer.count}")        public String offerCount;
+//    @Value("${offer.id}")           public String offerID;
+//    @Value("${offer.therapist_id}") public String offerTherapistID;
+
+//    @Value("${booking.therapist_id}")   public String bookingTherapistID;
+//    @Value("${booking.offer_id}")       public String bookingOfferID;
 
 //    @Value("${bill.outletID}")       public Integer billOutletID;
 //    @Value("${bill.item.offerID}")   public Integer billItemOfferID;

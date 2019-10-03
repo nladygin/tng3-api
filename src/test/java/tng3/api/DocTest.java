@@ -21,8 +21,8 @@ public class DocTest extends BaseTest {
     @Test
     public void getDocs(){
         HashMap<String, String> additional = new HashMap<>();
-            additional.put("offset", config.docOffset);
-            additional.put("count", config.docCount);
+            additional.put("offset", config.offset);
+            additional.put("count", config.count);
 
                 APIResponse response = utils.go(endpoint, Method.GET, null, additional);
                 assertThat(response.getSuccess(), equalTo(true));
@@ -32,9 +32,9 @@ public class DocTest extends BaseTest {
     @Test
     public void getDocsByAccount(){
         HashMap<String, String> additional = new HashMap<>();
-            additional.put("offset", config.docOffset);
-            additional.put("count", config.docCount);
-            additional.put("account", config.docAccount);
+            additional.put("offset", config.offset);
+            additional.put("count", config.count);
+            additional.put("account", config.account);
 
                 APIResponse response = utils.go(endpoint, Method.GET, null, additional);
                 assertThat(response.getSuccess(), equalTo(true));
@@ -44,8 +44,8 @@ public class DocTest extends BaseTest {
     @Test
     public void getDocsByFromTill(){
         HashMap<String, String> additional = new HashMap<>();
-            additional.put("offset", config.docOffset);
-            additional.put("count", config.docCount);
+            additional.put("offset", config.offset);
+            additional.put("count", config.count);
             additional.put("from", utils.generateDate("dd.MM.YYYY", -30));
             additional.put("till", utils.generateDate("dd.MM.YYYY", 0));
 
@@ -58,7 +58,7 @@ public class DocTest extends BaseTest {
     public void getDocsWithBadOffset(){
         HashMap<String, String> additional = new HashMap<>();
             additional.put("offset", "-1");
-            additional.put("count", config.docCount);
+            additional.put("count", config.count);
             additional.put("from", utils.generateDate("dd.MM.YYYY", -30));
             additional.put("till", utils.generateDate("dd.MM.YYYY", 0));
 
@@ -72,7 +72,7 @@ public class DocTest extends BaseTest {
     @Test
     public void getDocsWithBadCount(){
         HashMap<String, String> additional = new HashMap<>();
-            additional.put("offset", config.docOffset);
+            additional.put("offset", config.offset);
             additional.put("count", "0");
             additional.put("from", utils.generateDate("dd.MM.YYYY", -30));
             additional.put("till", utils.generateDate("dd.MM.YYYY", 0));

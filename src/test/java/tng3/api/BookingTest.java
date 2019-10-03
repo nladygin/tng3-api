@@ -42,8 +42,8 @@ public class BookingTest extends BaseTest {
     public void createBookingFrom(){
         HashMap<String, String> additional = new HashMap<>();
             additional.put("outlet_id", config.outletID);
-            additional.put("therapist_id", config.bookingTherapistID);
-            additional.put("offer_id", config.bookingOfferID);
+            additional.put("therapist_id", config.therapistID);
+            additional.put("offer_id", config.offerID);
             additional.put("from", utils.generateDate("dd.MM.YYYY HH:mm", 0));
 
                 APIResponse response = utils.go(endpoint, Method.POST, null, additional);
@@ -55,8 +55,8 @@ public class BookingTest extends BaseTest {
     public void createBookingFromMS(){
         HashMap<String, String> additional = new HashMap<>();
             additional.put("outlet_id", config.outletID);
-            additional.put("therapist_id", config.bookingTherapistID);
-            additional.put("offer_id", config.bookingOfferID);
+            additional.put("therapist_id", config.therapistID);
+            additional.put("offer_id", config.offerID);
             additional.put("from_ms", utils.generateDateMS(0));
 
                 APIResponse response = utils.go(endpoint, Method.POST, null, additional);
@@ -68,8 +68,8 @@ public class BookingTest extends BaseTest {
     public void createAndDeleteBooking(){
         HashMap<String, String> additional = new HashMap<>();
             additional.put("outlet_id", config.outletID);
-            additional.put("therapist_id", config.bookingTherapistID);
-            additional.put("offer_id", config.bookingOfferID);
+            additional.put("therapist_id", config.therapistID);
+            additional.put("offer_id", config.offerID);
             additional.put("from_ms", utils.generateDateMS(0));
 
                 APIResponse response = utils.go(endpoint, Method.POST, null, additional);
@@ -86,8 +86,8 @@ public class BookingTest extends BaseTest {
     public void createGetFeeAndDeleteBooking(){
         HashMap<String, String> additional = new HashMap<>();
             additional.put("outlet_id", config.outletID);
-            additional.put("therapist_id", config.bookingTherapistID);
-            additional.put("offer_id", config.bookingOfferID);
+            additional.put("therapist_id", config.therapistID);
+            additional.put("offer_id", config.offerID);
             additional.put("from_ms", utils.generateDateMS(0));
 
                 APIResponse response = utils.go(endpoint, Method.POST, null, additional);
@@ -107,8 +107,8 @@ public class BookingTest extends BaseTest {
     public void createRateAndDeleteBooking(){
         HashMap<String, String> additional = new HashMap<>();
             additional.put("outlet_id", config.outletID);
-            additional.put("therapist_id", config.bookingTherapistID);
-            additional.put("offer_id", config.bookingOfferID);
+            additional.put("therapist_id", config.therapistID);
+            additional.put("offer_id", config.offerID);
             additional.put("from_ms", utils.generateDateMS(0));
 
                 APIResponse response = utils.go(endpoint, Method.POST, null, additional);
@@ -136,8 +136,8 @@ public class BookingTest extends BaseTest {
     public void createBadBooking(){
         HashMap<String, String> additional = new HashMap<>();
             additional.put("outlet_id", config.outletID);
-            additional.put("therapist_id", config.bookingTherapistID);
-            additional.put("offer_id", config.bookingOfferID);
+            additional.put("therapist_id", config.therapistID);
+            additional.put("offer_id", config.offerID);
             additional.put("from", utils.generateDate("dd.MM.YYYY HH:mm", 365));
 
                 APIResponse response = utils.go(endpoint, Method.POST, null, additional);
@@ -166,8 +166,8 @@ public class BookingTest extends BaseTest {
     public void createWrongRateAndDeleteBooking(){
         HashMap<String, String> additional = new HashMap<>();
             additional.put("outlet_id", config.outletID);
-            additional.put("therapist_id", config.bookingTherapistID);
-            additional.put("offer_id", config.bookingOfferID);
+            additional.put("therapist_id", config.therapistID);
+            additional.put("offer_id", config.offerID);
             additional.put("from_ms", utils.generateDateMS(0));
 
                 APIResponse response = utils.go(endpoint, Method.POST, null, additional);
