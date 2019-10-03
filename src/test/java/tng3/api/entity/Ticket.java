@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class Ticket implements Entity {
 
-    public int number;
+    public String number;
     public int card;
     public String name;
 
