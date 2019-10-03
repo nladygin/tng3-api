@@ -35,10 +35,10 @@ public class Item implements Entity {
                 Integer id,
                 String reference
     ){
-        this.offerId    = (offerId == null) ? 40987 : offerId;
+        this.offerId    = (offerId == null) ? defOfferID : offerId;
         this.name       = (name == null) ? "item for sale" : name;
-        this.count      = (count == null) ? 2 : count;
-        this.amount     = (amount == null) ? 3 : amount;
+        this.count      = (count == null) ? 1 : count;
+        this.amount     = (amount == null) ? 13.66 : amount;
         this.discount   = (discount == null) ? 0 : discount;
         this.bookingId  = (bookingId == null) ? null : bookingId;
         this.id         = (id == null) ? null : id;
@@ -92,4 +92,5 @@ public class Item implements Entity {
 
     private Utils utils = new Utils();
     private final Logger log = LogManager.getLogger();
+    private Integer defOfferID = 40987;
 }

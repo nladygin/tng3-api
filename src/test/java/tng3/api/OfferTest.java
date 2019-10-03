@@ -22,7 +22,7 @@ public class OfferTest extends BaseTest {
     @Test
     public void getOffers(){
         HashMap<String, String> additional = new HashMap<>();
-            additional.put("outlet_id", config.outletID);
+            additional.put("outlet_id", String.valueOf(config.outletID));
             additional.put("offset", config.offset);
             additional.put("count", config.count);
 
@@ -34,7 +34,7 @@ public class OfferTest extends BaseTest {
     @Test
     public void getTherapistsForOffer(){
         HashMap<String, String> additional = new HashMap<>();
-            additional.put("outlet_id", config.outletID);
+            additional.put("outlet_id", String.valueOf(config.outletID));
             additional.put("offset", config.offset);
             additional.put("count", config.count);
 
@@ -46,7 +46,7 @@ public class OfferTest extends BaseTest {
     @Test
     public void getAvailabilityForOffer(){
         HashMap<String, String> additional = new HashMap<>();
-            additional.put("outlet_id", config.outletID);
+            additional.put("outlet_id", String.valueOf(config.outletID));
             additional.put("offset", config.offset);
             additional.put("count", config.count);
             additional.put("from", utils.generateDate("ddMMYYYY", 0));
@@ -61,7 +61,7 @@ public class OfferTest extends BaseTest {
     public void getAvailabilityWithTherapistForOffer(){
         HashMap<String, String> additional = new HashMap<>();
             additional.put("therapist_id", config.therapistID);
-            additional.put("outlet_id", config.outletID);
+            additional.put("outlet_id", String.valueOf(config.outletID));
             additional.put("offset", config.offset);
             additional.put("count", config.count);
             additional.put("from", utils.generateDate("ddMMYYYY", 0));
@@ -75,7 +75,7 @@ public class OfferTest extends BaseTest {
     @Test
     public void getCapacityForOfferFrom(){
         HashMap<String, String> additional = new HashMap<>();
-            additional.put("outlet_id", config.outletID);
+            additional.put("outlet_id", String.valueOf(config.outletID));
             additional.put("offset", config.offset);
             additional.put("count", config.count);
             additional.put("from", utils.generateDate("dd.MM.YYYY HH:mm", 0));
@@ -88,7 +88,7 @@ public class OfferTest extends BaseTest {
     @Test
     public void getCapacityForOfferFromMS(){
         HashMap<String, String> additional = new HashMap<>();
-            additional.put("outlet_id", config.outletID);
+            additional.put("outlet_id", String.valueOf(config.outletID));
             additional.put("offset", config.offset);
             additional.put("count", config.count);
             additional.put("from_ms", utils.generateDateMS(0));

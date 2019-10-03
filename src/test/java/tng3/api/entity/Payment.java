@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import tng3.api.Config;
 import tng3.api.Utils;
 
 import java.io.IOException;
@@ -33,7 +35,7 @@ public class Payment implements Entity {
                     String account,
                     String voucher
     ){
-        this.tenderId       = (tenderId == null) ? 4 : tenderId;
+        this.tenderId       = (tenderId == null) ? defTenderID : tenderId;
         this.name           = (name == null) ? "DUMMY" : name;
         this.amount         = (amount == null) ? 0 : amount;
         this.reference      = (reference == null) ? "payment reference" : reference;
@@ -90,4 +92,5 @@ public class Payment implements Entity {
 
     private Utils utils = new Utils();
     private final Logger log = LogManager.getLogger();
+    private Integer defTenderID = 4;
 }

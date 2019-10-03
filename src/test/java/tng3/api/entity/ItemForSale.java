@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 public class ItemForSale implements Entity {
 
     public Integer outletId;
@@ -23,7 +22,7 @@ public class ItemForSale implements Entity {
                         Integer outletId,
                         List<Item> items
     ){
-        this.outletId = (outletId == null) ? 81 : outletId;
+        this.outletId = (outletId == null) ? defOutletID : outletId;
             List<Item> i = new ArrayList<>();
                 i.add(new Item());
         this.items = (items == null) ? i : items;
@@ -32,6 +31,8 @@ public class ItemForSale implements Entity {
     public ItemForSale(){
         this(null,null);
     }
+
+
 
 
 
@@ -55,4 +56,5 @@ public class ItemForSale implements Entity {
 
     private Utils utils = new Utils();
     private final Logger log = LogManager.getLogger();
+    private Integer defOutletID = 81;
 }

@@ -9,13 +9,14 @@ import org.springframework.stereotype.Component;
 public class Config {
 
     @Value("${lang}")           public String lang;
-    @Value("${outlet_id}")      public String outletID;
+    @Value("${outlet_id}")      public Integer outletID;
     @Value("${empl_magstripe}") public String emplMagstripe;
     @Value("${offset}")         public String offset;
     @Value("${count}")          public String count;
     @Value("${account}")        public String account;
-    @Value("${offer_id}")       public String offerID;
+    @Value("${offer_id}")       public Integer offerID;
     @Value("${therapist_id}")   public String therapistID;
+    @Value("${tender_id}")      public Integer tenderID;
 
 
 

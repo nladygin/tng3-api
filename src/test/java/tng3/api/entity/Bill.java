@@ -17,10 +17,10 @@ public class Bill implements Entity {
     public int id;
     public String checkNum;
     public long date;
-    public int outletID;
-    public double total;
-    public double ttlDue;
-    public double discount;
+    public Integer outletID;
+    public Double total;
+    public Double ttlDue;
+    public Double discount;
     public String coupon;
     public boolean closed;
     public List<Item> items;

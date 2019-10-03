@@ -23,7 +23,7 @@ public class ClassTest extends BaseTest {
     @Test
     public void getClasses(){
         HashMap<String, String> additional = new HashMap<>();
-            additional.put("outlet_id", config.outletID);
+            additional.put("outlet_id", String.valueOf(config.outletID));
 
                 APIResponse response = utils.go(endpoint, Method.GET, null, additional);
                 assertThat(response.getSuccess(), equalTo(true));
