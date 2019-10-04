@@ -81,8 +81,8 @@ public class Profile implements Entity {
         this.zipCode        = (zipCode == null) ? "620000" : zipCode;
         this.streetAddress  = (streetAddress == null) ? "Lenin str" : streetAddress;
         this.city           = (city == null) ? "Ekb" : city;
-        this.phone          = (phone == null) ? String.valueOf(utils.generateDigits(11)) : phone;
-        this.cellPhone      = (cellPhone == null) ? String.valueOf(utils.generateDigits(11)) : cellPhone;
+        this.phone          = (phone == null) ? "1" + String.valueOf(utils.generateDigits(10)) : phone;
+        this.cellPhone      = (cellPhone == null) ? "1" + String.valueOf(utils.generateDigits(10)) : cellPhone;
         this.email          = (email == null) ? utils.generateString() + "@autotest.test" : email;
         this.notes          = (notes == null) ? "profile notes " + utils.generateString() : notes;
         this.company        = (company == null) ? "HRS" : company;
