@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import tng3.api.Config;
+import tng3.api.ContextHelper;
 import tng3.api.Utils;
 
 import java.io.IOException;
@@ -22,7 +24,7 @@ public class ItemForSale implements Entity {
                         Integer outletId,
                         List<Item> items
     ){
-        this.outletId = (outletId == null) ? defOutletID : outletId;
+        this.outletId = (outletId == null) ? config.outletID : outletId;
             List<Item> i = new ArrayList<>();
                 i.add(new Item());
         this.items = (items == null) ? i : items;
@@ -56,5 +58,5 @@ public class ItemForSale implements Entity {
 
     private Utils utils = new Utils();
     private final Logger log = LogManager.getLogger();
-    private Integer defOutletID = 81;
+    private Config config = ContextHelper.getBean(Config.class);
 }

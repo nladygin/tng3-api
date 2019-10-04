@@ -5,6 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.test.context.ContextLoader;
+import tng3.api.Config;
+import tng3.api.ContextHelper;
 import tng3.api.Utils;
 
 import java.io.IOException;
@@ -35,7 +38,7 @@ public class Item implements Entity {
                 Integer id,
                 String reference
     ){
-        this.offerId    = (offerId == null) ? defOfferID : offerId;
+        this.offerId    = (offerId == null) ? config.offerID : offerId;
         this.name       = (name == null) ? "item for sale" : name;
         this.count      = (count == null) ? 1 : count;
         this.amount     = (amount == null) ? 13.66 : amount;
@@ -92,5 +95,5 @@ public class Item implements Entity {
 
     private Utils utils = new Utils();
     private final Logger log = LogManager.getLogger();
-    private Integer defOfferID = 40987;
+    private Config config = ContextHelper.getBean(Config.class);
 }
