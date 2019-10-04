@@ -46,6 +46,5 @@ public class BookingComment implements Entity {
 
 
 
-    private Utils utils = new Utils();
     private final Logger log = LogManager.getLogger();
 }

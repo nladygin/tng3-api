@@ -50,18 +50,4 @@ public class Credentials implements Entity {
 
     public Credentials(){}
 
-
-
-    /*
-    @Value("${credentials.username}") private String username;
-    @Value("${credentials.password}") private String password;
-
-
-    public String asJsonString(){
-        return "{\"username\":\"" + username + "\"," +
-                "\"password\":\"" + password + "\"}";
-    }
-
-    public Credentials(){}
-*/
 }

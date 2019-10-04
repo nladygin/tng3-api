@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import tng3.api.Utils;
 
 import java.io.IOException;
 
@@ -38,6 +37,5 @@ public class Ticket implements Entity {
 
 
 
-    private Utils utils = new Utils();
     private final Logger log = LogManager.getLogger();
 }
