@@ -29,7 +29,7 @@ public class Bill implements Entity {
     public List<Payment> payments;
     public String purchaseType;
     public String account;
-    public String voucherTypeId;
+    public Integer voucherTypeId;
     public String voucherNum;
     public String reference;
 
@@ -51,7 +51,7 @@ public class Bill implements Entity {
                 List<Payment> payments,
                 String purchaseType,
                 String account,
-                String voucherTypeId,
+                Integer voucherTypeId,
                 String voucherNum,
                 String reference
     ) {
@@ -107,7 +107,7 @@ public class Bill implements Entity {
         this.payments = (List<Payment>) payload.get("payments");
         this.purchaseType = (String) payload.get("purchaseType");
         this.account = (String) payload.get("account");
-        this.voucherTypeId = (String) payload.get("voucherTypeId");
+        this.voucherTypeId = (Integer) payload.get("voucherTypeId");
         this.voucherNum = (String) payload.get("voucherNum");
         this.reference = (String) payload.get("reference");
     }
