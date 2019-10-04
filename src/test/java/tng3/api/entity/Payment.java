@@ -35,7 +35,7 @@ public class Payment implements Entity {
                     String voucher
     ){
         this.tenderId       = (tenderId == null) ? config.tenderID : tenderId;
-        this.name           = (name == null) ? "DUMMY" : name;
+        this.name           = (name == null) ? config.tenderName : name;
         this.amount         = (amount == null) ? 0 : amount;
         this.reference      = (reference == null) ? "payment reference" : reference;
         this.exUid          = (exUid == null) ? "7645-3476-asd" : exUid;
@@ -46,28 +46,6 @@ public class Payment implements Entity {
     public Payment(){
         this(null,null,null,null,null,null,null);
     }
-
-
-
-
-    public Payment setAmount(double amount) {
-        this.amount = amount;
-        return this;
-    }
-
-    public Payment setTenderId(int tenderId) {
-        this.tenderId = tenderId;
-        return this;
-    }
-
-    public Payment setTenderName(String name) {
-        this.name = name;
-        return this;
-    }
-
-
-
-
 
 
 

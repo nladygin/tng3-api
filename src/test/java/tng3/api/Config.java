@@ -8,14 +8,18 @@ import org.springframework.stereotype.Component;
 @PropertySource({"data.properties"})
 public class Config {
 
-    @Value("${lang}")           public String lang;
-    @Value("${outlet_id}")      public Integer outletID;
-    @Value("${empl_magstripe}") public String emplMagstripe;
-    @Value("${offset}")         public String offset;
-    @Value("${count}")          public String count;
-    @Value("${account}")        public String account;
-    @Value("${offer_id}")       public Integer offerID;
-    @Value("${therapist_id}")   public String therapistID;
-    @Value("${tender_id}")      public Integer tenderID;
+    @Value("${lang}")                   public String lang;
+    @Value("${outlet_id}")              public Integer outletID;
+    @Value("${empl_magstripe}")         public String emplMagstripe;
+    @Value("${offset}")                 public String offset;
+    @Value("${count}")                  public String count;
+    @Value("${account}")                public String account;
+    @Value("${offer_id}")               public Integer offerID;
+    @Value("${therapist_id}")           public String therapistID;
+    @Value("${tender_id}")              public Integer tenderID;
+    @Value("${tender_name}")            public String tenderName;
+    @Value("${deposit_tender_id}")      public Integer depositTenderID;
+    @Value("${deposit_tender_name}")    public String depositTenderName;
+    @Value("${voucher_code}")           public String voucherCode;
 
 }

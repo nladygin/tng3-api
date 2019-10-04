@@ -11,17 +11,7 @@ import java.util.ArrayList;
 
 public class BillPayments extends ArrayList implements Entity {
 
-
-
-
     public BillPayments(){}
-
-
-    public BillPayments addPayment(Payment payment){
-        this.add(payment);
-        return this;
-    }
-
 
 
     @Override

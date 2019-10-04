@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tng3.api.entity.*;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -30,21 +31,34 @@ public class BillTest extends BaseTest {
 
     @Test
     public void saleItem(){
-        APIResponse response = utils.go(endpoint, Method.POST, new ItemForSale());
+        APIResponse response = utils.go(endpoint, Method.POST, makeItemForSale());
         assertThat(response.getSuccess(), equalTo(true));
     }
 
 
     @Test
-    public void accountTopUp(){
-        APIResponse response = utils.go(endpoint, Method.POST, new AccountTopUp());
+    public void depositTopUp(){
+        ArrayList<Payment> payments = new ArrayList<>();
+            payments.add(makePayment(config.tenderID, config.tenderName, 13.0));
+
+        APIResponse response = utils.go(endpoint, Method.POST, new Bill(config.outletID, "DEPOSIT", 13.0, payments));
+        assertThat(response.getSuccess(), equalTo(true));
+    }
+
+
+    @Test
+    public void voucherTopUp(){
+        ArrayList<Payment> payments = new ArrayList<>();
+            payments.add(makePayment(config.tenderID, config.tenderName, 13.0));
+
+        APIResponse response = utils.go(endpoint, Method.POST, new Bill(config.outletID, "VOUCHER", config.voucherCode, 13.0, payments));
         assertThat(response.getSuccess(), equalTo(true));
     }
 
 
     @Test
     public void addItem(){
-        APIResponse response = utils.go(endpoint, Method.POST, new ItemForSale());
+        APIResponse response = utils.go(endpoint, Method.POST, makeItemForSale());
         assertThat(response.getSuccess(), equalTo(true));
 
             Bill bill = new Bill();
@@ -57,7 +71,7 @@ public class BillTest extends BaseTest {
 
     @Test
     public void voidItem(){
-        APIResponse response = utils.go(endpoint, Method.POST, new ItemForSale());
+        APIResponse response = utils.go(endpoint, Method.POST, makeItemForSale());
         assertThat(response.getSuccess(), equalTo(true));
 
             Bill bill = new Bill();
@@ -71,7 +85,7 @@ public class BillTest extends BaseTest {
 
     @Test
     public void fetchBillById(){
-        APIResponse response = utils.go(endpoint, Method.POST, new ItemForSale());
+        APIResponse response = utils.go(endpoint, Method.POST, makeItemForSale());
         assertThat(response.getSuccess(), equalTo(true));
 
             Bill bill = new Bill();
@@ -87,18 +101,13 @@ public class BillTest extends BaseTest {
 
     @Test
     public void paymentBill(){
-        APIResponse response = utils.go(endpoint, Method.POST, new ItemForSale());
+        APIResponse response = utils.go(endpoint, Method.POST, makeItemForSale());
         assertThat(response.getSuccess(), equalTo(true));
 
             Bill bill = new Bill();
             bill.load((LinkedHashMap<String, Object>) response.getPayload());
-                Payment payment = new Payment();
-                payment
-                        .setTenderId(4)
-                        .setTenderName("DUMMY")
-                        .setAmount(bill.total);
-                    BillPayments payments = new BillPayments();
-                    payments.addPayment(payment);
+                BillPayments payments = new BillPayments();
+                    payments.add(makePayment(config.tenderID, config.tenderName, bill.total));
 
                 response = utils.go(endpoint + "/" + bill.id + "/payments", Method.POST, payments);
                 assertThat(response.getSuccess(), equalTo(true));
@@ -107,21 +116,58 @@ public class BillTest extends BaseTest {
 
     @Test
     public void paymentBillByDeposit(){
-        APIResponse response = utils.go(endpoint, Method.POST, new ItemForSale());
+        APIResponse response = utils.go(endpoint, Method.POST, makeItemForSale());
         assertThat(response.getSuccess(), equalTo(true));
 
             Bill bill = new Bill();
             bill.load((LinkedHashMap<String, Object>) response.getPayload());
-                Payment payment = new Payment();
-                payment
-                        .setTenderId(3)
-                        .setTenderName("DEPOSIT")
-                        .setAmount(bill.total);
-                    BillPayments payments = new BillPayments();
-                        payments.addPayment(payment);
+                BillPayments payments = new BillPayments();
+                    payments.add(makePayment(config.depositTenderID, config.depositTenderName, bill.total));
 
                 response = utils.go(endpoint + "/" + bill.id + "/payments", Method.POST, payments);
                 assertThat(response.getSuccess(), equalTo(true));
+    }
+
+
+    @Test
+    public void partialPaymentBill(){
+        APIResponse response = utils.go(endpoint, Method.POST, makeItemForSale());
+        assertThat(response.getSuccess(), equalTo(true));
+
+            Bill bill = new Bill();
+            bill.load((LinkedHashMap<String, Object>) response.getPayload());
+                BillPayments payments = new BillPayments();
+                    payments.add(makePayment(config.depositTenderID, config.depositTenderName, 1.0));
+                    payments.add(makePayment(config.depositTenderID, config.depositTenderName, bill.total-1.0));
+
+                response = utils.go(endpoint + "/" + bill.id + "/payments", Method.POST, payments);
+                assertThat(response.getSuccess(), equalTo(true));
+    }
+
+
+
+
+
+
+
+
+
+    private Bill makeItemForSale(){
+        Item item = new Item();
+        ArrayList<Item> items = new ArrayList<>();
+            items.add(item);
+        return new Bill(config.outletID, items);
+    }
+
+    private Payment makePayment(Integer tenderId, String tenderName, Double amount){
+        return new Payment(
+                (tenderId == null) ? config.tenderID : tenderId,
+                (tenderName == null) ? config.tenderName : tenderName,
+                amount,
+                "payment",
+                null,
+                null,
+                null);
     }
 
 
@@ -132,4 +178,6 @@ public class BillTest extends BaseTest {
 
     @Autowired
     private Utils utils;
+    @Autowired
+    private Config config;
 }
