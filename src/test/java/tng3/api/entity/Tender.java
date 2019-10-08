@@ -7,16 +7,20 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.util.List;
 
-public class Client implements Entity {
+public class Tender implements Entity {
 
     public int id;
-    public String lastName;
-    public String firstName;
-    public String secondName;
+    public String type;
+    public String reference;
+    public String account;
+    public String authUrl;
+    public TenderParams params;
+    public List<Account> accounts;
 
 
-    public Client(){}
+    public Tender(){}
 
 
 

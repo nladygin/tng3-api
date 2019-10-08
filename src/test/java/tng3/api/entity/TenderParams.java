@@ -8,15 +8,15 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
-public class Client implements Entity {
+public class TenderParams implements Entity {
 
-    public int id;
-    public String lastName;
-    public String firstName;
-    public String secondName;
+    public String fiscalSettleType;
+    public String sendZeroPayment;
+    public String depositCode;
 
 
-    public Client(){}
+    public TenderParams(){}
+
 
 
 

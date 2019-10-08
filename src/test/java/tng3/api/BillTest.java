@@ -170,6 +170,22 @@ public class BillTest extends BaseTest {
 
 
 
+    @Test
+    public void getBillsTenders(){
+        APIResponse response = utils.go(endpoint, Method.GET);
+        assertThat(response.getSuccess(), equalTo(true));
+
+            ArrayList<LinkedHashMap<String, Object>> bills = new ArrayList<>();
+                bills.addAll(((ArrayList) response.getPayload()));
+                Bill bill = new Bill();
+                bill.load (bills.get(0));
+
+                    response = utils.go(endpoint + "/" + bill.id + "/allowed_tenders", Method.GET);
+                    assertThat(response.getSuccess(), equalTo(true));
+    }
+
+
+
 
 
 
