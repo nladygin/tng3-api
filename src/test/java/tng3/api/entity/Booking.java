@@ -27,6 +27,10 @@ public class Booking implements Entity {
     public String color;
     public Client client;
     public String status;
+    public String paymentRequired;
+    public String paymentTimeLimit;
+    public String paymentStatus;
+    public String confirmationRequired;
     public int docId;
     public String therapistImage;
     public String treatmentImage;

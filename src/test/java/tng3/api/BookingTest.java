@@ -45,6 +45,7 @@ public class BookingTest extends BaseTest {
             additional.put("therapist_id", config.therapistID);
             additional.put("offer_id", String.valueOf(config.offerID));
             additional.put("from", utils.generateDate("dd.MM.YYYY HH:mm", 0));
+            additional.put("verbose", String.valueOf(true));
 
                 APIResponse response = utils.go(endpoint, Method.POST, null, additional);
                 assertThat(response.getSuccess(), equalTo(true));

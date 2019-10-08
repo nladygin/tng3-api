@@ -30,6 +30,15 @@ public class ClassTest extends BaseTest {
     }
 
 
+    @Test
+    public void subscribeClasses(){
+        HashMap<String, String> additional = new HashMap<>();
+            additional.put("verbose", String.valueOf(true));
+
+                APIResponse response = utils.go(endpoint + "/" + config.classID + "/subscribe", Method.POST, null, additional);
+                assertThat(response.getSuccess(), equalTo(true));
+    }
+
 
 
 
