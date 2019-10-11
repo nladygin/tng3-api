@@ -66,6 +66,20 @@ public class BookingTest extends BaseTest {
 
 
     @Test
+    public void createSpaPackageFromMS(){
+        HashMap<String, String> additional = new HashMap<>();
+        additional.put("outlet_id", String.valueOf(config.outletID));
+        additional.put("therapist_id", config.therapistID);
+        additional.put("offer_id", String.valueOf(config.spaPackageID));
+        additional.put("from_ms", utils.generateDateMS(0));
+
+        APIResponse response = utils.go(endpoint, Method.POST, null, additional);
+        assertThat(response.getSuccess(), equalTo(true));
+    }
+
+
+
+    @Test
     public void createAndDeleteBooking(){
         HashMap<String, String> additional = new HashMap<>();
             additional.put("outlet_id", String.valueOf(config.outletID));

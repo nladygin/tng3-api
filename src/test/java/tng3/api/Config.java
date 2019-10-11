@@ -15,6 +15,7 @@ public class Config {
     @Value("${count}")                  public String count;
     @Value("${account}")                public String account;
     @Value("${offer_id}")               public Integer offerID;
+    @Value("${spa_package_id}")         public Integer spaPackageID;
     @Value("${therapist_id}")           public String therapistID;
     @Value("${class_id}")               public String classID;
     @Value("${tender_id}")              public Integer tenderID;
