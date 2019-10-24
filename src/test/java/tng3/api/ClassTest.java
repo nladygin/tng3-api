@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tng3.api.entity.APIResponse;
+import tng3.api.entity.BookingComment;
 
 import java.util.HashMap;
 
@@ -33,14 +34,26 @@ public class ClassTest extends BaseTest {
     @Test
     public void subscribeClasses(){
         HashMap<String, String> additional = new HashMap<>();
-            additional.put("verbose", String.valueOf(true));
+//            additional.put("verbose", String.valueOf(true));
 
                 APIResponse response = utils.go(endpoint + "/" + config.classID + "/subscribe", Method.POST, null, additional);
                 assertThat(response.getSuccess(), equalTo(true));
+
+                    int bookingID = (int) response.getPayload();
+
+                        response = utils.go( "/bookings/" + bookingID, Method.DELETE, bookingComment);
+                        assertThat(response.getSuccess(), equalTo(true));
     }
 
 
 
+
+
+
+
+
+
+    private BookingComment bookingComment = new BookingComment();
 
     @Autowired
     private Utils utils;
