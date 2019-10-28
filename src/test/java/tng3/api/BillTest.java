@@ -158,13 +158,13 @@ public class BillTest extends BaseTest {
                     Bill bill = new Bill();
                         bill.load((LinkedHashMap<String, Object>) b);
 
-                        if (bill.total != 0.0) {
+//                        if (bill.total != 0.0) {
                             BillPayments payments = new BillPayments();
-                                payments.add(makePayment(config.tenderID, config.tenderName, bill.total));
+                                payments.add(makePayment(config.tenderID, config.tenderName, bill.ttlDue));
 
                             APIResponse response1 = utils.go(endpoint + "/" + bill.id + "/payments", Method.POST, payments);
                             assertThat(response1.getSuccess(), equalTo(true));
-                        }
+//                        }
                 });
     }
 
