@@ -4,8 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import tng3.base.entity.APIResponse;
-import tng3.helper.Utils;
+import tng3.base.APIResponse;
 import tng3.staffapi.action.ScheduleAction;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -24,5 +23,4 @@ public class ScheduleTest extends BaseTest {
 
 
     @Autowired private ScheduleAction scheduleAction;
-    @Autowired private Utils utils;
 }

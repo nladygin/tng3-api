@@ -5,8 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import tng3.helper.RequestHelper;
+import tng3.helper.Utils;
 import tng3.staffapi.auth.Session;
 import tng3.staffapi.config.Config;
+import tng3.staffapi.config.Data;
 
 @ContextConfiguration(classes = Config.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
@@ -23,4 +25,7 @@ public class BaseTest {
     @Autowired private Session session;
     @Autowired private RequestHelper requestHelper;
     @Autowired private Config config;
+    @Autowired protected Data data;
+    @Autowired protected Utils utils;
+
 }

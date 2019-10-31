@@ -3,7 +3,7 @@ package tng3.staffapi.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
-import tng3.base.entity.APIResponse;
+import tng3.base.APIResponse;
 
 import java.io.File;
 import java.io.IOException;

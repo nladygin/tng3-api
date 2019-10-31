@@ -53,13 +53,12 @@ public class Utils {
 
 
 
-    public String generateDateMS(int dayShift){
+    public long generateDateMS(int dayShift){
         LocalDateTime localDateTime = LocalDateTime.parse(generateDate("dd.MM.YYYY HH:mm", dayShift),
                 DateTimeFormatter.ofPattern("dd.MM.uuuu HH:mm") );
-            long millis = localDateTime
-                    .atZone(ZoneId.systemDefault())
-                    .toInstant().toEpochMilli();
-        return String.valueOf(millis);
+            return localDateTime
+                        .atZone(ZoneId.systemDefault())
+                        .toInstant().toEpochMilli();
     }
 
 
@@ -113,13 +112,6 @@ public class Utils {
 
 
 
-    public int getErrorCode(Object error){
-        return ((HashMap<String, Integer>) error).get("code");
-    }
-
-    public String getErrorMessage(Object error){
-        return ((HashMap<String, String>) error).get("message");
-    }
 
 
 

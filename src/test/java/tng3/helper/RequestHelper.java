@@ -7,7 +7,7 @@ import io.restassured.specification.RequestSpecification;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import tng3.base.entity.APIResponse;
+import tng3.base.APIResponse;
 import tng3.base.AppConfig;
 import tng3.base.Entity;
 
