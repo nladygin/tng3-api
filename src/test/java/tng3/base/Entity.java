@@ -1,4 +1,4 @@
-package tng3.api.entity;
+package tng3.base;
 
 
 public interface Entity {

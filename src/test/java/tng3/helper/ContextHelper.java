@@ -1,4 +1,4 @@
-package tng3.api.helper;
+package tng3.helper;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

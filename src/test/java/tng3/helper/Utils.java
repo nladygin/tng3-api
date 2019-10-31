@@ -1,4 +1,4 @@
-package tng3.api.helper;
+package tng3.helper;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import tng3.api.config.AppConfig;
 import tng3.api.config.Config;
 import tng3.api.entity.APIResponse;
-import tng3.api.entity.Entity;
+import tng3.base.Entity;
 import tng3.api.entity.Token;
 
 import java.io.IOException;
@@ -70,7 +70,6 @@ public class Utils {
 
         }
         return appConfig.serverURL
-                + "/api"
                 + endpoint
                 + "?app_id=" + appConfig.appID
                 + "&lang=" + config.lang

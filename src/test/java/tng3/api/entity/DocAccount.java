@@ -1,6 +1,7 @@
 package tng3.api.entity;
 
 
+import tng3.base.Entity;
 
 public class DocAccount implements Entity {
 

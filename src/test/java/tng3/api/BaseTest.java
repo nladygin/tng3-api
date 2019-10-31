@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import tng3.api.helper.Utils;
+import tng3.helper.Utils;
 
 @ContextConfiguration(classes = {
         AppConfig.class,

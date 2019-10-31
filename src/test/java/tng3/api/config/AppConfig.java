@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@ComponentScan("tng3.api")
+@ComponentScan("tng3.api, tng3.helper")
 @PropertySource({"config.properties"})
 public class AppConfig {
 

@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tng3.api.config.Config;
 import tng3.api.entity.*;
-import tng3.api.helper.Method;
-import tng3.api.helper.Utils;
+import tng3.helper.Method;
+import tng3.helper.Utils;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -19,7 +19,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class BillTest extends BaseTest {
 
-    private final String endpoint = "/bills";
+    private final String endpoint = "/api/bills";
 
 
 

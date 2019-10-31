@@ -8,8 +8,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tng3.api.config.Config;
 import tng3.api.entity.APIResponse;
 import tng3.api.entity.BookingComment;
-import tng3.api.helper.Method;
-import tng3.api.helper.Utils;
+import tng3.helper.Method;
+import tng3.helper.Utils;
 
 import java.util.HashMap;
 
@@ -21,7 +21,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @PropertySource({"data.properties"})
 public class ClassTest extends BaseTest {
 
-    private final String endpoint = "/classes";
+    private final String endpoint = "/api/classes";
 
 
     @Test
@@ -44,7 +44,7 @@ public class ClassTest extends BaseTest {
 
                     int bookingID = (int) response.getPayload();
 
-                        response = utils.go( "/bookings/" + bookingID, Method.DELETE, bookingComment);
+                        response = utils.go( "/api/bookings/" + bookingID, Method.DELETE, bookingComment);
                         assertThat(response.getSuccess(), equalTo(true));
     }
 

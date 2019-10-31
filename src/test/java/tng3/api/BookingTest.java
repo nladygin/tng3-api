@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tng3.api.config.Config;
 import tng3.api.entity.*;
-import tng3.api.helper.Method;
-import tng3.api.helper.Utils;
+import tng3.helper.Method;
+import tng3.helper.Utils;
 
 import java.util.HashMap;
 
@@ -18,7 +18,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class BookingTest extends BaseTest {
 
-    private final String endpoint = "/bookings";
+    private final String endpoint = "/api/bookings";
 
 
 
