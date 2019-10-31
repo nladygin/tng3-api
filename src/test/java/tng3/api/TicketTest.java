@@ -4,7 +4,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import tng3.api.config.Config;
 import tng3.api.entity.APIResponse;
+import tng3.api.helper.Method;
+import tng3.api.helper.Utils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 

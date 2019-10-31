@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import tng3.api.Config;
-import tng3.api.ContextHelper;
+import tng3.api.config.Config;
+import tng3.api.helper.ContextHelper;
 
 import java.io.IOException;
 

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tng3.api.entity.APIResponse;
 import tng3.api.entity.Profile;
+import tng3.api.helper.Method;
+import tng3.api.helper.Utils;
 
 import java.util.LinkedHashMap;
 

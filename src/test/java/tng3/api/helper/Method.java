@@ -1,4 +1,4 @@
-package tng3.api;
+package tng3.api.helper;
 
 public enum Method {
     GET,

@@ -1,4 +1,4 @@
-package tng3.api;
+package tng3.api.helper;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,9 +11,10 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
+import tng3.api.config.AppConfig;
+import tng3.api.config.Config;
 import tng3.api.entity.APIResponse;
 import tng3.api.entity.Entity;
 import tng3.api.entity.Token;

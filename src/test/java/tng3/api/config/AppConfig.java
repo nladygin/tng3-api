@@ -1,4 +1,4 @@
-package tng3.api;
+package tng3.api.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
