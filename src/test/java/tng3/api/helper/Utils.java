@@ -70,6 +70,7 @@ public class Utils {
 
         }
         return appConfig.serverURL
+                + "/api"
                 + endpoint
                 + "?app_id=" + appConfig.appID
                 + "&lang=" + config.lang
