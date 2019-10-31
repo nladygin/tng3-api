@@ -6,11 +6,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@ComponentScan("tng3.staffapi, tng3.helper")
+@ComponentScan("tng3.staffapi, tng3.base, tng3.helper")
 @PropertySource({"config.properties"})
 public class Config {
 
-    @Value("${server.url}")     public String serverURL;
+
     @Value("${staff_app_id}")   public String appID;
 
 
