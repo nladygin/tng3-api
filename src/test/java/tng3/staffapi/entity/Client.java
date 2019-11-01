@@ -5,9 +5,9 @@ import tng3.base.Entity;
 public class Client implements Entity {
 
     public int id;
-    public String firstName;
-    public String secondName;
-    public String lastName;
+    public String first_name;
+    public String second_name;
+    public String last_name;
     public String membership;
 
 }
