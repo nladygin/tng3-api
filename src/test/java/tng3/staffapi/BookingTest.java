@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tng3.base.APIResponse;
 import tng3.staffapi.action.BookingAction;
+import tng3.staffapi.entity.Booking;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class BookingTest extends BaseTest {
@@ -18,6 +19,7 @@ public class BookingTest extends BaseTest {
                 utils.getMonthLastDay("ddMMyyyy")
         );
         bookingAction.checkResponseSuccess(response, true);
+        bookingAction.validateResponsePayload(response, Booking.class, true);
     }
 
 
