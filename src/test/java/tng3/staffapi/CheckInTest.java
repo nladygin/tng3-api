@@ -13,8 +13,32 @@ public class CheckInTest extends BaseTest {
 
     @Test
     public void checkInGuest(){
-        APIResponse response = checkInAction.checkInGuest(data.cardID);
+        APIResponse response = checkInAction.checkInGuest(String.valueOf(data.cardID));
         checkInAction.checkResponseSuccess(response, true);
+    }
+
+
+    @Test
+    public void checkInWrongGuest(){
+        APIResponse response = checkInAction.checkInGuest("999999999");
+        checkInAction.checkResponseSuccess(response, false);
+        checkInAction.checkResponseErrorCode(response, 13);
+    }
+
+
+    @Test
+    public void checkInGuestByMagstripe(){
+        APIResponse response = checkInAction.checkInGuest(data.cardMagstripe);
+        checkInAction.checkResponseSuccess(response, false);
+        checkInAction.checkResponseErrorCode(response, 13);
+    }
+
+
+    @Test
+    public void checkInEmptyGuest(){
+        APIResponse response = checkInAction.checkInGuest("");
+        checkInAction.checkResponseSuccess(response, false);
+        checkInAction.checkResponseErrorCode(response, 13);
     }
 
 

@@ -10,9 +10,10 @@ import org.springframework.stereotype.Component;
 @PropertySource({"data.properties"})
 public class Data {
 
-    @Value("${offer_id}")   public int offerID;
-    @Value("${card_id}")    public int cardID;
-    @Value("${outlet_id}")  public int outletID;
+    @Value("${offer_id}")           public int offerID;
+    @Value("${card_id}")            public int cardID;
+    @Value("${outlet_id}")          public int outletID;
+    @Value("${card_magstripe}")     public String cardMagstripe;
 
 
 

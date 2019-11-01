@@ -16,9 +16,9 @@ public class CheckInAction extends Action {
 
 
 
-    public APIResponse checkInGuest(int cardId){
+    public APIResponse checkInGuest(String cardId){
         HashMap<String, String> additional = new HashMap<>();
-            additional.put("client", String.valueOf(cardId));
+            additional.put("client", cardId);
         return requestHelper.go(endpoint, Method.POST, null, additional);
     }
 
