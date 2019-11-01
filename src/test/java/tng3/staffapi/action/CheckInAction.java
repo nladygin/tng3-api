@@ -18,7 +18,12 @@ public class CheckInAction extends Action {
 
     public APIResponse checkInGuest(String cardId){
         HashMap<String, String> additional = new HashMap<>();
+        if (cardId != null) {
             additional.put("client", cardId);
+        }
+        if (additional.isEmpty()) {
+            additional = null;
+        }
         return requestHelper.go(endpoint, Method.POST, null, additional);
     }
 

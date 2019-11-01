@@ -8,6 +8,7 @@ import tng3.base.APIResponse;
 import tng3.staffapi.action.ClientAction;
 import tng3.staffapi.action.ScheduleAction;
 import tng3.staffapi.entity.Client;
+import tng3.staffapi.entity.Client_;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class ClientTest extends BaseTest {
     public void getClients(){
         APIResponse response = clientAction.getClients();
         clientAction.checkResponseSuccess(response, true);
-        clientAction.validateResponsePayload(response, Client.class, true);
+        clientAction.validateResponsePayload(response, Client_.class, true);
     }
 
 

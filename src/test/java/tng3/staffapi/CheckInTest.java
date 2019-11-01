@@ -15,6 +15,7 @@ public class CheckInTest extends BaseTest {
     public void checkInGuest(){
         APIResponse response = checkInAction.checkInGuest(String.valueOf(data.cardID));
         checkInAction.checkResponseSuccess(response, true);
+        checkInAction.checkResponsePayloadIsEmptyList(response);
     }
 
 
@@ -29,8 +30,8 @@ public class CheckInTest extends BaseTest {
     @Test
     public void checkInGuestByMagstripe(){
         APIResponse response = checkInAction.checkInGuest(data.cardMagstripe);
-        checkInAction.checkResponseSuccess(response, false);
-        checkInAction.checkResponseErrorCode(response, 13);
+        checkInAction.checkResponseSuccess(response, true);
+        checkInAction.checkResponsePayloadIsEmptyList(response);
     }
 
 
