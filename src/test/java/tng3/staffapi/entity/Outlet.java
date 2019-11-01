@@ -7,7 +7,8 @@ import java.util.List;
 
 public class Outlet implements Entity {
 
-    public String id;
+    public int id;
+    public String name;
     public HashMap<String, Float> coord;
     public String phone;
     public String email;

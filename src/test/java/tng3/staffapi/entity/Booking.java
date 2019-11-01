@@ -2,19 +2,20 @@ package tng3.staffapi.entity;
 
 import tng3.base.Entity;
 
+import java.util.Date;
 import java.util.List;
 
 public class Booking implements Entity {
 
     public int id;
-    public String treatmentStart;
-    public String treatmentEnd;
+    public Date treatmentStart;
+    public Date treatmentEnd;
     public String treatmentName;
     public Outlet outlet;
     public Double price;
     public List<Therapist> therapists;
     public String facility;
-    public String createDate;
+    public Date createDate;
     public int userRating;
     public String userComment;
     public String comment;

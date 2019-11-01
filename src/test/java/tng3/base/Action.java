@@ -49,7 +49,7 @@ public class Action {
                 assertThat(true, CoreMatchers.equalTo(true));
             }
         } catch (IOException e) {
-            assertThat(true, CoreMatchers.equalTo(false));
+            assertThat(false, CoreMatchers.equalTo(true));
             LogManager.getLogger().error(e.getStackTrace().toString());
         }
         return this;
