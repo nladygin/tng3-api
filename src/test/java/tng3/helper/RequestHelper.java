@@ -48,7 +48,7 @@ public class RequestHelper {
         return appConfig.serverURL
                 + endpoint
                 + "?app_id=" + appId
-                + "&session_id=" + sessionId
+                + ((sessionId != null) ? "&session_id=" + sessionId: "")
                 + "&lang=" + appConfig.lang
                 + additionalString;
     }
