@@ -2,6 +2,7 @@ package tng3.base;
 
 
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,7 +41,7 @@ public class Action {
         try {
             String json = mapper.writeValueAsString(response.getPayload());
             if (isList) {
-                CollectionType type = mapper.getTypeFactory().constructCollectionType(List.class, Object.class);
+                CollectionType type = mapper.getTypeFactory().constructCollectionType(List.class, cl);
                 mapper.readValue(json, type);
                 assertThat(true, CoreMatchers.equalTo(true));
             } else {
@@ -54,6 +55,38 @@ public class Action {
         return this;
     }
 
+
+    public Action checkResponsePayloadIsEmptyList(APIResponse response) {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        try {
+            String json = mapper.writeValueAsString(response.getPayload());
+            CollectionType type = mapper.getTypeFactory().constructCollectionType(List.class, Object.class);
+            List<Object> objects = mapper.readValue(json, type);
+            assertThat(objects.size(), CoreMatchers.equalTo(0));
+        } catch (IOException e) {
+            assertThat(true, CoreMatchers.equalTo(false));
+            LogManager.getLogger().error(e.getStackTrace().toString());
+        }
+
+        return this;
+    }
+
+
+    public Action checkResponsePayloadIsEmpty(APIResponse response) {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        try {
+            String json = mapper.writeValueAsString(response.getPayload());
+            Object objects = mapper.readValue(json, Object.class);
+            assertThat(objects, CoreMatchers.equalTo(null));
+        } catch (IOException e) {
+            assertThat(true, CoreMatchers.equalTo(false));
+            LogManager.getLogger().error(e.getStackTrace().toString());
+        }
+
+        return this;
+    }
 
 /*
     public Action validateResponsePayload(APIResponse response, Object type){

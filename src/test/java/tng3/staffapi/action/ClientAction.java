@@ -12,12 +12,18 @@ import java.util.HashMap;
 @Component
 public class ClientAction extends Action {
 
-    final private String endpoint = "/staffapi/clients";
+    final private String endpointList = "/staffapi/clients";
+    final private String endpointSearch = "/staffapi/client";
 
 
 
     public APIResponse getClients(){
-        return requestHelper.go(endpoint, Method.GET, null, null);
+        return requestHelper.go(endpointList, Method.GET, null, null);
+    }
+
+
+    public APIResponse getClientsByName(String name){
+        return requestHelper.go(endpointSearch + "/" + name, Method.GET, null, null);
     }
 
 

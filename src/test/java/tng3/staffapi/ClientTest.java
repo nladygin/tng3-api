@@ -23,6 +23,24 @@ public class ClientTest extends BaseTest {
     }
 
 
+    @Test
+    public void getClientsByName(){
+        APIResponse response = clientAction.getClientsByName("API");
+        clientAction.checkResponseSuccess(response, true);
+        clientAction.validateResponsePayload(response, Client.class, true);
+    }
+
+
+    @Test
+    public void getClientsByWrongName(){
+        APIResponse response = clientAction.getClientsByName("WRONGCLIENTNAME");
+        clientAction.checkResponseSuccess(response, true);
+        clientAction.checkResponsePayloadIsEmptyList(response);
+    }
+
+
+
+
 
     @Autowired private ClientAction clientAction;
 }
