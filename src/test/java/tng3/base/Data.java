@@ -14,6 +14,9 @@ public class Data {
     @Value("${card_id}")            public int cardID;
     @Value("${outlet_id}")          public int outletID;
     @Value("${card_magstripe}")     public String cardMagstripe;
+    @Value("${empl_magstripe}")     public String emplMagstripe;
+    @Value("${empl_username}")      public String emplUsername;
+    @Value("${empl_password}")      public String emplPassword;
 
 
 
