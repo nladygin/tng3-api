@@ -8,7 +8,7 @@ import tng3.helper.RequestHelper;
 import tng3.helper.Utils;
 import tng3.staffapi.auth.Session;
 import tng3.staffapi.config.Config;
-import tng3.staffapi.config.Data;
+import tng3.base.Data;
 
 @ContextConfiguration(classes = Config.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)

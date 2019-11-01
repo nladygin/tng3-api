@@ -1,4 +1,4 @@
-package tng3.staffapi.config;
+package tng3.base;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
