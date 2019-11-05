@@ -130,7 +130,7 @@ public class BookingTest extends BaseTest {
 
     @Test
     public void createAndDeleteBooking() {
-/*        APIResponse response = bookingAction.createBooking(
+        APIResponse response = bookingAction.createBooking(
                 data.outletID,
                 null,
                 data.offerID,
@@ -140,12 +140,12 @@ public class BookingTest extends BaseTest {
         );
         bookingAction.checkResponseSuccess(response, true);
         bookingAction.validateResponsePayload(response, Booking.class, false);
-*/
-            int id = 247227; //(int) ((LinkedHashMap<String, Object>) response.getPayload()).get("id");
 
-            APIResponse response = bookingAction.deleteBooking(id, new BookingComment("delete"));
+            int id = (int) ((LinkedHashMap<String, Object>) response.getPayload()).get("id");
+
+            response = bookingAction.deleteBooking(id, new BookingComment("delete"));
             bookingAction.checkResponseSuccess(response, true);
-//            bookingAction.validateResponsePayload(response, Booking.class, false);
+            bookingAction.checkResponsePayloadIsEmpty(response);
     }
 
 

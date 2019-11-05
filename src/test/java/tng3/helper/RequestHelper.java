@@ -67,7 +67,8 @@ public class RequestHelper {
                         .body(b);
         LogManager.getLogger().info("BODY: " + b);
 
-        Response response = request(method, url);
+        Response response = requestSpecification.request(method, url);
+//        Response response = request(method, url);
 
         LogManager.getLogger().info("RESULT: " + response.getBody().asString());
         return response
