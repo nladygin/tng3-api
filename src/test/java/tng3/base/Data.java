@@ -17,6 +17,8 @@ public class Data {
     @Value("${empl_magstripe}")     public String emplMagstripe;
     @Value("${empl_username}")      public String emplUsername;
     @Value("${empl_password}")      public String emplPassword;
+    @Value("${therapist_id}")       public int therapistID;
+    @Value("${spa_package_id}")     public int spaPackageID;
 
 
 

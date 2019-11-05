@@ -33,12 +33,12 @@ public class Session {
     }
 
 
-    public String getGuestId() {
+    public String getGuestSessionId() {
         return guestAPISession;
     }
 
 
-    public String getStaffId() {
+    public String getStaffSessionId() {
         return staffAPISession;
     }
 

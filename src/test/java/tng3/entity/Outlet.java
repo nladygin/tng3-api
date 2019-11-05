@@ -1,4 +1,4 @@
-package tng3.staffapi.entity;
+package tng3.entity;
 
 import tng3.base.Entity;
 

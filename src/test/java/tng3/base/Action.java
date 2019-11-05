@@ -10,7 +10,9 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import org.apache.logging.log4j.LogManager;
 import org.hamcrest.CoreMatchers;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import tng3.helper.RequestHelper;
 import tng3.staffapi.entity.Client;
 
 import java.io.IOException;
@@ -106,4 +108,5 @@ public class Action {
 */
 
 
+    @Autowired protected RequestHelper requestHelper;
 }
