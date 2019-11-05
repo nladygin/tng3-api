@@ -17,7 +17,7 @@ public class BaseTest {
 
     @Before
     public void beforeTest(){
-        requestHelper.setEnv(config.appID, session.getId());
+        requestHelper.setEnv(config.staffAppID, session.getStaffId());
     }
 
 

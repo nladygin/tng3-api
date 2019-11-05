@@ -11,7 +11,8 @@ import org.springframework.context.annotation.PropertySource;
 public class Config {
 
 
-    @Value("${staff_app_id}")   public String appID;
+    @Value("${staff_app_id}")   public String staffAppID;
+//    @Value("${guest_app_id}")   public String guestAppID;
 
 
     public Config(){}

@@ -1,3 +1,4 @@
 # Project exclude paths
 /target/
 /src/test/resources/staffapi-auth.json
+/src/test/resources/guestapi-auth.json
