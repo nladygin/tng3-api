@@ -6,7 +6,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import tng3.helper.RequestHelper;
 import tng3.helper.Utils;
-import tng3.staffapi.auth.Session;
+import tng3.auth.Session;
 import tng3.staffapi.config.Config;
 import tng3.base.Data;
 

@@ -1,4 +1,4 @@
-package tng3.staffapi.auth;
+package tng3.auth;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
