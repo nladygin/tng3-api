@@ -1,20 +1,22 @@
 package tng3.helper;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
+import tng3.base.APIResponse;
+import tng3.base.Entity;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Random;
-
+import java.util.*;
 
 
 @Component
@@ -23,6 +25,12 @@ public class Utils {
 
 
 
+    public Entity toEntity(APIResponse source, Class target) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        String json = mapper.writeValueAsString(source.getPayload());
+        return (Entity) mapper.readValue(json, target);
+    }
 
 /*
     public Entity toEntity(String jsonString, Class cl){
