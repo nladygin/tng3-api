@@ -10,6 +10,7 @@ import tng3.guestapi.action.AccountAction;
 import tng3.guestapi.action.BookingAction;
 import tng3.guestapi.entity.Accounts;
 import tng3.guestapi.entity.BookingComment;
+import tng3.guestapi.entity.BookingRate;
 
 import java.util.LinkedHashMap;
 
@@ -129,7 +130,7 @@ public class BookingTest extends BaseTest {
 
 
     @Test
-    public void createAndDeleteBooking() {
+    public void createGetFeeAndDeleteBooking() {
         APIResponse response = bookingAction.createBooking(
                 data.outletID,
                 null,
@@ -143,14 +144,103 @@ public class BookingTest extends BaseTest {
 
             int id = (int) ((LinkedHashMap<String, Object>) response.getPayload()).get("id");
 
-            response = bookingAction.deleteBooking(id, new BookingComment("delete"));
+            response = bookingAction.getBookingFee(id);
             bookingAction.checkResponseSuccess(response, true);
-            bookingAction.checkResponsePayloadIsEmpty(response);
+            bookingAction.validateResponsePayload(response, Double.class, false);
+
+                response = bookingAction.deleteBooking(id, new BookingComment("delete"));
+                bookingAction.checkResponseSuccess(response, true);
+                bookingAction.checkResponsePayloadIsEmpty(response);
     }
 
 
+    @Test
+    public void createRateAndDeleteBooking() {
+        APIResponse response = bookingAction.createBooking(
+                data.outletID,
+                null,
+                data.offerID,
+                null,
+                utils.generateDateMS(0),
+                true
+        );
+        bookingAction.checkResponseSuccess(response, true);
+        bookingAction.validateResponsePayload(response, Booking.class, false);
+
+            int id = (int) ((LinkedHashMap<String, Object>) response.getPayload()).get("id");
+
+                response = bookingAction.rateBooking(id, new BookingRate(3, "so-so"));
+                bookingAction.checkResponseSuccess(response, true);
+                bookingAction.validateResponsePayload(response, Double.class, false);
+
+                    response = bookingAction.deleteBooking(id, new BookingComment("delete"));
+                    bookingAction.checkResponseSuccess(response, true);
+                    bookingAction.checkResponsePayloadIsEmpty(response);
+    }
 
 
+    @Test
+    public void createBadBooking() {
+        APIResponse response = bookingAction.createBooking(
+                data.outletID,
+                null,
+                666,
+                null,
+                utils.generateDateMS(0),
+                true
+        );
+        bookingAction.checkResponseSuccess(response, false);
+        bookingAction.checkResponseErrorCode(response, 200);
+    }
+
+
+    @Test
+    public void deleteNonexistentBooking(){
+        APIResponse response = bookingAction.deleteBooking(666, new BookingComment("delete non existent"));
+        bookingAction.checkResponseSuccess(response, false);
+        bookingAction.checkResponseErrorCode(response, 121);
+    }
+
+
+    @Test
+    public void getFeeBadBooking(){
+        APIResponse response = bookingAction.getBookingFee(666);
+        bookingAction.checkResponseSuccess(response, false);
+        bookingAction.checkResponseErrorCode(response, 121);
+    }
+
+
+    @Test
+    public void rateBadBooking(){
+        APIResponse response = bookingAction.rateBooking(666, new BookingRate(4, "not bad"));
+        bookingAction.checkResponseSuccess(response, false);
+        bookingAction.checkResponseErrorCode(response, 121);
+    }
+
+
+    @Test
+    public void createWrongRateAndDeleteBooking() {
+        APIResponse response = bookingAction.createBooking(
+                data.outletID,
+                null,
+                data.offerID,
+                null,
+                utils.generateDateMS(0),
+                true
+        );
+        bookingAction.checkResponseSuccess(response, true);
+        bookingAction.validateResponsePayload(response, Booking.class, false);
+
+            int id = (int) ((LinkedHashMap<String, Object>) response.getPayload()).get("id");
+
+                response = bookingAction.rateBooking(id, new BookingRate(10, "wow"));
+                bookingAction.checkResponseSuccess(response, false);
+                bookingAction.checkResponseErrorCode(response, 124);
+
+                    response = bookingAction.deleteBooking(id, new BookingComment("delete"));
+                    bookingAction.checkResponseSuccess(response, true);
+                    bookingAction.checkResponsePayloadIsEmpty(response);
+    }
 
 
 

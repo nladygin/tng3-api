@@ -56,4 +56,14 @@ public class BookingAction extends Action {
     }
 
 
+    public APIResponse getBookingFee(int id){
+        return requestHelper.go(endpoint + "/" + id + "/fee", Method.GET, null, null);
+    }
+
+
+    public APIResponse rateBooking(int id, Entity rate){
+        return requestHelper.go(endpoint + "/" + id + "/rate", Method.POST, rate, null);
+    }
+
+
 }
