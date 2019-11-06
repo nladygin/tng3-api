@@ -14,7 +14,7 @@ public class PrivacyOptions implements Entity {
 
 
     public PrivacyOptions() {
-        this(true, false, true);
+        this(true, true, true);
     }
 
 
