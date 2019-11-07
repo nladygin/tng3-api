@@ -21,6 +21,7 @@ public class Data {
     @Value("${spa_package_id}")     public int spaPackageID;
     @Value("${card_password}")      public String cardPassword;
     @Value("${card_email}")         public String cardEmail;
+    @Value("${card_type}")          public String cardType;
 
 
     public Data(){}
