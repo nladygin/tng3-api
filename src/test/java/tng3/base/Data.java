@@ -19,7 +19,8 @@ public class Data {
     @Value("${empl_password}")      public String emplPassword;
     @Value("${therapist_id}")       public int therapistID;
     @Value("${spa_package_id}")     public int spaPackageID;
-
+    @Value("${card_password}")      public String cardPassword;
+    @Value("${card_email}")         public String cardEmail;
 
 
     public Data(){}
