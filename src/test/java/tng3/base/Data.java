@@ -23,6 +23,7 @@ public class Data {
     @Value("${card_email}")         public String cardEmail;
     @Value("${card_type}")          public String cardType;
     @Value("${card_phone}")         public String cardPhone;
+    @Value("${class_id}")           public int classID;
 
 
     public Data(){}

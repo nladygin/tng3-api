@@ -25,10 +25,17 @@ public class Utils {
 
 
 
-    public Entity toEntity(APIResponse source, Class target) throws IOException {
+    public Entity toEntity(APIResponse response, Class target) throws IOException {
+        Object payload = response.getPayload();
+        Object source;
+        if (payload instanceof List) {
+            source = ((List) payload).get(0);
+        } else {
+            source = payload;
+        }
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        String json = mapper.writeValueAsString(source.getPayload());
+        String json = mapper.writeValueAsString(source);
         return (Entity) mapper.readValue(json, target);
     }
 
