@@ -24,6 +24,9 @@ public class Data {
     @Value("${card_type}")          public String cardType;
     @Value("${card_phone}")         public String cardPhone;
     @Value("${class_id}")           public int classID;
+    @Value("${offset}")             public int offset;
+    @Value("${count}")              public int count;
+
 
 
     public Data(){}
