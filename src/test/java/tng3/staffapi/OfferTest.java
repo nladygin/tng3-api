@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tng3.base.APIResponse;
 import tng3.staffapi.action.OfferAction;
-import tng3.staffapi.action.ScheduleAction;
-import tng3.staffapi.entity.Offer;
-import tng3.staffapi.entity.Schedule;
+import tng3.entity.Offer;
 
 import java.util.Date;
 
