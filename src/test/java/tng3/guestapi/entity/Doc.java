@@ -13,7 +13,7 @@ public class Doc implements Entity {
     public Double total;
     public Double discount;
     public String image;
-    public int id;
+    public long id;
     public List<DocAccount> accounts;
 
 }

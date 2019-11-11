@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Docs implements Entity {
 
-    public int count;
+    public long count;
     public List<Doc> docs;
 
 }
