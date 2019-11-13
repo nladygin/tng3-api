@@ -27,8 +27,9 @@ public class APIResponse {
         return this.error.getMessage();
     }
 
-
-
+    public void setPayload(Object payload) {
+        this.payload = payload;
+    }
 
     public class Error {
         private int code;

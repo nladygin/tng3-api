@@ -39,6 +39,14 @@ public class Utils {
         return (Entity) mapper.readValue(json, target);
     }
 
+
+    public Entity toEntity(LinkedHashMap response, Class target) throws IOException {
+        APIResponse apiResponse = new APIResponse();
+        apiResponse.setPayload(response);
+        return toEntity(apiResponse, target);
+    }
+
+
 /*
     public Entity toEntity(String jsonString, Class cl){
         ObjectMapper mapper = new ObjectMapper();

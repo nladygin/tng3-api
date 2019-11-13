@@ -26,6 +26,11 @@ public class Data {
     @Value("${class_id}")           public int classID;
     @Value("${offset}")             public int offset;
     @Value("${count}")              public int count;
+    @Value("${tender_id}")          public int tenderID;
+    @Value("${tender_name}")        public String tenderName;
+    @Value("${deposit_tender_id}")  public int depositTenderID;
+    @Value("${deposit_tender_name}")public String depositTenderName;
+    @Value("${voucher_num}")        public String voucherNum;
 
 
 
