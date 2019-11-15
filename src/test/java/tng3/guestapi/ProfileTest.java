@@ -214,6 +214,7 @@ public class ProfileTest extends BaseTest {
         profileAction.validateResponsePayload(response, Profile.class, false);
 
             Profile profile = new Profile((Profile) utils.toEntity(response, Profile.class));
+                profile.password = data.cardPassword;
 
             profileAction.editProfile(profile);
             profileAction.checkResponseSuccess(response, true);
