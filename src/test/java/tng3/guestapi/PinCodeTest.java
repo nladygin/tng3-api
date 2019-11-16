@@ -12,7 +12,7 @@ import tng3.guestapi.entity.Accounts;
 import tng3.guestapi.entity.PinCode;
 import tng3.guestapi.entity.PinCodeRequest;
 
-
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 public class PinCodeTest extends BaseTest {
 
