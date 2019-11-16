@@ -9,7 +9,7 @@ import tng3.base.APIResponse;
 import tng3.guestapi.action.PasswordAction;
 import tng3.guestapi.action.ProfileAction;
 
-@Ignore
+
 @RunWith(SpringJUnit4ClassRunner.class)
 public class PasswordTest extends BaseTest {
 
