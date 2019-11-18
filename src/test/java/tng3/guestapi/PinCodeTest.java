@@ -27,7 +27,6 @@ public class PinCodeTest extends BaseTest {
     }
 
 
-    @Ignore
     @Test
     public void requestPinCodeByPhone() {
         PinCodeRequest pinCodeRequest = new PinCodeRequest(null, data.cardPhone);
@@ -46,7 +45,6 @@ public class PinCodeTest extends BaseTest {
     }
 
 
-    @Ignore
     @Test
     public void requestPinCodeByWrongPhone() {
         PinCodeRequest pinCodeRequest = new PinCodeRequest(null, "12345678900");
