@@ -103,7 +103,7 @@ public class BillTest extends BaseTest {
     @Test
     public void topUpDeposit() {
         ArrayList<Payment> payments = new ArrayList<>();
-            payments.add(new Payment(data.tenderID, data.tenderName, 13.0, "deposit topup", null, null, null));
+            payments.add(new Payment(data.tenderID, data.tenderName, 13.0, "deposit topup", null, null, null, null, null, null));
         APIResponse response = billAction.depositTopUp(
                 data.outletID,
                 13.0,
@@ -117,7 +117,7 @@ public class BillTest extends BaseTest {
     @Test
     public void topUpVoucher() {
         ArrayList<Payment> payments = new ArrayList<>();
-            payments.add(new Payment(data.tenderID, data.tenderName, 13.0, "deposit topup", null, null, null));
+            payments.add(new Payment(data.tenderID, data.tenderName, 13.0, "deposit topup", null, null, null, null, null, null));
         APIResponse response = billAction.voucherTopUp(
                 data.outletID,
                 13.0,
@@ -254,6 +254,33 @@ public class BillTest extends BaseTest {
             billAction.isClosed(bill, true);
         }
 
+    }
+
+
+    @Test
+    public void paymentBillByCreditCard() throws IOException {
+        APIResponse response = billAction.createBill(
+                data.outletID,
+                itemsAction.addItem(
+                        data.offerID,
+                        1,
+                        null,
+                        "item for sale (API test)"
+                )
+        );
+        billAction.checkResponseSuccess(response, true);
+        billAction.validateResponsePayload(response, Bill.class, false);
+
+            Bill bill = (Bill) utils.toEntity(response, Bill.class);
+
+            Payments payments = new Payments();
+                payments.add(new Payment(data.onlineTenderID, bill.ttlDue, data.cardholderName, data.onlineTenderToken, true));
+
+            response = billAction.paymentBill(bill, payments);
+                bill = (Bill) utils.toEntity(response, Bill.class);
+            billAction.checkResponseSuccess(response, true);
+            billAction.validateResponsePayload(response, Bill.class, false);
+            billAction.isClosed(bill, true);
     }
 
 

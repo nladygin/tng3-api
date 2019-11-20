@@ -14,5 +14,6 @@ public class Tender implements Entity {
     public String authUrl;
     public TenderParams params;
     public List<Account> accounts;
+    public List<CreditCard> creditCards;
 
 }

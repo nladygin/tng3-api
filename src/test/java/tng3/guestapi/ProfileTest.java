@@ -6,10 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tng3.base.APIResponse;
 import tng3.guestapi.action.ProfileAction;
+import tng3.guestapi.entity.CreditCard;
 import tng3.guestapi.entity.PrivacyOptions;
 import tng3.guestapi.entity.Profile;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -459,6 +462,30 @@ public class ProfileTest extends BaseTest {
                 response = profileAction.editProfile(profile);
                 profileAction.checkResponseSuccess(response, false);
                 profileAction.checkResponseErrorCode(response, 118);
+    }
+
+
+    @Test
+    public void getCreditCards() {
+        APIResponse response = profileAction.getCreditCards();
+        profileAction.checkResponseSuccess(response, true);
+        profileAction.validateResponsePayload(response, CreditCard.class, true);
+    }
+
+
+    @Test
+    public void deleteCreditCards() throws IOException {
+        APIResponse response = profileAction.getCreditCards();
+        profileAction.checkResponseSuccess(response, true);
+        profileAction.validateResponsePayload(response, CreditCard.class, true);
+
+            APIResponse card = new APIResponse();
+                card.setPayload(((ArrayList) response.getPayload()).get(0));
+            CreditCard creditCard = (CreditCard) utils.toEntity(card, CreditCard.class);
+
+        response = profileAction.deleteCreditCards(creditCard.id);
+        profileAction.checkResponseSuccess(response, true);
+        profileAction.checkResponsePayloadIsEmpty(response);
     }
 
 

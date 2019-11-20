@@ -38,4 +38,14 @@ public class ProfileAction extends Action {
     }
 
 
+    public APIResponse getCreditCards() {
+        return requestHelper.go(endpoint + "/creditcards", Method.GET, null, null);
+    }
+
+
+    public APIResponse deleteCreditCards(int id) {
+        return requestHelper.go(endpoint + "/creditcards/" + id, Method.DELETE, null, null);
+    }
+
+
 }
