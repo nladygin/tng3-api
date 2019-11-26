@@ -7,12 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tng3.base.APIResponse;
 import tng3.guestapi.action.AccountAction;
+import tng3.guestapi.action.PasswordAction;
 import tng3.guestapi.action.PinCodeAction;
 import tng3.guestapi.entity.Accounts;
 import tng3.guestapi.entity.PinCode;
 import tng3.guestapi.entity.PinCodeRequest;
 
-@Ignore
+
 @RunWith(SpringJUnit4ClassRunner.class)
 public class PinCodeTest extends BaseTest {
 
@@ -24,9 +25,13 @@ public class PinCodeTest extends BaseTest {
         APIResponse response = pinCodeAction.requestPinCode(pinCodeRequest);
         pinCodeAction.checkResponseSuccess(response, true);
         pinCodeAction.validateResponsePayload(response, PinCode.class, false);
+            response = passwordAction.changePassword(data.cardPassword);
+            passwordAction.checkResponseSuccess(response, true);
+            passwordAction.checkResponsePayloadIsEmpty(response);
     }
 
 
+    @Ignore
     @Test
     public void requestPinCodeByPhone() {
         PinCodeRequest pinCodeRequest = new PinCodeRequest(null, data.cardPhone);
@@ -45,6 +50,7 @@ public class PinCodeTest extends BaseTest {
     }
 
 
+    @Ignore
     @Test
     public void requestPinCodeByWrongPhone() {
         PinCodeRequest pinCodeRequest = new PinCodeRequest(null, "12345678900");
@@ -57,4 +63,5 @@ public class PinCodeTest extends BaseTest {
 
 
     @Autowired private PinCodeAction pinCodeAction;
+    @Autowired private PasswordAction passwordAction;
 }
