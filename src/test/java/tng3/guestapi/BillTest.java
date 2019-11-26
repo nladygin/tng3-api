@@ -12,6 +12,7 @@ import tng3.helper.PurchaseType;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 
@@ -309,6 +310,107 @@ public class BillTest extends BaseTest {
             billAction.checkResponseErrorCode(response, 350);
     }
 
+
+    @Test
+    public void paymentBillByCreditCard3D() throws IOException {
+        APIResponse response = billAction.createBill(
+                data.outletID,
+                itemsAction.addItem(
+                        data.offerID,
+                        1,
+                        null,
+                        "item for sale (API test)"
+                )
+        );
+        billAction.checkResponseSuccess(response, true);
+        billAction.validateResponsePayload(response, Bill.class, false);
+
+            Bill bill = (Bill) utils.toEntity(response, Bill.class);
+
+            Payments payments = new Payments();
+                payments.add(new Payment(data.onlineTenderID, bill.ttlDue, data.cardholderName, data.onlineTenderToken3Ds, true));
+
+            response = billAction.paymentBill(bill, payments);
+            billAction.checkResponseSuccess(response, false);
+            billAction.checkResponseErrorCode(response, 800);
+
+                billAction.pass3DSecure(response.getErrorMessage(), "4", "Оплата успешно проведена");
+
+                    response = billAction.getBills(bill.id);
+                    bill = (Bill) utils.toEntity(response, Bill.class);
+
+                    billAction.checkResponseSuccess(response, true);
+                    billAction.validateResponsePayload(response, Bill.class, false);
+                    billAction.isClosed(bill, true);
+    }
+
+
+    @Test
+    public void paymentBillByCreditCard3DWithWrong3DCode() throws IOException {
+        APIResponse response = billAction.createBill(
+                data.outletID,
+                itemsAction.addItem(
+                        data.offerID,
+                        1,
+                        null,
+                        "item for sale (API test)"
+                )
+        );
+        billAction.checkResponseSuccess(response, true);
+        billAction.validateResponsePayload(response, Bill.class, false);
+
+            Bill bill = (Bill) utils.toEntity(response, Bill.class);
+
+            Payments payments = new Payments();
+                payments.add(new Payment(data.onlineTenderID, bill.ttlDue, data.cardholderName, data.onlineTenderToken3Ds, true));
+
+            response = billAction.paymentBill(bill, payments);
+            billAction.checkResponseSuccess(response, false);
+            billAction.checkResponseErrorCode(response, 800);
+
+                billAction.pass3DSecure(response.getErrorMessage(), "3", "Авторизация не пройдена");
+
+                response = billAction.getBills(bill.id);
+                bill = (Bill) utils.toEntity(response, Bill.class);
+
+                    billAction.checkResponseSuccess(response, true);
+                    billAction.validateResponsePayload(response, Bill.class, false);
+                    billAction.isClosed(bill, false);
+    }
+
+
+    @Test
+    public void paymentBillByPoorCreditCard3D() throws IOException {
+        APIResponse response = billAction.createBill(
+                data.outletID,
+                itemsAction.addItem(
+                        data.offerID,
+                        1,
+                        null,
+                        "item for sale (API test)"
+                )
+        );
+        billAction.checkResponseSuccess(response, true);
+        billAction.validateResponsePayload(response, Bill.class, false);
+
+            Bill bill = (Bill) utils.toEntity(response, Bill.class);
+
+            Payments payments = new Payments();
+                payments.add(new Payment(data.onlineTenderID, bill.ttlDue, data.cardholderName, data.onlineTenderTokenPoor3Ds, true));
+
+            response = billAction.paymentBill(bill, payments);
+            billAction.checkResponseSuccess(response, false);
+            billAction.checkResponseErrorCode(response, 800);
+
+                billAction.pass3DSecure(response.getErrorMessage(), "4", "Недостаточно средств на карте");
+
+                response = billAction.getBills(bill.id);
+                bill = (Bill) utils.toEntity(response, Bill.class);
+
+                    billAction.checkResponseSuccess(response, true);
+                    billAction.validateResponsePayload(response, Bill.class, false);
+                    billAction.isClosed(bill, false);
+    }
 
 
 

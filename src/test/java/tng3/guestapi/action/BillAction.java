@@ -1,6 +1,14 @@
 package tng3.guestapi.action;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import io.restassured.http.Method;
+import org.hamcrest.CoreMatchers;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.stereotype.Component;
 import tng3.base.APIResponse;
 import tng3.base.Action;
@@ -8,6 +16,7 @@ import tng3.guestapi.entity.*;
 import tng3.helper.PurchaseType;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -67,6 +76,23 @@ public class BillAction extends Action {
 
     public void isClosed(Bill bill, boolean expectedStatus) {
         assertThat(bill.closed, equalTo(expectedStatus));
+    }
+
+
+    public void pass3DSecure(String link, String answer, String expectedResult) {
+        WebDriverManager.chromedriver().setup();
+        WebDriver driver = new ChromeDriver();
+            driver.manage().timeouts().implicitlyWait(4L, TimeUnit.SECONDS);
+            driver.manage().timeouts().pageLoadTimeout(13L, TimeUnit.SECONDS);
+            driver.manage().timeouts().setScriptTimeout(4L, TimeUnit.SECONDS);
+
+            driver.get(link);
+            driver.findElement(By.id("password")).sendKeys(answer);
+            driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
+            assertThat(driver.findElement(By.cssSelector("body")).getText(), CoreMatchers.equalTo(expectedResult));
+//            new WebDriverWait(driver, 4L).until(ExpectedConditions.textToBe(By.cssSelector("body"), expectedResult));
+            driver.quit();
+            driver = null;
     }
 
 
