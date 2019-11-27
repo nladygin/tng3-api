@@ -79,7 +79,7 @@ public class BillAction extends Action {
     }
 
 
-    public void pass3DSecure(String link, String answer, String expectedResult) {
+    public void pass3DSecure(String link, String answer, String expectedStatus) {
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
             driver.manage().timeouts().implicitlyWait(4L, TimeUnit.SECONDS);
@@ -89,8 +89,9 @@ public class BillAction extends Action {
             driver.get(link);
             driver.findElement(By.id("password")).sendKeys(answer);
             driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
-            assertThat(driver.findElement(By.cssSelector("body")).getText(), CoreMatchers.equalTo(expectedResult));
-//            new WebDriverWait(driver, 4L).until(ExpectedConditions.textToBe(By.cssSelector("body"), expectedResult));
+                String url = driver.getCurrentUrl();
+                String status = url.substring(url.lastIndexOf("/")+1);
+                    assertThat(status, CoreMatchers.equalTo(expectedStatus));
             driver.quit();
             driver = null;
     }

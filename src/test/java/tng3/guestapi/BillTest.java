@@ -334,7 +334,7 @@ public class BillTest extends BaseTest {
             billAction.checkResponseSuccess(response, false);
             billAction.checkResponseErrorCode(response, 800);
 
-                billAction.pass3DSecure(response.getErrorMessage(), "4", "Оплата успешно проведена");
+                billAction.pass3DSecure(response.getErrorMessage(), "4", "success");
 
                     response = billAction.getBills(bill.id);
                     bill = (Bill) utils.toEntity(response, Bill.class);
@@ -368,7 +368,7 @@ public class BillTest extends BaseTest {
             billAction.checkResponseSuccess(response, false);
             billAction.checkResponseErrorCode(response, 800);
 
-                billAction.pass3DSecure(response.getErrorMessage(), "3", "Авторизация не пройдена");
+                billAction.pass3DSecure(response.getErrorMessage(), "3", "fail");
 
                 response = billAction.getBills(bill.id);
                 bill = (Bill) utils.toEntity(response, Bill.class);
@@ -402,7 +402,7 @@ public class BillTest extends BaseTest {
             billAction.checkResponseSuccess(response, false);
             billAction.checkResponseErrorCode(response, 800);
 
-                billAction.pass3DSecure(response.getErrorMessage(), "4", "Недостаточно средств на карте");
+                billAction.pass3DSecure(response.getErrorMessage(), "4", "fail");
 
                 response = billAction.getBills(bill.id);
                 bill = (Bill) utils.toEntity(response, Bill.class);
