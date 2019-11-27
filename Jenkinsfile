@@ -46,10 +46,10 @@ node {
         },
         notification: {
             stage('Notification') {
-                status = timeoutFlag ? "FAIL by timeout" : ${currentBuild.currentResult}
+                status = timeoutFlag ? "FAILED by timeout" : ${currentBuild.currentResult}
                 mail to:"nladygin@hrsinternational.com", 
                 subject:"${currentBuild.fullDisplayName}: ${status}",
-                body: "Build number: #${env.BUILD_NUMBER}\nBuild status: ${currentBuild.currentResult} (Timeout: ${timeoutFlag})\nBranch name: ${gitResult.GIT_BRANCH}\nResult summary: Total: ${testResult.getTotalCount()} / Passed: ${testResult.getPassCount()} / Failed: ${testResult.getFailCount()} / Skiped: ${testResult.getSkipCount()}\nJob total time: ${currentBuild.durationString}\nBuild URL: ${BUILD_URL}"
+                body: "Build number: #${env.BUILD_NUMBER}\nBuild status: ${currentBuild.currentResult}\nBranch name: ${gitResult.GIT_BRANCH}\nResult summary: Total: ${testResult.getTotalCount()} / Passed: ${testResult.getPassCount()} / Failed: ${testResult.getFailCount()} / Skiped: ${testResult.getSkipCount()}\nJob total time: ${currentBuild.durationString}\nBuild URL: ${BUILD_URL}"
             }
         }, failFast: false
     )
