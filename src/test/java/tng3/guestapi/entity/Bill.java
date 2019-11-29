@@ -13,6 +13,7 @@ import java.util.Objects;
 public class Bill implements Entity {
 
     public long id;
+    public long profileId;
     public String checkNum;
     public long date;
     public Integer outletId;
