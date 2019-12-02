@@ -1,13 +1,17 @@
 package tng3.guestapi.action;
 
 import io.restassured.http.Method;
+import org.hamcrest.CoreMatchers;
 import org.springframework.stereotype.Component;
 import tng3.base.APIResponse;
 import tng3.base.Action;
 import tng3.base.Entity;
+import tng3.entity.Booking;
 import tng3.guestapi.entity.BookingComment;
 
 import java.util.HashMap;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 
 @Component
 public class BookingAction extends Action {
@@ -30,6 +34,13 @@ public class BookingAction extends Action {
         }
         return requestHelper.go(endpoint, Method.GET, null, additional);
     }
+
+
+
+    public APIResponse getBooking(int id) {
+        return requestHelper.go(endpoint + "/" + id, Method.GET, null, null);
+    }
+
 
 
     public APIResponse createBooking(Integer outletID, Integer therapistID, int offerID, String from, Long fromMS, Boolean verbose) {
@@ -63,6 +74,16 @@ public class BookingAction extends Action {
 
     public APIResponse rateBooking(int id, Entity rate){
         return requestHelper.go(endpoint + "/" + id + "/rate", Method.POST, rate, null);
+    }
+
+
+    public APIResponse confirmBooking(int id){
+        return requestHelper.go(endpoint + "/" + id + "/confirm", Method.POST, null, null);
+    }
+
+
+    public void validateStatus(String actualResult, String expectedStatus) {
+        assertThat(actualResult, CoreMatchers.equalTo(expectedStatus));
     }
 
 

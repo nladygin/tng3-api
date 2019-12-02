@@ -12,6 +12,7 @@ import tng3.guestapi.entity.Accounts;
 import tng3.guestapi.entity.BookingComment;
 import tng3.guestapi.entity.BookingRate;
 
+import java.io.IOException;
 import java.util.LinkedHashMap;
 
 
@@ -130,7 +131,7 @@ public class BookingTest extends BaseTest {
 
 
     @Test
-    public void createGetFeeAndDeleteBooking() {
+    public void createGetFeeAndDeleteBooking() throws IOException {
         APIResponse response = bookingAction.createBooking(
                 data.outletID,
                 null,
@@ -142,20 +143,20 @@ public class BookingTest extends BaseTest {
         bookingAction.checkResponseSuccess(response, true);
         bookingAction.validateResponsePayload(response, Booking.class, false);
 
-            int id = (int) ((LinkedHashMap<String, Object>) response.getPayload()).get("id");
+            Booking booking = (Booking) utils.toEntity(response, Booking.class);
 
-            response = bookingAction.getBookingFee(id);
+            response = bookingAction.getBookingFee(booking.id);
             bookingAction.checkResponseSuccess(response, true);
             bookingAction.validateResponsePayload(response, Double.class, false);
 
-                response = bookingAction.deleteBooking(id, new BookingComment("delete"));
+                response = bookingAction.deleteBooking(booking.id, new BookingComment("delete"));
                 bookingAction.checkResponseSuccess(response, true);
                 bookingAction.checkResponsePayloadIsEmpty(response);
     }
 
 
     @Test
-    public void createRateAndDeleteBooking() {
+    public void createRateAndDeleteBooking() throws IOException {
         APIResponse response = bookingAction.createBooking(
                 data.outletID,
                 null,
@@ -167,13 +168,13 @@ public class BookingTest extends BaseTest {
         bookingAction.checkResponseSuccess(response, true);
         bookingAction.validateResponsePayload(response, Booking.class, false);
 
-            int id = (int) ((LinkedHashMap<String, Object>) response.getPayload()).get("id");
+            Booking booking = (Booking) utils.toEntity(response, Booking.class);
 
-                response = bookingAction.rateBooking(id, new BookingRate(3, "so-so"));
+                response = bookingAction.rateBooking(booking.id, new BookingRate(3, "so-so"));
                 bookingAction.checkResponseSuccess(response, true);
                 bookingAction.validateResponsePayload(response, Double.class, false);
 
-                    response = bookingAction.deleteBooking(id, new BookingComment("delete"));
+                    response = bookingAction.deleteBooking(booking.id, new BookingComment("delete"));
                     bookingAction.checkResponseSuccess(response, true);
                     bookingAction.checkResponsePayloadIsEmpty(response);
     }
@@ -219,7 +220,7 @@ public class BookingTest extends BaseTest {
 
 
     @Test
-    public void createWrongRateAndDeleteBooking() {
+    public void createWrongRateAndDeleteBooking() throws IOException {
         APIResponse response = bookingAction.createBooking(
                 data.outletID,
                 null,
@@ -231,15 +232,50 @@ public class BookingTest extends BaseTest {
         bookingAction.checkResponseSuccess(response, true);
         bookingAction.validateResponsePayload(response, Booking.class, false);
 
-            int id = (int) ((LinkedHashMap<String, Object>) response.getPayload()).get("id");
+            Booking booking = (Booking) utils.toEntity(response, Booking.class);
 
-                response = bookingAction.rateBooking(id, new BookingRate(10, "wow"));
+                response = bookingAction.rateBooking(booking.id, new BookingRate(10, "wow"));
                 bookingAction.checkResponseSuccess(response, false);
                 bookingAction.checkResponseErrorCode(response, 124);
 
-                    response = bookingAction.deleteBooking(id, new BookingComment("delete"));
+                    response = bookingAction.deleteBooking(booking.id, new BookingComment("delete"));
                     bookingAction.checkResponseSuccess(response, true);
                     bookingAction.checkResponsePayloadIsEmpty(response);
+    }
+
+
+    @Test
+    public void createAndConfirmBooking() throws IOException {
+        APIResponse response = bookingAction.createBooking(
+                data.outletID,
+                null,
+                data.offerID,
+                null,
+                utils.generateDateMS(0),
+                true
+        );
+        bookingAction.checkResponseSuccess(response, true);
+        bookingAction.validateResponsePayload(response, Booking.class, false);
+
+            Booking booking = (Booking) utils.toEntity(response, Booking.class);
+
+                response = bookingAction.confirmBooking(booking.id);
+                bookingAction.checkResponseSuccess(response, true);
+
+                    response = bookingAction.getBooking(booking.id);
+                    bookingAction.checkResponseSuccess(response, true);
+                    bookingAction.validateResponsePayload(response, Booking.class, false);
+
+                        booking = (Booking) utils.toEntity(response, Booking.class);
+                        bookingAction.validateStatus(booking.status, "CONFIRMED");
+    }
+
+
+    @Test
+    public void getWrongBooking() {
+        APIResponse response = bookingAction.getBooking(666);
+        bookingAction.checkResponseSuccess(response, false);
+        bookingAction.checkResponseErrorCode(response, 121);
     }
 
 
