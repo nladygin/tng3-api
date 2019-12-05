@@ -1,7 +1,8 @@
-package tng3.guestapi.entity;
+package tng3.common.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import tng3.base.Entity;
+import tng3.guestapi.entity.Item;
 import tng3.helper.PurchaseType;
 
 import java.util.ArrayList;

@@ -5,10 +5,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tng3.base.APIResponse;
-import tng3.entity.Outlet;
-import tng3.guestapi.action.AccountAction;
+import tng3.common.entity.Outlet;
 import tng3.guestapi.action.OutletAction;
-import tng3.guestapi.entity.Accounts;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)

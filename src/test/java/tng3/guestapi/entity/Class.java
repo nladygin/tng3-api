@@ -1,8 +1,7 @@
 package tng3.guestapi.entity;
 
 import tng3.base.Entity;
-import tng3.entity.Outlet;
-import tng3.entity.Therapist;
+import tng3.common.entity.Therapist;
 
 
 public class Class implements Entity {

@@ -1,13 +1,14 @@
-package tng3.guestapi;
+package tng3.staffapi;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tng3.base.APIResponse;
-import tng3.common.entity.*;
-import tng3.guestapi.action.BillAction;
 import tng3.common.action.ItemsAction;
+import tng3.common.entity.*;
+import tng3.staffapi.action.BillAction;
+
 
 import java.io.IOException;
 import java.util.ArrayList;

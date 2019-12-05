@@ -5,7 +5,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tng3.base.APIResponse;
-import tng3.entity.Booking;
+import tng3.common.entity.Booking;
 import tng3.guestapi.action.BookingAction;
 import tng3.guestapi.action.ClassAction;
 import tng3.guestapi.entity.BookingComment;

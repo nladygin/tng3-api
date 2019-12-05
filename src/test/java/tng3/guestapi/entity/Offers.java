@@ -1,7 +1,7 @@
 package tng3.guestapi.entity;
 
 import tng3.base.Entity;
-import tng3.entity.Offer;
+import tng3.common.entity.Offer;
 
 import java.util.List;
 

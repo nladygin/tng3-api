@@ -1,4 +1,4 @@
-package tng3.guestapi.action;
+package tng3.common.action;
 
 import org.springframework.stereotype.Component;
 import tng3.guestapi.entity.Item;

@@ -6,8 +6,6 @@ import org.springframework.stereotype.Component;
 import tng3.base.APIResponse;
 import tng3.base.Action;
 import tng3.base.Entity;
-import tng3.entity.Booking;
-import tng3.guestapi.entity.BookingComment;
 
 import java.util.HashMap;
 

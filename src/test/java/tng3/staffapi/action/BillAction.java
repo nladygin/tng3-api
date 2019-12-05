@@ -1,4 +1,4 @@
-package tng3.guestapi.action;
+package tng3.staffapi.action;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.restassured.http.Method;
@@ -26,7 +26,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @Component
 public class BillAction extends Action {
 
-    private final String endpoint = "/api/bills";
+    private final String endpoint = "/staffapi/bills";
 
 
 

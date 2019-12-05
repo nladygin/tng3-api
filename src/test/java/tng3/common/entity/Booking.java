@@ -1,4 +1,4 @@
-package tng3.entity;
+package tng3.common.entity;
 
 import tng3.base.Entity;
 import tng3.staffapi.entity.Client;
