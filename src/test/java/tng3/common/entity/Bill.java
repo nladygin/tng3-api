@@ -14,7 +14,7 @@ import java.util.Objects;
 public class Bill implements Entity {
 
     public long id;
-    public long profileId;
+    public Integer profileId;
     public String checkNum;
     public long date;
     public Integer outletId;
@@ -40,7 +40,7 @@ public class Bill implements Entity {
     }
 
 
-    public Bill(Integer outletId, Long profileId, List<Item> items) {
+    public Bill(Integer outletId, Integer profileId, List<Item> items) {
         this.outletId = outletId;
         this.profileId = profileId;
         this.items = items;
@@ -55,7 +55,7 @@ public class Bill implements Entity {
     }
 
 
-    public Bill(Integer outletId, Long profileId, PurchaseType purchaseType, Double total, ArrayList<Payment> payments) {
+    public Bill(Integer outletId, Integer profileId, PurchaseType purchaseType, Double total, ArrayList<Payment> payments) {
         this.outletId = outletId;
         this.profileId = profileId;
         this.purchaseType = purchaseType;
@@ -73,7 +73,7 @@ public class Bill implements Entity {
     }
 
 
-    public Bill(Integer outletId, Long profileId, PurchaseType purchaseType, String voucherNum, Double total, ArrayList<Payment> payments) {
+    public Bill(Integer outletId, Integer profileId, PurchaseType purchaseType, String voucherNum, Double total, ArrayList<Payment> payments) {
         this.outletId = outletId;
         this.profileId = profileId;
         this.purchaseType = purchaseType;

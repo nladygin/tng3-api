@@ -12,6 +12,7 @@ public class Tender implements Entity {
 
     public int tenderId;
     public String type;
+    public String name;
     public String reference;
     public String account;
     public String authUrl;

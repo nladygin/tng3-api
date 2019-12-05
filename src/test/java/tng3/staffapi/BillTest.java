@@ -54,6 +54,22 @@ public class BillTest extends BaseTest {
 
 
     @Test
+    public void createEmptyBillWithWrongProfileID() {
+        APIResponse response = billAction.createBill(data.outletID, 666, null);
+        billAction.checkResponseSuccess(response, false);
+        billAction.checkResponseErrorCode(response, 351);
+    }
+
+
+    @Test
+    public void createEmptyBillWithEmptyProfileID() {
+        APIResponse response = billAction.createBill(data.outletID, null, null);
+        billAction.checkResponseSuccess(response, false);
+        billAction.checkResponseErrorCode(response, 351);
+    }
+
+
+    @Test
     public void createBillWithItem() {
         APIResponse response = billAction.createBill(
                 data.outletID,
@@ -67,6 +83,40 @@ public class BillTest extends BaseTest {
         );
         billAction.checkResponseSuccess(response, true);
         billAction.validateResponsePayload(response, Bill.class, false);
+    }
+
+
+    @Test
+    public void createBillWithItemWithWrongProfileID() {
+        APIResponse response = billAction.createBill(
+                data.outletID,
+                666,
+                itemsAction.addItem(
+                        data.offerID,
+                        1,
+                        null,
+                        "item for sale (staff API test)"
+                )
+        );
+        billAction.checkResponseSuccess(response, false);
+        billAction.checkResponseErrorCode(response, 351);
+    }
+
+
+    @Test
+    public void createBillWithItemWithEmptyProfileID() {
+        APIResponse response = billAction.createBill(
+                data.outletID,
+                null,
+                itemsAction.addItem(
+                        data.offerID,
+                        1,
+                        null,
+                        "item for sale (staff API test)"
+                )
+        );
+        billAction.checkResponseSuccess(response, false);
+        billAction.checkResponseErrorCode(response, 351);
     }
 
 
@@ -129,6 +179,58 @@ public class BillTest extends BaseTest {
 
 
     @Test
+    public void topUpDepositWithWrongProfileID() {
+        ArrayList<Payment> payments = new ArrayList<>();
+        payments.add(new Payment(
+                data.tenderID,
+                data.tenderName,
+                13.0,
+                "deposit topup",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        ));
+        APIResponse response = billAction.depositTopUp(
+                data.outletID,
+                666,
+                13.0,
+                payments
+        );
+        billAction.checkResponseSuccess(response, false);
+        billAction.checkResponseErrorCode(response, 351);
+    }
+
+
+    @Test
+    public void topUpDepositWithEmptyProfileID() {
+        ArrayList<Payment> payments = new ArrayList<>();
+        payments.add(new Payment(
+                data.tenderID,
+                data.tenderName,
+                13.0,
+                "deposit topup",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        ));
+        APIResponse response = billAction.depositTopUp(
+                data.outletID,
+                null,
+                13.0,
+                payments
+        );
+        billAction.checkResponseSuccess(response, false);
+        billAction.checkResponseErrorCode(response, 351);
+    }
+
+
+    @Test
     public void topUpVoucher() {
         ArrayList<Payment> payments = new ArrayList<>();
             payments.add(new Payment(
@@ -152,6 +254,60 @@ public class BillTest extends BaseTest {
         );
         billAction.checkResponseSuccess(response, true);
         billAction.validateResponsePayload(response, Bill.class, false);
+    }
+
+
+    @Test
+    public void topUpVoucherWithWrongProfileID() {
+        ArrayList<Payment> payments = new ArrayList<>();
+        payments.add(new Payment(
+                data.tenderID,
+                data.tenderName,
+                13.0,
+                "voucher topup",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        ));
+        APIResponse response = billAction.voucherTopUp(
+                data.outletID,
+                666,
+                13.0,
+                payments,
+                data.voucherNum
+        );
+        billAction.checkResponseSuccess(response, false);
+        billAction.checkResponseErrorCode(response, 351);
+    }
+
+
+    @Test
+    public void topUpVoucherWithEmptyProfileID() {
+        ArrayList<Payment> payments = new ArrayList<>();
+        payments.add(new Payment(
+                data.tenderID,
+                data.tenderName,
+                13.0,
+                "voucher topup",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        ));
+        APIResponse response = billAction.voucherTopUp(
+                data.outletID,
+                null,
+                13.0,
+                payments,
+                data.voucherNum
+        );
+        billAction.checkResponseSuccess(response, false);
+        billAction.checkResponseErrorCode(response, 351);
     }
 
 

@@ -36,7 +36,7 @@ public class BillAction extends Action {
     }
 
 
-    public APIResponse createBill(int outletID, long profileId, ArrayList<Item> items) {
+    public APIResponse createBill(int outletID, Integer profileId, ArrayList<Item> items) {
         return requestHelper.go(endpoint, Method.POST, new Bill(outletID, profileId, items), null);
     }
 
@@ -46,12 +46,12 @@ public class BillAction extends Action {
     }
 
 
-    public APIResponse depositTopUp(int outletID, long profileId, Double amount, ArrayList<Payment> payments) {
+    public APIResponse depositTopUp(int outletID, Integer profileId, Double amount, ArrayList<Payment> payments) {
             return requestHelper.go(endpoint, Method.POST, new Bill(outletID, profileId, PurchaseType.DEPOSIT, amount, payments), null);
     }
 
 
-    public APIResponse voucherTopUp(int outletID, long profileId, Double amount, ArrayList<Payment> payments, String voucherNum) {
+    public APIResponse voucherTopUp(int outletID, Integer profileId, Double amount, ArrayList<Payment> payments, String voucherNum) {
         return requestHelper.go(endpoint, Method.POST, new Bill(outletID, profileId, PurchaseType.VOUCHER, voucherNum, amount, payments), null);
     }
 
