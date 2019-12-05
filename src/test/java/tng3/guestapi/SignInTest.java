@@ -1,5 +1,6 @@
 package tng3.guestapi;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,7 +71,7 @@ public class SignInTest extends BaseTest {
         signInAction.checkResponseErrorCode(response, 3);
     }
 
-
+    @Ignore
     @Test
     public void signInByMagstripe() {
         Credentials credentials = new Credentials(data.cardMagstripe, data.cardPassword);
