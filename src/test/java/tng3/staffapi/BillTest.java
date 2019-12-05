@@ -30,7 +30,7 @@ public class BillTest extends BaseTest {
 
     @Test
     public void getBillById() throws IOException {
-        APIResponse response = billAction.createBill(data.outletID, null);
+        APIResponse response = billAction.createBill(data.outletID, data.cardID, null);
             billAction.checkResponseSuccess(response, true);
             billAction.validateResponsePayload(response, Bill.class, false);
 
@@ -47,7 +47,7 @@ public class BillTest extends BaseTest {
 
     @Test
     public void createEmptyBill() {
-        APIResponse response = billAction.createBill(data.outletID, null);
+        APIResponse response = billAction.createBill(data.outletID, data.cardID, null);
         billAction.checkResponseSuccess(response, true);
         billAction.validateResponsePayload(response, Bill.class, false);
     }
@@ -57,11 +57,12 @@ public class BillTest extends BaseTest {
     public void createBillWithItem() {
         APIResponse response = billAction.createBill(
                 data.outletID,
+                data.cardID,
                 itemsAction.addItem(
                         data.offerID,
                         1,
                         null,
-                        "item for sale (API test)"
+                        "item for sale (staff API test)"
                 )
         );
         billAction.checkResponseSuccess(response, true);
@@ -73,11 +74,12 @@ public class BillTest extends BaseTest {
     public void createBillWithItemAndAddAnotherItem() throws IOException {
         APIResponse response = billAction.createBill(
                 data.outletID,
+                data.cardID,
                 itemsAction.addItem(
                         data.offerID,
                         1,
                         null,
-                        "item for sale (API test)"
+                        "item for sale (staff API test)"
                 )
         );
         billAction.checkResponseSuccess(response, true);
@@ -103,9 +105,21 @@ public class BillTest extends BaseTest {
     @Test
     public void topUpDeposit() {
         ArrayList<Payment> payments = new ArrayList<>();
-            payments.add(new Payment(data.tenderID, data.tenderName, 13.0, "deposit topup", null, null, null, null, null, null));
+            payments.add(new Payment(
+                    data.tenderID,
+                    data.tenderName,
+                    13.0,
+                    "deposit topup",
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+            ));
         APIResponse response = billAction.depositTopUp(
                 data.outletID,
+                data.cardID,
                 13.0,
                 payments
         );
@@ -117,9 +131,21 @@ public class BillTest extends BaseTest {
     @Test
     public void topUpVoucher() {
         ArrayList<Payment> payments = new ArrayList<>();
-            payments.add(new Payment(data.tenderID, data.tenderName, 13.0, "deposit topup", null, null, null, null, null, null));
+            payments.add(new Payment(
+                    data.tenderID,
+                    data.tenderName,
+                    13.0,
+                    "voucher topup",
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+            ));
         APIResponse response = billAction.voucherTopUp(
                 data.outletID,
+                data.cardID,
                 13.0,
                 payments,
                 data.voucherNum
@@ -133,11 +159,12 @@ public class BillTest extends BaseTest {
     public void voidItem() throws IOException {
         APIResponse response = billAction.createBill(
                 data.outletID,
+                data.cardID,
                 itemsAction.addItem(
                         data.offerID,
                         1,
                         null,
-                        "item for sale (API test)"
+                        "item for sale (staff API test)"
                 )
         );
         billAction.checkResponseSuccess(response, true);
@@ -159,11 +186,12 @@ public class BillTest extends BaseTest {
     public void paymentBill() throws IOException {
         APIResponse response = billAction.createBill(
                 data.outletID,
+                data.cardID,
                 itemsAction.addItem(
                         data.offerID,
                         1,
                         null,
-                        "item for sale (API test)"
+                        "item for sale (staff API test)"
                 )
         );
         billAction.checkResponseSuccess(response, true);
@@ -186,11 +214,12 @@ public class BillTest extends BaseTest {
     public void partialPaymentBill() throws IOException {
         APIResponse response = billAction.createBill(
                 data.outletID,
+                data.cardID,
                 itemsAction.addItem(
                         data.offerID,
                         1,
                         null,
-                        "item for sale (API test)"
+                        "item for sale (staff API test)"
                 )
         );
         billAction.checkResponseSuccess(response, true);
@@ -215,11 +244,12 @@ public class BillTest extends BaseTest {
     public void getAllowedTendersForBill() throws IOException {
         APIResponse response = billAction.createBill(
                 data.outletID,
+                data.cardID,
                 itemsAction.addItem(
                         data.offerID,
                         1,
                         null,
-                        "item for sale (API test)"
+                        "item for sale (staff API test)"
                 )
         );
         billAction.checkResponseSuccess(response, true);
@@ -261,11 +291,12 @@ public class BillTest extends BaseTest {
     public void paymentBillByCreditCard() throws IOException {
         APIResponse response = billAction.createBill(
                 data.outletID,
+                data.cardID,
                 itemsAction.addItem(
                         data.offerID,
                         1,
                         null,
-                        "item for sale (API test)"
+                        "item for sale (staff API test)"
                 )
         );
         billAction.checkResponseSuccess(response, true);
@@ -288,11 +319,12 @@ public class BillTest extends BaseTest {
     public void paymentBillByPoorCreditCard() throws IOException {
         APIResponse response = billAction.createBill(
                 data.outletID,
+                data.cardID,
                 itemsAction.addItem(
                         data.offerID,
                         1,
                         null,
-                        "item for sale (API test)"
+                        "item for sale (staff API test)"
                 )
         );
         billAction.checkResponseSuccess(response, true);
@@ -314,11 +346,12 @@ public class BillTest extends BaseTest {
     public void paymentBillByCreditCard3D() throws IOException {
         APIResponse response = billAction.createBill(
                 data.outletID,
+                data.cardID,
                 itemsAction.addItem(
                         data.offerID,
                         1,
                         null,
-                        "item for sale (API test)"
+                        "item for sale (staff API test)"
                 )
         );
         billAction.checkResponseSuccess(response, true);
@@ -348,11 +381,12 @@ public class BillTest extends BaseTest {
     public void paymentBillByCreditCard3DWithWrong3DCode() throws IOException {
         APIResponse response = billAction.createBill(
                 data.outletID,
+                data.cardID,
                 itemsAction.addItem(
                         data.offerID,
                         1,
                         null,
-                        "item for sale (API test)"
+                        "item for sale (staff API test)"
                 )
         );
         billAction.checkResponseSuccess(response, true);
@@ -382,11 +416,12 @@ public class BillTest extends BaseTest {
     public void paymentBillByPoorCreditCard3D() throws IOException {
         APIResponse response = billAction.createBill(
                 data.outletID,
+                data.cardID,
                 itemsAction.addItem(
                         data.offerID,
                         1,
                         null,
-                        "item for sale (API test)"
+                        "item for sale (staff API test)"
                 )
         );
         billAction.checkResponseSuccess(response, true);

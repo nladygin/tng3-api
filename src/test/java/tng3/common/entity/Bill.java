@@ -40,8 +40,24 @@ public class Bill implements Entity {
     }
 
 
+    public Bill(Integer outletId, Long profileId, List<Item> items) {
+        this.outletId = outletId;
+        this.profileId = profileId;
+        this.items = items;
+    }
+
+
     public Bill(Integer outletId, PurchaseType purchaseType, Double total, ArrayList<Payment> payments) {
         this.outletId = outletId;
+        this.purchaseType = purchaseType;
+        this.total = total;
+        this.payments = payments;
+    }
+
+
+    public Bill(Integer outletId, Long profileId, PurchaseType purchaseType, Double total, ArrayList<Payment> payments) {
+        this.outletId = outletId;
+        this.profileId = profileId;
         this.purchaseType = purchaseType;
         this.total = total;
         this.payments = payments;
@@ -55,6 +71,17 @@ public class Bill implements Entity {
         this.total = total;
         this.payments = payments;
     }
+
+
+    public Bill(Integer outletId, Long profileId, PurchaseType purchaseType, String voucherNum, Double total, ArrayList<Payment> payments) {
+        this.outletId = outletId;
+        this.profileId = profileId;
+        this.purchaseType = purchaseType;
+        this.voucherNum = voucherNum;
+        this.total = total;
+        this.payments = payments;
+    }
+
 
 
     public Bill() {

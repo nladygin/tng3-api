@@ -116,7 +116,7 @@ public class BillTest extends BaseTest {
     @Test
     public void topUpVoucher() {
         ArrayList<Payment> payments = new ArrayList<>();
-            payments.add(new Payment(data.tenderID, data.tenderName, 13.0, "deposit topup", null, null, null, null, null, null));
+            payments.add(new Payment(data.tenderID, data.tenderName, 13.0, "voucher topup", null, null, null, null, null, null));
         APIResponse response = billAction.voucherTopUp(
                 data.outletID,
                 13.0,

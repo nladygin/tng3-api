@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@ComponentScan("tng3.staffapi, tng3.base, tng3.helper, tng3.auth")
+@ComponentScan("tng3.staffapi, tng3.base, tng3.helper, tng3.auth tng3.common")
 @PropertySource({"config.properties"})
 public class Config {
 
