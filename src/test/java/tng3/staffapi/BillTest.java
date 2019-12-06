@@ -29,6 +29,22 @@ public class BillTest extends BaseTest {
 
 
     @Test
+    public void getBillsForProfile() {
+        APIResponse response = billAction.getBills(null, data.cardID);
+        billAction.checkResponseSuccess(response, true);
+        billAction.validateResponsePayload(response, Bill.class, true);
+    }
+
+
+    @Test
+    public void getBillsForWrongProfile() {
+        APIResponse response = billAction.getBills(null, 666);
+        billAction.checkResponseSuccess(response, true);
+        billAction.validateResponsePayload(response, Bill.class, true);
+    }
+
+
+    @Test
     public void getBillById() throws IOException {
         APIResponse response = billAction.createBill(data.outletID, data.cardID, null);
             billAction.checkResponseSuccess(response, true);

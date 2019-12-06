@@ -18,6 +18,7 @@ import tng3.guestapi.entity.*;
 import tng3.helper.PurchaseType;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -31,8 +32,19 @@ public class BillAction extends Action {
 
 
 
+    public APIResponse getBills(Long id, Integer profileId) {
+        HashMap<String, String> additional = new HashMap<>();
+        if (profileId != null) {
+            additional.put("profileId", String.valueOf(profileId));
+        } else {
+            additional = null;
+        }
+        return requestHelper.go(endpoint + (id != null ? "/"+id : ""), Method.GET, null, additional);
+    }
+
+
     public APIResponse getBills(Long id) {
-        return requestHelper.go(endpoint + (id != null ? "/"+id : ""), Method.GET, null, null);
+        return getBills(id, null);
     }
 
 
