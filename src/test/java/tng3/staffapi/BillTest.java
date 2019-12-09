@@ -39,8 +39,8 @@ public class BillTest extends BaseTest {
     @Test
     public void getBillsForWrongProfile() {
         APIResponse response = billAction.getBills(null, 666);
-        billAction.checkResponseSuccess(response, true);
-        billAction.validateResponsePayload(response, Bill.class, true);
+        billAction.checkResponseSuccess(response, false);
+        billAction.checkResponseErrorCode(response, 351);
     }
 
 
