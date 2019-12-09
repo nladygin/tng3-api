@@ -4,7 +4,7 @@ import tng3.base.Entity;
 
 public class Client_ implements Entity {
 
-    public int id;
+    public String id;
     public String first_name;
     public String second_name;
     public String last_name;

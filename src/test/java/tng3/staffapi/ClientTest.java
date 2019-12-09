@@ -28,7 +28,7 @@ public class ClientTest extends BaseTest {
     public void getClientsByName(){
         APIResponse response = clientAction.getClientsByName("API");
         clientAction.checkResponseSuccess(response, true);
-        clientAction.validateResponsePayload(response, Client.class, true);
+        clientAction.validateResponsePayload(response, Client_.class, true);
     }
 
 
