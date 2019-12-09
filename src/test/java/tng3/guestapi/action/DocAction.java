@@ -19,7 +19,7 @@ public class DocAction extends Action {
             additional.put("offset", String.valueOf(offset));
             additional.put("count", String.valueOf(count));
             if (account != null) {
-                additional.put("account", account);
+                additional.put("acc", account);
             }
             if (from != null) {
                 additional.put("from", from);
