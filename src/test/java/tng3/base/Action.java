@@ -38,12 +38,14 @@ public class Action {
             String json = mapper.writeValueAsString(response.getPayload());
             if (isList) {
                 CollectionType type = mapper.getTypeFactory().constructCollectionType(List.class, cl);
-                mapper.readValue(json, type);
-                assertThat(true, CoreMatchers.equalTo(true));
+                List<Object> list =  mapper.readValue(json, type);
+                if (list.isEmpty()) {
+                    assertThat(false, CoreMatchers.equalTo(true));
+                }
             } else {
                 mapper.readValue(json, cl);
-                assertThat(true, CoreMatchers.equalTo(true));
             }
+            assertThat(true, CoreMatchers.equalTo(true));
         } catch (IOException e) {
             assertThat(false, CoreMatchers.equalTo(true));
             LogManager.getLogger().error(e.getStackTrace().toString());
