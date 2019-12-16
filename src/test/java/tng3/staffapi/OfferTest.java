@@ -32,6 +32,30 @@ public class OfferTest extends BaseTest {
 
 
     @Test
+    public void getOffersForUpSell(){
+        APIResponse response = offerAction.getOffersForUpSale();
+        offerAction.checkResponseSuccess(response, true);
+        offerAction.validateResponsePayload(response, Offer.class, true);
+    }
+
+
+    @Test
+    public void getOfferByBarcode(){
+        APIResponse response = offerAction.getOfferByBarcode(data.offerBarcode);
+            offerAction.checkResponseSuccess(response, true);
+            offerAction.validateResponsePayload(response, Offer.class, true);
+    }
+
+
+    @Test
+    public void getOfferByWrongBarcode(){
+        APIResponse response = offerAction.getOfferByBarcode("666");
+        offerAction.checkResponseSuccess(response, true);
+        offerAction.checkResponsePayloadIsEmptyList(response);
+    }
+
+
+    @Test
     public void getOfferFullAvailability(){
         APIResponse response = offerAction.getOfferAvailability(
                 data.offerID,

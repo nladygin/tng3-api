@@ -24,6 +24,10 @@ public class BookingAction extends Action {
     }
 
 
+    public APIResponse getBillByBooking(int bookingId){
+        return requestHelper.go(endpoint + "/" + bookingId + "/bill", Method.GET, null, null);
+    }
+
 
     public APIResponse createBookingMS(int offerId, int cardId, int outletId, long fromMs){
         HashMap<String, String> additional = new HashMap<>();

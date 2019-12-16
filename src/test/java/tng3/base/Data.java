@@ -28,6 +28,7 @@ public class Data {
 
     @Value("${spa_package_id}")                 public int spaPackageID;
     @Value("${offer_id}")                       public int offerID;
+    @Value("${offer_barcode}")                  public String offerBarcode;
     @Value("${class_id}")                       public int classID;
     @Value("${voucher_num}")                    public String voucherNum;
 

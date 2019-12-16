@@ -8,6 +8,7 @@ import tng3.base.APIResponse;
 import tng3.common.action.ItemsAction;
 import tng3.common.entity.*;
 import tng3.staffapi.action.BillAction;
+import tng3.staffapi.action.BookingAction;
 
 
 import java.io.IOException;
@@ -58,6 +59,45 @@ public class BillTest extends BaseTest {
 
                     Bill bill2 = (Bill) utils.toEntity(response, Bill.class);
                     billAction.checkForEquals(bill, bill2);
+    }
+
+
+    @Test
+    public void getBillByBooking() {
+        APIResponse response = bookingAction.createBooking(
+                data.offerID,
+                data.cardID,
+                data.outletID,
+                utils.generateDate("dd.MM.yyyy HH:mm", 1)
+        );
+        bookingAction.checkResponseSuccess(response, true);
+
+            Integer bookingId = (Integer) response.getPayload();
+
+                response = billAction.createBill(
+                        data.outletID,
+                        data.cardID,
+                        itemsAction.addItem(
+                                data.offerID,
+                                1,
+                                bookingId,
+                                "booking payment (staff API test)"
+                        )
+                );
+                    billAction.checkResponseSuccess(response, true);
+                    billAction.validateResponsePayload(response, Bill.class, false);
+
+                        response = bookingAction.getBillByBooking(bookingId);
+                        billAction.checkResponseSuccess(response, true);
+                        billAction.validateResponsePayload(response, Bill.class, false);
+    }
+
+
+    @Test
+    public void getBillByWrongBooking() {
+        APIResponse response = bookingAction.getBillByBooking(666);
+            billAction.checkResponseSuccess(response, false);
+            billAction.checkResponseErrorCode(response, 121);
     }
 
 
@@ -630,5 +670,6 @@ public class BillTest extends BaseTest {
 
     @Autowired private BillAction billAction;
     @Autowired private ItemsAction itemsAction;
+    @Autowired private BookingAction bookingAction;
 
 }
