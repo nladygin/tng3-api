@@ -28,6 +28,14 @@ public class ClassTest extends BaseTest {
 
 
     @Test
+    public void getClassesWithOffsetAndCount() {
+        APIResponse response = classAction.getClasses(data.outletID, 100, 10);
+        classAction.checkResponseSuccess(response, true);
+        classAction.checkResponsePayloadIsEmptyList(response);
+    }
+
+
+    @Test
     public void subscribeAndUnsubscribeClass() throws IOException {
         APIResponse response = classAction.subscribeClass(data.classID, true);
         classAction.checkResponseSuccess(response, true);

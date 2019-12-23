@@ -14,15 +14,26 @@ public class ClassAction extends Action {
 
 
 
-    public APIResponse getClasses(Integer outletID){
+    public APIResponse getClasses(Integer outletID, Integer offset, Integer count) {
         HashMap<String, String> additional = new HashMap<>();
         if (outletID != null) {
             additional.put("outlet_id", String.valueOf(outletID));
+        }
+        if (offset != null) {
+            additional.put("offset", String.valueOf(offset));
+        }
+        if (count != null) {
+            additional.put("count", String.valueOf(count));
         }
         if (additional.isEmpty()) {
             additional = null;
         }
         return requestHelper.go(endpoint, Method.GET, null, additional);
+    }
+
+
+    public APIResponse getClasses(Integer outletID) {
+        return getClasses(outletID, null, null);
     }
 
 
