@@ -10,5 +10,6 @@ public class EmployeeProfile implements Entity {
     public EmployeeOutlet outlet;
     public String picture;
     public String picture_thumb;
+    public EmployeeRestrictions restrictions;
 
 }
