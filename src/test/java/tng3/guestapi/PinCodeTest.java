@@ -1,5 +1,6 @@
 package tng3.guestapi;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ public class PinCodeTest extends BaseTest {
     }
 
 
+    @Ignore
     @Test
     public void requestPinCodeByPhone() {
         PinCodeRequest pinCodeRequest = new PinCodeRequest(null, data.cardPhone);
