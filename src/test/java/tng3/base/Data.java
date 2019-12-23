@@ -30,6 +30,7 @@ public class Data {
     @Value("${offer_id}")                       public int offerID;
     @Value("${offer_barcode}")                  public String offerBarcode;
     @Value("${class_id}")                       public int classID;
+    @Value("${cancelled_class_id}")             public int cancelledClassID;
     @Value("${voucher_num}")                    public String voucherNum;
 
     @Value("${tender_id}")                      public int tenderID;

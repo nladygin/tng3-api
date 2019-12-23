@@ -50,6 +50,14 @@ public class ClassTest extends BaseTest {
 
 
     @Test
+    public void subscribeCancelledClass() throws IOException {
+        APIResponse response = classAction.subscribeClass(data.cancelledClassID, true);
+        classAction.checkResponseSuccess(response, false);
+        classAction.checkResponseErrorCode(response, 200);
+    }
+
+
+    @Test
     public void subscribeNonexistentClass() {
         APIResponse response = classAction.subscribeClass(666, true);
         bookingAction.checkResponseSuccess(response, false);
