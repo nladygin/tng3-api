@@ -24,6 +24,18 @@ public class BookingTest extends BaseTest {
 
 
     @Test
+    public void getTodayBookings(){
+        APIResponse response = bookingAction.getBookings(
+                utils.generateDate("ddMMyyyy", 0),
+                utils.generateDate("ddMMyyyy",0)
+        );
+        bookingAction.checkResponseSuccess(response, true);
+        bookingAction.validateResponsePayload(response, Booking.class, true);
+    }
+
+
+
+    @Test
     public void createBookingFromMS(){
         APIResponse response = bookingAction.createBookingMS(
                 data.offerID,
