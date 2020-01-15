@@ -92,7 +92,13 @@ public class BillAction extends Action {
             driver.findElement(By.id("password")).sendKeys(answer);
             driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
                 String url = driver.getCurrentUrl();
-                String status = url.substring(url.lastIndexOf("/")+1);
+                int end = url.lastIndexOf(";");
+                String status = "";
+                if (end > 0) {
+                    status = url.substring(url.lastIndexOf("/") + 1, end);
+                }else {
+                    status = url.substring(url.lastIndexOf("/") + 1);
+                }
                     assertThat(status, CoreMatchers.equalTo(expectedStatus));
             driver.quit();
             driver = null;
