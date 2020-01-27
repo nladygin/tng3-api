@@ -5,7 +5,12 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tng3.base.APIResponse;
+import tng3.common.action.ItemsAction;
+import tng3.common.entity.Bill;
 import tng3.common.entity.Booking;
+import tng3.common.entity.Payment;
+import tng3.common.entity.Payments;
+import tng3.guestapi.action.BillAction;
 import tng3.guestapi.action.BookingAction;
 import tng3.guestapi.entity.BookingComment;
 import tng3.guestapi.entity.BookingRate;
@@ -287,6 +292,142 @@ public class BookingTest extends BaseTest {
     }
 
 
+    @Test
+    public void createPayDepositAndCancelBooking() throws IOException {
+        APIResponse response = bookingAction.createBooking(
+                data.outletID,
+                null,
+                data.offerID,
+                utils.generateDate("dd.MM.yyyy HH:mm", 0),
+                null,
+                true
+        );
+        bookingAction.checkResponseSuccess(response, true);
+        bookingAction.validateResponsePayload(response, Booking.class, false);
+
+            Booking booking = (Booking) utils.toEntity(response, Booking.class);
+
+                response = billAction.createBill(
+                        data.outletID,
+                        itemsAction.addItem(
+                                null,
+                                1,
+                                booking.id,
+                                "booking deposit payment (API test)"
+                        )
+                );
+                billAction.checkResponseSuccess(response, true);
+                billAction.validateResponsePayload(response, Bill.class, false);
+
+                    Bill bill = (Bill) utils.toEntity(response, Bill.class);
+
+                    Payments payments = new Payments();
+                    payments.add(new Payment(data.depositTenderID, bill.ttlDue));
+
+                        response = billAction.paymentBill(bill, payments);
+                        billAction.checkResponseSuccess(response, true);
+                        billAction.validateResponsePayload(response, Bill.class, false);
+
+                        bill = (Bill) utils.toEntity(response, Bill.class);
+                        billAction.isClosed(bill, true);
+
+                            response = bookingAction.deleteBooking(booking.id, new BookingComment("delete"));
+                            bookingAction.checkResponseSuccess(response, true);
+                            bookingAction.checkResponsePayloadIsEmpty(response);
+    }
+
+
+    @Test
+    public void createPayNonDepositAndCancelBooking() throws IOException {
+        APIResponse response = bookingAction.createBooking(
+                data.outletID,
+                null,
+                data.offerID,
+                utils.generateDate("dd.MM.yyyy HH:mm", 0),
+                null,
+                true
+        );
+        bookingAction.checkResponseSuccess(response, true);
+        bookingAction.validateResponsePayload(response, Booking.class, false);
+
+            Booking booking = (Booking) utils.toEntity(response, Booking.class);
+
+                response = billAction.createBill(
+                        data.outletID,
+                        itemsAction.addItem(
+                                null,
+                                1,
+                                booking.id,
+                                "booking non deposit payment (API test)"
+                        )
+                );
+                billAction.checkResponseSuccess(response, true);
+                billAction.validateResponsePayload(response, Bill.class, false);
+
+                    Bill bill = (Bill) utils.toEntity(response, Bill.class);
+
+                        Payments payments = new Payments();
+                        payments.add(new Payment(data.tenderID, bill.ttlDue));
+
+                            response = billAction.paymentBill(bill, payments);
+                            billAction.checkResponseSuccess(response, true);
+                            billAction.validateResponsePayload(response, Bill.class, false);
+
+                            bill = (Bill) utils.toEntity(response, Bill.class);
+                            billAction.isClosed(bill, true);
+
+                                response = bookingAction.deleteBooking(booking.id, new BookingComment("delete"));
+                                bookingAction.checkResponseSuccess(response, true);
+                                bookingAction.checkResponsePayloadIsEmpty(response);
+    }
+
+
+    @Test
+    public void createPartialPayAndCancelBooking() throws IOException {
+        APIResponse response = bookingAction.createBooking(
+                data.outletID,
+                null,
+                data.offerID,
+                utils.generateDate("dd.MM.yyyy HH:mm", 0),
+                null,
+                true
+        );
+        bookingAction.checkResponseSuccess(response, true);
+        bookingAction.validateResponsePayload(response, Booking.class, false);
+
+            Booking booking = (Booking) utils.toEntity(response, Booking.class);
+
+                response = billAction.createBill(
+                        data.outletID,
+                        itemsAction.addItem(
+                                null,
+                                1,
+                                booking.id,
+                                "booking partial payment (API test)"
+                        )
+                );
+                billAction.checkResponseSuccess(response, true);
+                billAction.validateResponsePayload(response, Bill.class, false);
+
+                    Bill bill = (Bill) utils.toEntity(response, Bill.class);
+
+                        Payments payments = new Payments();
+                        payments.add(new Payment(data.tenderID, bill.total - 1.0));
+                        payments.add(new Payment(data.depositTenderID, 1.0));
+
+                            response = billAction.paymentBill(bill, payments);
+                            billAction.checkResponseSuccess(response, true);
+                            billAction.validateResponsePayload(response, Bill.class, false);
+
+                            bill = (Bill) utils.toEntity(response, Bill.class);
+                            billAction.isClosed(bill, true);
+
+                                response = bookingAction.deleteBooking(booking.id, new BookingComment("delete"));
+                                bookingAction.checkResponseSuccess(response, true);
+                                bookingAction.checkResponsePayloadIsEmpty(response);
+    }
+
+
 
 
 
@@ -294,4 +435,6 @@ public class BookingTest extends BaseTest {
 
 
     @Autowired private BookingAction bookingAction;
+    @Autowired private BillAction billAction;
+    @Autowired private ItemsAction itemsAction;
 }
