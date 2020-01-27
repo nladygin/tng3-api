@@ -12,7 +12,7 @@ public class ItemsAction extends ArrayList<Item> {
 
 
 
-    public ItemsAction addItem(int offerId, int count, Integer bookingId, String reference){
+    public ItemsAction addItem(Integer offerId, int count, Integer bookingId, String reference){
             add(new Item(offerId, count, bookingId, reference));
         return this;
     }
