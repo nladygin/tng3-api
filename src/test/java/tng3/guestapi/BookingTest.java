@@ -32,6 +32,14 @@ public class BookingTest extends BaseTest {
 
 
     @Test
+    public void getUpcomingBookings() {
+        APIResponse response = bookingAction.getBookings(utils.generateDate("ddMMyyyy", 0), null);
+        bookingAction.checkResponseSuccess(response, true);
+        bookingAction.validateResponsePayload(response, Booking.class, true);
+    }
+
+
+    @Test
     public void getTodayBookings() {
         APIResponse response = bookingAction.getBookings(
                 utils.generateDate("ddMMyyyy", 0),
