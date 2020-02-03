@@ -14,10 +14,16 @@ public class ClassAction extends Action {
 
 
 
-    public APIResponse getClasses(Integer outletID, Integer offset, Integer count) {
+    public APIResponse getClasses(Integer outletID, String from, String till, Integer offset, Integer count) {
         HashMap<String, String> additional = new HashMap<>();
         if (outletID != null) {
             additional.put("outlet_id", String.valueOf(outletID));
+        }
+        if (from != null) {
+            additional.put("from", from);
+        }
+        if (till != null) {
+            additional.put("till", till);
         }
         if (offset != null) {
             additional.put("offset", String.valueOf(offset));
@@ -33,8 +39,19 @@ public class ClassAction extends Action {
 
 
     public APIResponse getClasses(Integer outletID) {
-        return getClasses(outletID, null, null);
+        return getClasses(outletID, null, null,null, null);
     }
+
+
+    public APIResponse getClasses(Integer outletID, String from, String till) {
+        return getClasses(outletID, from, till,null, null);
+    }
+
+
+    public APIResponse getClasses(Integer outletID, Integer offset, Integer count) {
+        return getClasses(outletID, null, null,offset, count);
+    }
+
 
 
     public APIResponse subscribeClass(Integer classID, boolean verbose){

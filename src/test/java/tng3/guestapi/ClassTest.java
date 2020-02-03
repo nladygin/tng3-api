@@ -28,6 +28,18 @@ public class ClassTest extends BaseTest {
 
 
     @Test
+    public void getClassesFromTill() {
+        APIResponse response = classAction.getClasses(
+                data.outletID,
+                utils.generateDate("dd.MM.yyyy", 0),
+                utils.generateDate("dd.MM.yyyy", 30)
+        );
+        classAction.checkResponseSuccess(response, true);
+        classAction.validateResponsePayload(response, Class.class, true);
+    }
+
+
+    @Test
     public void getClassesWithOffsetAndCount() {
         APIResponse response = classAction.getClasses(data.outletID, 100, 10);
         classAction.checkResponseSuccess(response, true);
