@@ -12,7 +12,7 @@ node {
 
     stage('Auth') {
         bat "curl -H \"Content-Type: application/json\" -d \"{\\\"username\\\":\\\"autotest@test.test\\\",\\\"password\\\":\\\"123\\\"}\" -X POST \"http://127.0.0.1:8080/api/signin?app_id=3d269aeb594d\" > ${workspace}/src/test/resources/guestapi-auth.json"
-        bat "curl -H \"Content-Type: application/json\" -X POST \"http://127.0.0.1:8080/staffapi/signin?app_id=a0ff9b2ca0c4&magstripe=123456\" > ${workspace}/src/test/resources/staffapi-auth.json"
+        bat "curl -H \"Content-Type: application/json\" -X POST \"http://127.0.0.1:8080/staffapi/signin?app_id=a0ff9b2ca0c4&magstripe=654321\" > ${workspace}/src/test/resources/staffapi-auth.json"
     }
     
     stage('Test') {
