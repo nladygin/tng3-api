@@ -29,6 +29,30 @@ public class TicketTest extends BaseTest {
 
 
     @Test
+    public void getActiveTickets() {
+        APIResponse response = ticketAction.getTickets(true, null, null);
+        ticketAction.checkResponseSuccess(response, true);
+        ticketAction.validateResponsePayload(response, Ticket.class, true);
+    }
+
+
+    @Test
+    public void getTicketsByWrongDocId() {
+        APIResponse response = ticketAction.getTickets(null, 666L, null);
+        ticketAction.checkResponseSuccess(response, true);
+        ticketAction.checkResponsePayloadIsEmptyList(response);
+    }
+
+
+    @Test
+    public void getFreshTickets() {
+        APIResponse response = ticketAction.getTickets(null, null, utils.generateDate("dd.MM.YYYY", -1));
+        ticketAction.checkResponseSuccess(response, true);
+        ticketAction.validateResponsePayload(response, Ticket.class, true);
+    }
+
+
+    @Test
     public void replaceTicketMediaAuthorized() {
         APIResponse response = ticketAction.getTickets();
         ticketAction.checkResponseSuccess(response, true);
