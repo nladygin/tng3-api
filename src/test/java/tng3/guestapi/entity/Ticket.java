@@ -13,6 +13,7 @@ public class Ticket implements Entity {
     public long docId;
     public long outletId;
     public long offerId;
+    public long minutesLeft;
     public long purchaseDate;
     public long activateDate;
     public long releaseDate;
