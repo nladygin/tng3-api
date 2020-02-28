@@ -34,7 +34,7 @@ public class RequestHelper {
     }
 
 
-    private String makeURL(String endpoint, HashMap<String, String> additional){
+    private String makeURL(String endpoint, HashMap<String, String> additional, Boolean withSession){
         String additionalString = "";
         if (additional != null) {
             for (String key : additional.keySet()) {
@@ -48,16 +48,19 @@ public class RequestHelper {
         return appConfig.serverURL
                 + endpoint
                 + "?app_id=" + appId
-                + ((sessionId != null) ? "&session_id=" + sessionId: "")
+                + (withSession ? ((sessionId != null) ? "&session_id=" + sessionId: "") : "")
                 + "&lang=" + appConfig.lang
                 + additionalString;
     }
 
 
 
-
     public APIResponse go(String endpoint, Method method, Entity body, HashMap<String, String> additional){
-        String url = makeURL(endpoint, additional);
+        return go(endpoint, method, body, additional, true);
+    }
+
+    public APIResponse go(String endpoint, Method method, Entity body, HashMap<String, String> additional, Boolean withSession){
+        String url = makeURL(endpoint, additional, withSession);
         LogManager.getLogger().info(method + " " + url);
 
         String b = (body != null) ? body.asJsonString() : "";
