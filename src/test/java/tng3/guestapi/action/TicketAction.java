@@ -19,10 +19,15 @@ public class TicketAction extends Action {
     }
 
 
-    public APIResponse replaceTicketMedia(String originalCode, String newCode, String emplMagstripe) {
+    public APIResponse replaceTicketMediaNonAuthorized(String originalCode, String newCode, String emplMagstripe) {
         HashMap<String, String> additional = new HashMap<>();
             additional.put("empl", emplMagstripe);
-        return requestHelper.go(endpoint + "/replace/" + originalCode + "/" + newCode, Method.POST, null, additional);
+        return requestHelper.go(endpoint + "/replace/" + originalCode + "/" + newCode, Method.POST, null, additional, false);
+    }
+
+
+    public APIResponse replaceTicketMediaAuthorized(String originalCode, String newCode) {
+        return requestHelper.go(endpoint + "/replace/" + originalCode + "/" + newCode, Method.POST, null, null, true);
     }
 
 

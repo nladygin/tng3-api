@@ -29,32 +29,47 @@ public class TicketTest extends BaseTest {
 
 
     @Test
-    public void replaceTicketMedia() {
+    public void replaceTicketMediaAuthorized() {
         APIResponse response = ticketAction.getTickets();
         ticketAction.checkResponseSuccess(response, true);
         ticketAction.validateResponsePayload(response, Ticket.class, true);
 
             String code = (String) ((LinkedHashMap) ((ArrayList) response.getPayload()).get(0)).get("number");
 
-                response = ticketAction.replaceTicketMedia(
+                response = ticketAction.replaceTicketMediaAuthorized(
+                        code,
+                        String.valueOf(utils.generateDigits(8))
+                );
+                ticketAction.checkResponseSuccess(response, true);
+    }
+
+
+    @Test
+    public void replaceTicketMediaNonAuthorized() {
+        APIResponse response = ticketAction.getTickets();
+        ticketAction.checkResponseSuccess(response, true);
+        ticketAction.validateResponsePayload(response, Ticket.class, true);
+
+            String code = (String) ((LinkedHashMap) ((ArrayList) response.getPayload()).get(0)).get("number");
+
+                response = ticketAction.replaceTicketMediaNonAuthorized(
                         code,
                         String.valueOf(utils.generateDigits(8)),
                         data.emplMagstripe
                 );
                 ticketAction.checkResponseSuccess(response, true);
-                ticketAction.checkResponsePayloadIsEmpty(response);
     }
 
 
     @Test
-    public void replaceTicketMediaWithWrongEmployee() {
+    public void replaceTicketMediaNonAuthorizedWithWrongEmployee() {
         APIResponse response = ticketAction.getTickets();
             ticketAction.checkResponseSuccess(response, true);
             ticketAction.validateResponsePayload(response, Ticket.class, true);
 
                 String code = (String) ((LinkedHashMap) ((ArrayList) response.getPayload()).get(0)).get("number");
 
-                    response = ticketAction.replaceTicketMedia(
+                    response = ticketAction.replaceTicketMediaNonAuthorized(
                             code,
                             String.valueOf(utils.generateDigits(8)),
                             "666"
@@ -66,11 +81,36 @@ public class TicketTest extends BaseTest {
 
 
     @Test
-    public void replaceNonexistentTicketMedia() {
-        APIResponse response = ticketAction.replaceTicketMedia(
+    public void replaceNonexistentTicketMediaAuthorized() {
+        APIResponse response = ticketAction.replaceTicketMediaAuthorized(
+                "666",
+                String.valueOf(utils.generateDigits(8))
+        );
+        ticketAction.checkResponseSuccess(response, false);
+        ticketAction.checkResponseErrorCode(response, 10);
+        ticketAction.checkResponsePayloadIsEmpty(response);
+    }
+
+
+    @Test
+    public void replaceNonexistentTicketMediaNonAuthorized() {
+        APIResponse response = ticketAction.replaceTicketMediaNonAuthorized(
                 "666",
                 String.valueOf(utils.generateDigits(8)),
                 data.emplMagstripe
+        );
+        ticketAction.checkResponseSuccess(response, false);
+        ticketAction.checkResponseErrorCode(response, 10);
+        ticketAction.checkResponsePayloadIsEmpty(response);
+    }
+
+
+    @Test
+    public void replaceNonexistentTicketMediaNonAuthorizedWithWrongEmployee() {
+        APIResponse response = ticketAction.replaceTicketMediaNonAuthorized(
+                "666",
+                String.valueOf(utils.generateDigits(8)),
+                "666"
         );
         ticketAction.checkResponseSuccess(response, false);
         ticketAction.checkResponseErrorCode(response, 10);
