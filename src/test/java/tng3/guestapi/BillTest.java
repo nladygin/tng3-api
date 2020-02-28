@@ -59,7 +59,6 @@ public class BillTest extends BaseTest {
                 itemsAction.addItem(
                         data.offerID,
                         1,
-                        null,
                         "item for sale (API test)"
                 )
         );
@@ -75,7 +74,6 @@ public class BillTest extends BaseTest {
                 itemsAction.addItem(
                         data.offerID,
                         1,
-                        null,
                         "item for sale (API test)"
                 )
         );
@@ -89,7 +87,6 @@ public class BillTest extends BaseTest {
                     itemsAction.addItem(
                             data.offerID,
                             2,
-                            null,
                             "item for adding"
                     )
             );
@@ -135,7 +132,6 @@ public class BillTest extends BaseTest {
                 itemsAction.addItem(
                         data.offerID,
                         1,
-                        null,
                         "item for sale (API test)"
                 )
         );
@@ -161,7 +157,6 @@ public class BillTest extends BaseTest {
                 itemsAction.addItem(
                         data.offerID,
                         1,
-                        null,
                         "item for sale (API test)"
                 )
         );
@@ -188,7 +183,6 @@ public class BillTest extends BaseTest {
                 itemsAction.addItem(
                         data.offerID,
                         1,
-                        null,
                         "item for sale (API test)"
                 )
         );
@@ -217,7 +211,6 @@ public class BillTest extends BaseTest {
                 itemsAction.addItem(
                         data.offerID,
                         1,
-                        null,
                         "item for sale (API test)"
                 )
         );
@@ -263,7 +256,6 @@ public class BillTest extends BaseTest {
                 itemsAction.addItem(
                         data.offerID,
                         1,
-                        null,
                         "item for sale (API test)"
                 )
         );
@@ -290,7 +282,6 @@ public class BillTest extends BaseTest {
                 itemsAction.addItem(
                         data.offerID,
                         1,
-                        null,
                         "item for sale (API test)"
                 )
         );
@@ -316,7 +307,6 @@ public class BillTest extends BaseTest {
                 itemsAction.addItem(
                         data.offerID,
                         1,
-                        null,
                         "item for sale (API test)"
                 )
         );
@@ -350,7 +340,6 @@ public class BillTest extends BaseTest {
                 itemsAction.addItem(
                         data.offerID,
                         1,
-                        null,
                         "item for sale (API test)"
                 )
         );
@@ -384,7 +373,6 @@ public class BillTest extends BaseTest {
                 itemsAction.addItem(
                         data.offerID,
                         1,
-                        null,
                         "item for sale (API test)"
                 )
         );
@@ -408,6 +396,33 @@ public class BillTest extends BaseTest {
                     billAction.checkResponseSuccess(response, true);
                     billAction.validateResponsePayload(response, Bill.class, false);
                     billAction.isClosed(bill, false);
+    }
+
+
+    @Test
+    public void sellTicket() throws IOException {
+        APIResponse response = billAction.createBill(
+                data.outletID,
+                itemsAction.addItem(
+                        data.offerTicketID,
+                        1,
+                        String.valueOf(utils.generateDigits(8)),
+                        "ticket for sale (API test)"
+                )
+        );
+        billAction.checkResponseSuccess(response, true);
+        billAction.validateResponsePayload(response, Bill.class, false);
+
+            Bill bill = (Bill) utils.toEntity(response, Bill.class);
+
+                Payments payments = new Payments();
+                payments.add(new Payment(data.tenderID, bill.ttlDue));
+
+                    response = billAction.paymentBill(bill, payments);
+                        bill = (Bill) utils.toEntity(response, Bill.class);
+                            billAction.checkResponseSuccess(response, true);
+                            billAction.validateResponsePayload(response, Bill.class, false);
+                            billAction.isClosed(bill, true);
     }
 
 

@@ -32,6 +32,7 @@ public class Data {
     @Value("${class_id}")                       public int classID;
     @Value("${cancelled_class_id}")             public int cancelledClassID;
     @Value("${voucher_num}")                    public String voucherNum;
+    @Value("${offer_ticket_id}")                public int offerTicketID;
 
     @Value("${tender_id}")                      public int tenderID;
     @Value("${tender_name}")                    public String tenderName;

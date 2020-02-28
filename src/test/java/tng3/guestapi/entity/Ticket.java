@@ -5,8 +5,16 @@ import tng3.base.Entity;
 
 public class Ticket implements Entity {
 
+    public long ticketId;
     public String number;
-    public int card;
-    public String name;
+    public String description;
+    public String status;
+    public long profileId;
+    public long docId;
+    public long outletId;
+    public long offerId;
+    public long purchaseDate;
+    public long activateDate;
+    public long releaseDate;
 
 }
