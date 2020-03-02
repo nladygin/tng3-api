@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tng3.base.APIResponse;
 import tng3.guestapi.action.AccountAction;
+import tng3.guestapi.action.BillAction;
 import tng3.guestapi.action.TicketAction;
 import tng3.guestapi.entity.Accounts;
 import tng3.guestapi.entity.Ticket;
@@ -30,7 +31,7 @@ public class TicketTest extends BaseTest {
 
     @Test
     public void getActiveTickets() {
-        APIResponse response = ticketAction.getTickets(true, null, null);
+        APIResponse response = ticketAction.getTickets(true, null, null, null, null, null);
         ticketAction.checkResponseSuccess(response, true);
         ticketAction.validateResponsePayload(response, Ticket.class, true);
     }
@@ -38,7 +39,7 @@ public class TicketTest extends BaseTest {
 
     @Test
     public void getTicketsByWrongDocId() {
-        APIResponse response = ticketAction.getTickets(null, 666L, null);
+        APIResponse response = ticketAction.getTickets(null, 666L, null, null, null, null);
         ticketAction.checkResponseSuccess(response, true);
         ticketAction.checkResponsePayloadIsEmptyList(response);
     }
@@ -46,7 +47,53 @@ public class TicketTest extends BaseTest {
 
     @Test
     public void getFreshTickets() {
-        APIResponse response = ticketAction.getTickets(null, null, utils.generateDate("dd.MM.YYYY", -1));
+        APIResponse response = ticketAction.getTickets(null, null, utils.generateDate("dd.MM.YYYY", -1), null, null, null);
+        ticketAction.checkResponseSuccess(response, true);
+        ticketAction.validateResponsePayload(response, Ticket.class, true);
+    }
+
+
+    @Test
+    public void getTicketByNumber() {
+        APIResponse response = ticketAction.getTickets();
+        ticketAction.checkResponseSuccess(response, true);
+        ticketAction.validateResponsePayload(response, Ticket.class, true);
+
+            String code = (String) ((LinkedHashMap) ((ArrayList) response.getPayload()).get(0)).get("number");
+
+            response = ticketAction.getTickets(null, null, null, code, null, null);
+            ticketAction.checkResponseSuccess(response, true);
+            ticketAction.validateResponsePayload(response, Ticket.class, true);
+    }
+
+
+    @Test
+    public void getTicketWithOrderByNumber() {
+        APIResponse response = ticketAction.getTickets(null, null, null, null, "number", true);
+        ticketAction.checkResponseSuccess(response, true);
+        ticketAction.validateResponsePayload(response, Ticket.class, true);
+    }
+
+
+    @Test
+    public void getTicketWithOrderByPurchaseDate() {
+        APIResponse response = ticketAction.getTickets(null, null, null, null, "purchaseDate", true);
+        ticketAction.checkResponseSuccess(response, true);
+        ticketAction.validateResponsePayload(response, Ticket.class, true);
+    }
+
+
+    @Test
+    public void getTicketWithOrderByReleaseDate() {
+        APIResponse response = ticketAction.getTickets(null, null, null, null, "releaseDate", true);
+        ticketAction.checkResponseSuccess(response, true);
+        ticketAction.validateResponsePayload(response, Ticket.class, true);
+    }
+
+
+    @Test
+    public void getTicketWithOrderByTicketId() {
+        APIResponse response = ticketAction.getTickets(null, null, null, null, "ticketId", true);
         ticketAction.checkResponseSuccess(response, true);
         ticketAction.validateResponsePayload(response, Ticket.class, true);
     }
@@ -139,6 +186,35 @@ public class TicketTest extends BaseTest {
         ticketAction.checkResponseSuccess(response, false);
         ticketAction.checkResponseErrorCode(response, 10);
         ticketAction.checkResponsePayloadIsEmpty(response);
+    }
+
+
+    @Test
+    public void assignTicketNumberByTicketId() {
+        APIResponse response = ticketAction.getTickets();
+        ticketAction.checkResponseSuccess(response, true);
+        ticketAction.validateResponsePayload(response, Ticket.class, true);
+
+            String code = utils.generateDate("YYYYMMddHHmmss", 0);
+            int id = (int) ((LinkedHashMap) ((ArrayList) response.getPayload()).get(0)).get("ticketId");
+
+                response = ticketAction.assignTicketNumberByTicketId(id, code);
+                ticketAction.checkResponseSuccess(response, true);
+    }
+
+
+    @Test
+    public void assignTicketNumberByWrongTicketId() {
+        APIResponse response = ticketAction.getTickets();
+        ticketAction.checkResponseSuccess(response, true);
+        ticketAction.validateResponsePayload(response, Ticket.class, true);
+
+            String code = utils.generateDate("YYYYMMddHHmmss", 0);
+
+                response = ticketAction.assignTicketNumberByTicketId(666, code);
+                ticketAction.checkResponseSuccess(response, false);
+                ticketAction.checkResponseErrorCode(response, 10);
+                ticketAction.checkResponsePayloadIsEmpty(response);
     }
 
 

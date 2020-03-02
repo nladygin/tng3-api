@@ -15,11 +15,11 @@ public class TicketAction extends Action {
 
 
     public APIResponse getTickets() {
-        return getTickets(null, null, null);
+        return getTickets(null, null, null, null, null, null);
     }
 
 
-    public APIResponse getTickets(Boolean onlyActive, Long docId, String releasedAfter) {
+    public APIResponse getTickets(Boolean onlyActive, Long docId, String releasedAfter, String ticketNum, String orderBy, Boolean orderAsc) {
         HashMap<String, String> additional = new HashMap<>();
             if (onlyActive != null) {
                 additional.put("only_active", onlyActive ? "true" : "false");
@@ -29,6 +29,15 @@ public class TicketAction extends Action {
             }
             if (releasedAfter != null) {
                 additional.put("released_after", releasedAfter);
+            }
+            if (ticketNum != null) {
+                additional.put("ticket_num", ticketNum);
+            }
+            if (orderBy != null) {
+                additional.put("order_by", orderBy);
+            }
+            if (orderAsc != null) {
+                additional.put("order_asc", orderAsc ? "true":"false");
             }
         return requestHelper.go(endpoint, Method.GET, null, additional);
     }
@@ -45,6 +54,12 @@ public class TicketAction extends Action {
         return requestHelper.go(endpoint + "/replace/" + originalCode + "/" + newCode, Method.POST, null, null, true);
     }
 
+
+    public APIResponse assignTicketNumberByTicketId(Integer ticketId, String ticketNum) {
+        HashMap<String, String> additional = new HashMap<>();
+            additional.put("ticket_num", ticketNum);
+        return requestHelper.go(endpoint + "/" + ticketId, Method.POST, null, additional);
+    }
 
 
 }
