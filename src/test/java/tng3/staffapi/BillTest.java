@@ -24,17 +24,43 @@ public class BillTest extends BaseTest {
 
     @Test
     public void getBills() {
-        APIResponse response = billAction.getBills(null);
+        APIResponse response = billAction.createBill(
+                data.outletID,
+                data.cardID,
+                itemsAction.addItem(
+                        data.offerID,
+                        1,
+                        null,
+                        "item for sale (staff API test)"
+                )
+        );
         billAction.checkResponseSuccess(response, true);
-        billAction.validateResponsePayload(response, Bill.class, true);
+        billAction.validateResponsePayload(response, Bill.class, false);
+
+            response = billAction.getBills(null);
+            billAction.checkResponseSuccess(response, true);
+            billAction.validateResponsePayload(response, Bill.class, true);
     }
 
 
     @Test
     public void getBillsForProfile() {
-        APIResponse response = billAction.getBills(null, data.cardID);
+        APIResponse response = billAction.createBill(
+                data.outletID,
+                data.cardID,
+                itemsAction.addItem(
+                        data.offerID,
+                        1,
+                        null,
+                        "item for sale (staff API test)"
+                )
+        );
         billAction.checkResponseSuccess(response, true);
-        billAction.validateResponsePayload(response, Bill.class, true);
+        billAction.validateResponsePayload(response, Bill.class, false);
+
+            response = billAction.getBills(null, data.cardID);
+            billAction.checkResponseSuccess(response, true);
+            billAction.validateResponsePayload(response, Bill.class, true);
     }
 
 
@@ -476,7 +502,6 @@ public class BillTest extends BaseTest {
     }
 
 
-    @Ignore
     @Test
     public void paymentAllBills() throws IOException {
         APIResponse response = billAction.getBills(null);
