@@ -22,9 +22,13 @@ public class BillTest extends BaseTest {
 
     @Test
     public void getBills() {
-        APIResponse response = billAction.getBills(null);
+        APIResponse response = billAction.createBill(data.outletID, null);
         billAction.checkResponseSuccess(response, true);
-        billAction.validateResponsePayload(response, Bill.class, true);
+        billAction.validateResponsePayload(response, Bill.class, false);
+
+            response = billAction.getBills(null);
+            billAction.checkResponseSuccess(response, true);
+            billAction.validateResponsePayload(response, Bill.class, true);
     }
 
 
@@ -226,7 +230,6 @@ public class BillTest extends BaseTest {
     }
 
 
-    @Ignore
     @Test
     public void paymentAllBills() throws IOException {
         APIResponse response = billAction.getBills(null);
