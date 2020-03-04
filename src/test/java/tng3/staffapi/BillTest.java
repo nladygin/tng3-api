@@ -1,6 +1,5 @@
 package tng3.staffapi;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import tng3.common.action.ItemsAction;
 import tng3.common.entity.*;
 import tng3.staffapi.action.BillAction;
 import tng3.staffapi.action.BookingAction;
-
 
 import java.io.IOException;
 import java.util.ArrayList;
