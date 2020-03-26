@@ -225,7 +225,9 @@ public class BillTest extends BaseTest {
                             2,
                             null,
                             "item for adding"
-                    )
+                    ),
+                    null,
+                    null
             );
 
             billAction.checkResponseSuccess(response, true);
@@ -684,8 +686,150 @@ public class BillTest extends BaseTest {
     }
 
 
+    @Test
+    public void createBillWithVoucher() throws IOException {
+        APIResponse response = billAction.createBill(
+                data.outletID,
+                data.cardID,
+                itemsAction.addItem(
+                        data.offerID,
+                        1,
+                        null,
+                        "item for sale (staff API test)"
+                )
+        );
+        billAction.checkResponseSuccess(response, true);
+        billAction.validateResponsePayload(response, Bill.class, false);
+
+            Bill bill = (Bill) utils.toEntity(response, Bill.class);
+
+                response = billAction.appendItem(
+                        bill,
+                        itemsAction.addItem(
+                                data.offerID,
+                                2,
+                                null,
+                                "item for adding"
+                        ),
+                        data.voucherNum,
+                        null
+                );
+
+        billAction.checkResponseSuccess(response, true);
+        billAction.validateResponsePayload(response, Bill.class, false);
+    }
 
 
+    @Test
+    public void createBillWithWrongVoucher() throws IOException {
+        APIResponse response = billAction.createBill(
+                data.outletID,
+                data.cardID,
+                itemsAction.addItem(
+                        data.offerID,
+                        1,
+                        null,
+                        "item for sale (staff API test)"
+                )
+        );
+        billAction.checkResponseSuccess(response, true);
+        billAction.validateResponsePayload(response, Bill.class, false);
+
+            Bill bill = (Bill) utils.toEntity(response, Bill.class);
+
+                response = billAction.appendItem(
+                        bill,
+                        itemsAction.addItem(
+                                data.offerID,
+                                2,
+                                null,
+                                "item for adding"
+                        ),
+                        "WrongVoucherCode",
+                        null
+                );
+
+        billAction.checkResponseSuccess(response, true);
+        billAction.validateResponsePayload(response, Bill.class, false);
+    }
+
+
+    @Test
+    public void createBillWithBookingRef() throws IOException {
+        APIResponse response = billAction.createBill(
+                data.outletID,
+                data.cardID,
+                itemsAction.addItem(
+                        data.offerID,
+                        1,
+                        null,
+                        "item for sale (staff API test)"
+                )
+        );
+        billAction.checkResponseSuccess(response, true);
+        billAction.validateResponsePayload(response, Bill.class, false);
+
+            Bill bill = (Bill) utils.toEntity(response, Bill.class);
+
+                response = bookingAction.createBooking(
+                    data.offerID,
+                    data.cardID,
+                    data.outletID,
+                    utils.generateDate("dd.MM.yyyy HH:mm", 1)
+                );
+                bookingAction.checkResponseSuccess(response, true);
+
+            Integer bookingId = (Integer) response.getPayload();
+
+                response = billAction.appendItem(
+                                bill,
+                                itemsAction.addItem(
+                                        data.offerID,
+                                        2,
+                                        null,
+                                        "item for adding"
+                                ),
+                                null,
+                                bookingId
+                        );
+
+                billAction.checkResponseSuccess(response, true);
+                billAction.validateResponsePayload(response, Bill.class, false);
+    }
+
+
+    @Test
+    public void createBillWithWrongBookingRef() throws IOException {
+        APIResponse response = billAction.createBill(
+                data.outletID,
+                data.cardID,
+                itemsAction.addItem(
+                        data.offerID,
+                        1,
+                        null,
+                        "item for sale (staff API test)"
+                )
+        );
+        billAction.checkResponseSuccess(response, true);
+        billAction.validateResponsePayload(response, Bill.class, false);
+
+        Bill bill = (Bill) utils.toEntity(response, Bill.class);
+
+        response = billAction.appendItem(
+                bill,
+                itemsAction.addItem(
+                        data.offerID,
+                        2,
+                        null,
+                        "item for adding"
+                ),
+                null,
+                666
+        );
+
+        billAction.checkResponseSuccess(response, false);
+        billAction.checkResponseErrorCode(response, 999);
+    }
 
 
 

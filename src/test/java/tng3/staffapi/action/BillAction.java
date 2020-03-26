@@ -53,8 +53,16 @@ public class BillAction extends Action {
     }
 
 
-    public APIResponse appendItem(Bill bill, ArrayList<Item> items) {
-        return requestHelper.go(endpoint + "/" + bill.id + "/items", Method.POST, new Items(items), null);
+    public APIResponse appendItem(Bill bill, ArrayList<Item> items, String voucher, Integer bookingId) {
+        HashMap<String, String> additional = new HashMap<>();
+        if (voucher != null) {
+            additional.put("coupon", voucher);
+        }
+        if (bookingId != null) {
+            additional.put("refbooking", String.valueOf(bookingId));
+        }
+        if (additional.isEmpty()) additional = null;
+        return requestHelper.go(endpoint + "/" + bill.id + "/items", Method.POST, new Items(items), additional);
     }
 
 
