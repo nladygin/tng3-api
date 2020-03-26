@@ -17,22 +17,17 @@ public class OfferAction extends Action {
 
 
     public APIResponse getOffers(String cardId, Boolean upsell, String barcode) {
-        HashMap<String, String> additional = null;
+        HashMap<String, String> additional = new HashMap<>();
         if (cardId != null) {
-             additional = new HashMap<>();
-                additional.put("card_id", cardId);
+            additional.put("card_id", cardId);
         }
         if (upsell != null) {
-            additional = new HashMap<>();
             additional.put("upsell", "true");
         }
         if (barcode != null) {
-            additional = new HashMap<>();
             additional.put("barcode", barcode);
         }
-//        if (additional.isEmpty()) {
-//            additional = null;
-//        }
+        if (additional.isEmpty()) additional = null;
         return requestHelper.go(endpoint, Method.GET, null, additional);
     }
 
