@@ -84,9 +84,9 @@ public class BillAction extends Action {
     public void pass3DSecure(String link, String answer, String expectedStatus) {
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
-            driver.manage().timeouts().implicitlyWait(4L, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(13L, TimeUnit.SECONDS);
             driver.manage().timeouts().pageLoadTimeout(13L, TimeUnit.SECONDS);
-            driver.manage().timeouts().setScriptTimeout(4L, TimeUnit.SECONDS);
+            driver.manage().timeouts().setScriptTimeout(13L, TimeUnit.SECONDS);
 
             driver.get(link);
             driver.findElement(By.id("password")).sendKeys(answer);
