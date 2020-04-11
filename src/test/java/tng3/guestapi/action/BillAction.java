@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.stereotype.Component;
 import tng3.base.APIResponse;
 import tng3.base.Action;
@@ -83,7 +84,9 @@ public class BillAction extends Action {
 
     public void pass3DSecure(String link, String answer, String expectedStatus) {
         WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+            options.setHeadless(true);
+        WebDriver driver = new ChromeDriver(options);
             driver.manage().timeouts().implicitlyWait(30L, TimeUnit.SECONDS);
             driver.manage().timeouts().pageLoadTimeout(30L, TimeUnit.SECONDS);
             driver.manage().timeouts().setScriptTimeout(30L, TimeUnit.SECONDS);
