@@ -63,6 +63,7 @@ public class OfferTest extends BaseTest {
                 null,
                 null,
                 null,
+                null,
                 null
         );
         offerAction.checkResponseSuccess(response, true);
@@ -75,6 +76,7 @@ public class OfferTest extends BaseTest {
         APIResponse response = offerAction.getOfferAvailability(
                 data.offerID,
                 data.cardID,
+                null,
                 null,
                 null,
                 null,
@@ -93,6 +95,7 @@ public class OfferTest extends BaseTest {
                 utils.generateDate("ddMMyyy", 1),
                 null,
                 null,
+                null,
                 null
         );
         offerAction.checkResponseSuccess(response, true);
@@ -107,6 +110,7 @@ public class OfferTest extends BaseTest {
                 null,
                 utils.generateDate("ddMMyyy", 1),
                 utils.generateDate("ddMMyyy", 1),
+                null,
                 null,
                 null
         );
@@ -123,6 +127,7 @@ public class OfferTest extends BaseTest {
                 null,
                 null,
                 utils.generateDateMS(1),
+                null,
                 null
         );
         offerAction.checkResponseSuccess(response, true);
@@ -138,7 +143,24 @@ public class OfferTest extends BaseTest {
                 null,
                 null,
                 utils.generateDateMS(1),
-                utils.generateDateMS(1)
+                utils.generateDateMS(1),
+                null
+        );
+        offerAction.checkResponseSuccess(response, true);
+        offerAction.validateResponsePayload(response, Date.class, true);
+    }
+
+
+    @Test
+    public void getOfferAvailabilityWithAllResources(){
+        APIResponse response = offerAction.getOfferAvailability(
+                data.offerID,
+                null,
+                null,
+                null,
+                null,
+                null,
+                true
         );
         offerAction.checkResponseSuccess(response, true);
         offerAction.validateResponsePayload(response, Date.class, true);

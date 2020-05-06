@@ -47,7 +47,7 @@ public class OfferAction extends Action {
     }
 
 
-    public APIResponse getOfferAvailability(int offerId, Integer cardId, String from, String to, Long fromMs, Long toMs) {
+    public APIResponse getOfferAvailability(int offerId, Integer cardId, String from, String to, Long fromMs, Long toMs, Boolean all_resources) {
         HashMap<String, String> additional = new HashMap<>();
             if (cardId != null) {
                 additional.put("card_id", String.valueOf(cardId));
@@ -63,6 +63,9 @@ public class OfferAction extends Action {
             }
             if (toMs != null) {
                 additional.put("to_ms", String.valueOf(toMs));
+            }
+            if (all_resources != null) {
+                additional.put("all_resources", String.valueOf(all_resources));
             }
             if (additional.isEmpty()) {
                 additional = null;
