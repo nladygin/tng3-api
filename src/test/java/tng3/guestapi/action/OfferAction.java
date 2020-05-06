@@ -1,11 +1,19 @@
 package tng3.guestapi.action;
 
 import io.restassured.http.Method;
+import org.hamcrest.CoreMatchers;
 import org.springframework.stereotype.Component;
 import tng3.base.APIResponse;
 import tng3.base.Action;
+import tng3.guestapi.entity.TicketAvailability;
+import tng3.guestapi.entity.TimeSlotsDetails;
+import tng3.helper.Utils;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 
 @Component
 public class OfferAction extends Action {
@@ -46,6 +54,20 @@ public class OfferAction extends Action {
     }
 
 
+    public APIResponse getTicketAvailability(int outletID, int offset, int count, int ticketOfferID, String from, String to, Integer guestCount) {
+        HashMap<String, String> additional = new HashMap<>();
+        additional.put("outlet_id", String.valueOf(outletID));
+        additional.put("offset", String.valueOf(offset));
+        additional.put("count", String.valueOf(count));
+        additional.put("from", from);
+        additional.put("to", to);
+        if (guestCount != null) {
+            additional.put("guests", String.valueOf(guestCount));
+        }
+        return requestHelper.go(endpoint +"/" + ticketOfferID + "/availability", Method.GET, null, additional);
+    }
+
+
     public APIResponse getOfferCapacity(int outletID, int offset, int count, int offerID, String from, Long fromMS) {
         HashMap<String, String> additional = new HashMap<>();
             additional.put("outlet_id", String.valueOf(outletID));
@@ -62,5 +84,29 @@ public class OfferAction extends Action {
 
 
 
+
+
+    public void checkOnEmptyTimeSlotDetails(APIResponse response) {
+        Utils utils = new Utils();
+        TimeSlotsDetails tsd = null;
+        try {
+             tsd = (TimeSlotsDetails) utils.toEntity(response, TimeSlotsDetails.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assertThat(tsd.timeSlotDetails.size(), CoreMatchers.equalTo(0));
+    }
+
+
+    public void checkOnNotEmptyTimeSlotDetails(APIResponse response) {
+        Utils utils = new Utils();
+        TimeSlotsDetails tsd = null;
+        try {
+            tsd = (TimeSlotsDetails) utils.toEntity(response, TimeSlotsDetails.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assertThat(tsd.timeSlotDetails.size() > 0, CoreMatchers.equalTo(true));
+    }
 
 }

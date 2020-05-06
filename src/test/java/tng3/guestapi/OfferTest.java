@@ -8,6 +8,8 @@ import tng3.base.APIResponse;
 import tng3.common.entity.Therapist;
 import tng3.guestapi.action.OfferAction;
 import tng3.guestapi.entity.Offers;
+import tng3.guestapi.entity.TicketAvailability;
+import tng3.guestapi.entity.TimeSlotsDetails;
 
 import java.util.Date;
 
@@ -162,6 +164,57 @@ public class OfferTest extends BaseTest {
         offerAction.checkResponseSuccess(response, false);
         offerAction.checkResponsePayloadIsEmpty(response);
         offerAction.checkResponseErrorCode(response, 0);
+    }
+
+
+    @Test
+    public void getAvailabilityForTicket() {
+        APIResponse response = offerAction.getTicketAvailability(
+                data.outletID,
+                data.offset,
+                data.count,
+                data.offerTicketID,
+                utils.generateDate("ddMMYYYY", 0),
+                utils.generateDate("ddMMYYYY", 7),
+                null
+        );
+        offerAction.checkResponseSuccess(response, true);
+        offerAction.validateResponsePayload(response, TimeSlotsDetails.class, false);
+        offerAction.checkOnNotEmptyTimeSlotDetails(response);
+    }
+
+
+    @Test
+    public void getAvailabilityForTicketWithGuests() {
+        APIResponse response = offerAction.getTicketAvailability(
+                data.outletID,
+                data.offset,
+                data.count,
+                data.offerTicketID,
+                utils.generateDate("ddMMYYYY", 0),
+                utils.generateDate("ddMMYYYY", 7),
+                10
+        );
+        offerAction.checkResponseSuccess(response, true);
+        offerAction.validateResponsePayload(response, TimeSlotsDetails.class, false);
+        offerAction.checkOnNotEmptyTimeSlotDetails(response);
+    }
+
+
+    @Test
+    public void getAvailabilityForTicketWithHugeCrowd() {
+        APIResponse response = offerAction.getTicketAvailability(
+                data.outletID,
+                data.offset,
+                data.count,
+                data.offerTicketID,
+                utils.generateDate("ddMMYYYY", 0),
+                utils.generateDate("ddMMYYYY", 7),
+                1000
+        );
+        offerAction.checkResponseSuccess(response, true);
+        offerAction.validateResponsePayload(response, TimeSlotsDetails.class, false);
+        offerAction.checkOnEmptyTimeSlotDetails(response);
     }
 
 
