@@ -55,6 +55,12 @@ public class OfferAction extends Action {
 
 
     public APIResponse getTicketAvailability(int outletID, int offset, int count, int ticketOfferID, String from, String to, Integer guestCount) {
+        return getTicketAvailability(outletID, offset, count, ticketOfferID, from, to, guestCount, true);
+    }
+
+
+
+    public APIResponse getTicketAvailability(int outletID, int offset, int count, int ticketOfferID, String from, String to, Integer guestCount, Boolean session) {
         HashMap<String, String> additional = new HashMap<>();
         additional.put("outlet_id", String.valueOf(outletID));
         additional.put("offset", String.valueOf(offset));
@@ -64,7 +70,7 @@ public class OfferAction extends Action {
         if (guestCount != null) {
             additional.put("guests", String.valueOf(guestCount));
         }
-        return requestHelper.go(endpoint +"/" + ticketOfferID + "/availability", Method.GET, null, additional);
+        return requestHelper.go(endpoint +"/" + ticketOfferID + "/availability", Method.GET, null, additional, session);
     }
 
 

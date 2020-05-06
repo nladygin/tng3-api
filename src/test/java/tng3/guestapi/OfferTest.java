@@ -218,6 +218,23 @@ public class OfferTest extends BaseTest {
     }
 
 
+    @Test
+    public void getAvailabilityForTicketWithoutUserSession() {
+        APIResponse response = offerAction.getTicketAvailability(
+                data.outletID,
+                data.offset,
+                data.count,
+                data.offerTicketID,
+                utils.generateDate("ddMMYYYY", 0),
+                utils.generateDate("ddMMYYYY", 7),
+                null,
+                false
+        );
+        offerAction.checkResponseSuccess(response, true);
+        offerAction.validateResponsePayload(response, TimeSlotsDetails.class, false);
+        offerAction.checkOnNotEmptyTimeSlotDetails(response);
+    }
+
 
 
 
