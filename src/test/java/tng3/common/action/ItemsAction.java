@@ -22,6 +22,12 @@ public class ItemsAction extends ArrayList<Item> {
         return this;
     }
 
+    public ItemsAction addItem(Integer offerId, int count, String ticketNumber, Long activateOn, String reference){
+        add(new Item(offerId, count, ticketNumber, activateOn, reference));
+        return this;
+    }
+
+
     public ItemsAction addItem(Integer offerId, int count, int bookingId, String reference){
         add(new Item(offerId, count, bookingId, reference));
         return this;

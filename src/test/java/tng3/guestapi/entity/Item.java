@@ -15,6 +15,7 @@ public class Item implements Entity {
     public Double discount;
     public Integer bookingId;
     public String ticketNum;
+    public Long activateOn;
     public Integer id;
     public String reference;
 
@@ -32,6 +33,16 @@ public class Item implements Entity {
         this.ticketNum = ticketNum;
         this.reference = reference;
     }
+
+
+    public Item(Integer offerId, Integer count, String ticketNum, Long activateOn, String reference) {
+        this.offerId = offerId;
+        this.count = count;
+        this.ticketNum = ticketNum;
+        this.activateOn = activateOn;
+        this.reference = reference;
+    }
+
 
     public Item(Integer offerId, Integer count, Integer bookingId, String reference) {
         this.offerId = offerId;

@@ -18,6 +18,7 @@ import tng3.common.entity.Reason;
 import tng3.guestapi.entity.*;
 import tng3.helper.PurchaseType;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -107,6 +108,11 @@ public class BillAction extends Action {
             driver = null;
     }
 
+
+
+    public void checkTicketActivateOn(Bill bill, Long expectedActivateOn) {
+        assertThat(bill.items.get(0).activateOn, equalTo(expectedActivateOn));
+    }
 
 
 

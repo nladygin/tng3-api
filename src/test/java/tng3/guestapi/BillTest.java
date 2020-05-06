@@ -430,6 +430,37 @@ public class BillTest extends BaseTest {
     }
 
 
+    @Test
+    public void sellTicketWithActivationTime() throws IOException {
+        Long activateOn = utils.generateDateMS(1);
+        APIResponse response = billAction.createBill(
+                data.outletID,
+                itemsAction.addItem(
+                        data.offerTicketID,
+                        1,
+                        String.valueOf(utils.generateDigits(8)),
+                        activateOn,
+                        "ticket for sale (API test)"
+                )
+        );
+        billAction.checkResponseSuccess(response, true);
+        billAction.validateResponsePayload(response, Bill.class, false);
+
+            Bill bill = (Bill) utils.toEntity(response, Bill.class);
+
+            billAction.checkTicketActivateOn(bill, activateOn);
+
+                Payments payments = new Payments();
+                payments.add(new Payment(data.tenderID, bill.ttlDue));
+
+                response = billAction.paymentBill(bill, payments);
+                    bill = (Bill) utils.toEntity(response, Bill.class);
+                        billAction.checkResponseSuccess(response, true);
+                        billAction.validateResponsePayload(response, Bill.class, false);
+                        billAction.isClosed(bill, true);
+    }
+
+
 
 
 
