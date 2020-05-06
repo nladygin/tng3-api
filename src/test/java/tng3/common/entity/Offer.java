@@ -14,6 +14,7 @@ public class Offer implements Entity {
     public float price;
     public boolean pakkage;
     public String type;
+    public int primaryOutletId;
     public String image;
 
 }
