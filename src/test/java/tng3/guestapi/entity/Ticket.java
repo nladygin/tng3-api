@@ -17,5 +17,7 @@ public class Ticket implements Entity {
     public long purchaseDate;
     public long activateDate;
     public long releaseDate;
+    public long validFrom;
+    public long validTill;
 
 }
