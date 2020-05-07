@@ -31,6 +31,18 @@ public class OfferTest extends BaseTest {
 
 
     @Test
+    public void getOffersWithoutOutlet() {
+        APIResponse response = offerAction.getOffers(
+                null,
+                data.offset,
+                data.count
+        );
+        offerAction.checkResponseSuccess(response, true);
+        offerAction.validateResponsePayload(response, Offers.class, false);
+    }
+
+
+    @Test
     public void getTherapistForOffer() {
         APIResponse response = offerAction.getOfferTherapists(
                 data.outletID,
@@ -237,11 +249,10 @@ public class OfferTest extends BaseTest {
 
     @Test
     public void getTicketsByOutletAndDateRange() {
-        APIResponse response = offerAction.getTicketAvailabilityByOutletAndDateRange(
+        APIResponse response = offerAction.getTicketsByOutletAndDateRange(
                 data.outletID,
                 utils.generateDateMS(0),
                 utils.generateDateMS(1),
-                true,
                 10
         );
         offerAction.checkResponseSuccess(response, true);
@@ -252,11 +263,10 @@ public class OfferTest extends BaseTest {
 
     @Test
     public void getTicketsByOutletDateRangeAndHugeCrowd() {
-        APIResponse response = offerAction.getTicketAvailabilityByOutletAndDateRange(
+        APIResponse response = offerAction.getTicketsByOutletAndDateRange(
                 data.outletID,
                 utils.generateDateMS(0),
                 utils.generateDateMS(1),
-                true,
                 1000
         );
         offerAction.checkResponseSuccess(response, true);
@@ -265,7 +275,42 @@ public class OfferTest extends BaseTest {
     }
 
 
+    @Test
+    public void getTicketsByOutletAndDateRangeWithoutSession() {
+        APIResponse response = offerAction.getTicketsByOutletAndDateRange(
+                data.outletID,
+                utils.generateDateMS(0),
+                utils.generateDateMS(1),
+                10,
+                false
+        );
+        offerAction.checkResponseSuccess(response, true);
+        offerAction.validateResponsePayload(response, Offers.class, false);
+        offerAction.checkOnOffersNumber(response, 1);
+    }
 
+
+    @Test
+    public void getVouchers() {
+        APIResponse response = offerAction.getVouchers(
+                data.outletID
+        );
+        offerAction.checkResponseSuccess(response, true);
+        offerAction.validateResponsePayload(response, Offers.class, false);
+        offerAction.checkOnOffersNumber(response, 1);
+    }
+
+
+    @Test
+    public void getVouchersWithoutSession() {
+        APIResponse response = offerAction.getVouchers(
+                data.outletID,
+                false
+        );
+        offerAction.checkResponseSuccess(response, true);
+        offerAction.validateResponsePayload(response, Offers.class, false);
+        offerAction.checkOnOffersNumber(response, 1);
+    }
 
 
 

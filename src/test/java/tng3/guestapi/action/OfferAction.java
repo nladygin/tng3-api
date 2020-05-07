@@ -23,9 +23,11 @@ public class OfferAction extends Action {
 
 
 
-    public APIResponse getOffers(int outletID, int offset, int count) {
+    public APIResponse getOffers(Integer outletID, int offset, int count) {
         HashMap<String, String> additional = new HashMap<>();
-            additional.put("outlet_id", String.valueOf(outletID));
+            if (outletID != null) {
+                additional.put("outlet_id", String.valueOf(outletID));
+            }
             additional.put("offset", String.valueOf(offset));
             additional.put("count", String.valueOf(count));
         return requestHelper.go(endpoint, Method.GET, null, additional);
@@ -74,22 +76,38 @@ public class OfferAction extends Action {
     }
 
 
-    public APIResponse getTicketAvailabilityByOutletAndDateRange(int outletID, Long availableFromMs, Long availableToMs, Boolean ti, Integer guestCount) {
-        return getTicketAvailabilityByOutletAndDateRange(outletID, availableFromMs, availableToMs, ti, guestCount, true);
+    public APIResponse getTicketsByOutletAndDateRange(int outletID, Long availableFromMs, Long availableToMs, Integer guestCount) {
+        return getTicketsByOutletAndDateRange(outletID, availableFromMs, availableToMs, guestCount, true);
     }
 
 
-    public APIResponse getTicketAvailabilityByOutletAndDateRange(int outletID, Long availableFromMs, Long availableToMs, Boolean ti, Integer guestCount, Boolean session) {
+    public APIResponse getTicketsByOutletAndDateRange(int outletID, Long availableFromMs, Long availableToMs, Integer guestCount, Boolean session) {
         HashMap<String, String> additional = new HashMap<>();
         additional.put("outlet_id", String.valueOf(outletID));
         additional.put("available_from_ms", String.valueOf(availableFromMs));
         additional.put("available_to_ms", String.valueOf(availableToMs));
-        additional.put("ti", String.valueOf(ti));
+        additional.put("tr", String.valueOf(false));
+        additional.put("ti", String.valueOf(true));
         if (guestCount != null) {
             additional.put("guests", String.valueOf(guestCount));
         }
         return requestHelper.go(endpoint, Method.GET, null, additional, session);
     }
+
+
+    public APIResponse getVouchers(int outletID) {
+        return getVouchers(outletID, true);
+    }
+
+
+    public APIResponse getVouchers(int outletID, Boolean session) {
+        HashMap<String, String> additional = new HashMap<>();
+        additional.put("outlet_id", String.valueOf(outletID));
+        additional.put("tr", String.valueOf(false));
+        additional.put("vo", String.valueOf(true));
+        return requestHelper.go(endpoint, Method.GET, null, additional, session);
+    }
+
 
 
     public APIResponse getOfferCapacity(int outletID, int offset, int count, int offerID, String from, Long fromMS) {
