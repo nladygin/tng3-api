@@ -8,7 +8,6 @@ import tng3.base.APIResponse;
 import tng3.common.entity.Therapist;
 import tng3.guestapi.action.OfferAction;
 import tng3.guestapi.entity.Offers;
-import tng3.guestapi.entity.TicketAvailability;
 import tng3.guestapi.entity.TimeSlotsDetails;
 
 import java.util.Date;
@@ -234,6 +233,37 @@ public class OfferTest extends BaseTest {
         offerAction.validateResponsePayload(response, TimeSlotsDetails.class, false);
         offerAction.checkOnNotEmptyTimeSlotDetails(response);
     }
+
+
+    @Test
+    public void getTicketsByOutletAndDateRange() {
+        APIResponse response = offerAction.getTicketAvailabilityByOutletAndDateRange(
+                data.outletID,
+                utils.generateDateMS(0),
+                utils.generateDateMS(1),
+                true,
+                10
+        );
+        offerAction.checkResponseSuccess(response, true);
+        offerAction.validateResponsePayload(response, Offers.class, false);
+        offerAction.checkOnOffersNumber(response, 1);
+    }
+
+
+    @Test
+    public void getTicketsByOutletDateRangeAndHugeCrowd() {
+        APIResponse response = offerAction.getTicketAvailabilityByOutletAndDateRange(
+                data.outletID,
+                utils.generateDateMS(0),
+                utils.generateDateMS(1),
+                true,
+                1000
+        );
+        offerAction.checkResponseSuccess(response, true);
+        offerAction.validateResponsePayload(response, Offers.class, false);
+        offerAction.checkOnOffersNumber(response, 0);
+    }
+
 
 
 

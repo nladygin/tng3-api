@@ -5,6 +5,7 @@ import org.hamcrest.CoreMatchers;
 import org.springframework.stereotype.Component;
 import tng3.base.APIResponse;
 import tng3.base.Action;
+import tng3.guestapi.entity.Offers;
 import tng3.guestapi.entity.TicketAvailability;
 import tng3.guestapi.entity.TimeSlotsDetails;
 import tng3.helper.Utils;
@@ -59,7 +60,6 @@ public class OfferAction extends Action {
     }
 
 
-
     public APIResponse getTicketAvailability(int outletID, int offset, int count, int ticketOfferID, String from, String to, Integer guestCount, Boolean session) {
         HashMap<String, String> additional = new HashMap<>();
         additional.put("outlet_id", String.valueOf(outletID));
@@ -71,6 +71,24 @@ public class OfferAction extends Action {
             additional.put("guests", String.valueOf(guestCount));
         }
         return requestHelper.go(endpoint +"/" + ticketOfferID + "/availability", Method.GET, null, additional, session);
+    }
+
+
+    public APIResponse getTicketAvailabilityByOutletAndDateRange(int outletID, Long availableFromMs, Long availableToMs, Boolean ti, Integer guestCount) {
+        return getTicketAvailabilityByOutletAndDateRange(outletID, availableFromMs, availableToMs, ti, guestCount, true);
+    }
+
+
+    public APIResponse getTicketAvailabilityByOutletAndDateRange(int outletID, Long availableFromMs, Long availableToMs, Boolean ti, Integer guestCount, Boolean session) {
+        HashMap<String, String> additional = new HashMap<>();
+        additional.put("outlet_id", String.valueOf(outletID));
+        additional.put("available_from_ms", String.valueOf(availableFromMs));
+        additional.put("available_to_ms", String.valueOf(availableToMs));
+        additional.put("ti", String.valueOf(ti));
+        if (guestCount != null) {
+            additional.put("guests", String.valueOf(guestCount));
+        }
+        return requestHelper.go(endpoint, Method.GET, null, additional, session);
     }
 
 
@@ -113,6 +131,18 @@ public class OfferAction extends Action {
             e.printStackTrace();
         }
         assertThat(tsd.timeSlotDetails.size() > 0, CoreMatchers.equalTo(true));
+    }
+
+
+    public void checkOnOffersNumber(APIResponse response, int expectedCount) {
+        Utils utils = new Utils();
+        Offers offers = null;
+        try {
+            offers = (Offers) utils.toEntity(response, Offers.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assertThat(offers.offers.size(), CoreMatchers.equalTo(expectedCount));
     }
 
 }

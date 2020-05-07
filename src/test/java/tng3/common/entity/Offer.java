@@ -16,5 +16,6 @@ public class Offer implements Entity {
     public String type;
     public int primaryOutletId;
     public String image;
+    public String offerClass;
 
 }
