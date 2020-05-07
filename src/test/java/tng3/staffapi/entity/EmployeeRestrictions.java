@@ -5,6 +5,7 @@ import tng3.base.Entity;
 public class EmployeeRestrictions implements Entity {
 
     public Boolean apiBookingCompleteQr;
+    public Boolean apiCreateCustomerSessionKeys;
     public Boolean apiLogin;
     public Boolean apiBillingItemCancel;
     public Boolean apiGuestLookup;
