@@ -1,14 +1,11 @@
 package tng3.guestapi;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tng3.base.APIResponse;
-import tng3.guestapi.action.AccountAction;
 import tng3.guestapi.action.SignInAction;
-import tng3.guestapi.entity.Accounts;
 import tng3.guestapi.entity.Credentials;
 import tng3.guestapi.entity.Session;
 
@@ -71,10 +68,10 @@ public class SignInTest extends BaseTest {
         signInAction.checkResponseErrorCode(response, 3);
     }
 
-    @Ignore
+
     @Test
     public void signInByMagstripe() {
-        Credentials credentials = new Credentials(data.cardMagstripe, data.cardPassword);
+        Credentials credentials = new Credentials(data.cardMagstripe, null, data.cardPassword);
         APIResponse response = signInAction.signIn(credentials);
         signInAction.checkResponseSuccess(response, true);
         signInAction.validateResponsePayload(response, Session.class, false);
@@ -83,7 +80,7 @@ public class SignInTest extends BaseTest {
 
     @Test
     public void signInByWrongMagstripe() {
-        Credentials credentials = new Credentials("MS666666666", data.cardPassword);
+        Credentials credentials = new Credentials("MS666666666", null, data.cardPassword);
         APIResponse response = signInAction.signIn(credentials);
         signInAction.checkResponseSuccess(response, false);
         signInAction.checkResponseErrorCode(response, 3);
@@ -92,7 +89,7 @@ public class SignInTest extends BaseTest {
 
     @Test
     public void signInByMagstripeWithWrongPassword() {
-        Credentials credentials = new Credentials(data.cardMagstripe, "666");
+        Credentials credentials = new Credentials(data.cardMagstripe, null,"666");
         APIResponse response = signInAction.signIn(credentials);
         signInAction.checkResponseSuccess(response, false);
         signInAction.checkResponseErrorCode(response, 3);
