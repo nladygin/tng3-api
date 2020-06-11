@@ -27,5 +27,28 @@ public class ClientAction extends Action {
     }
 
 
+    public APIResponse searchClients(String searchString){
+        HashMap<String, String> additional = new HashMap<>();
+            additional.put("search", searchString);
+        return requestHelper.go(endpointList, Method.GET, null, additional);
+    }
+
+
+    public APIResponse getClientInfo(int cardId){
+        return requestHelper.go(endpointList + "/" + cardId, Method.GET, null, null);
+    }
+
+
+    public APIResponse getClientAccounts(int cardId){
+        return requestHelper.go(endpointList + "/" + cardId + "/accounts", Method.GET, null, null);
+    }
+
+
+    public APIResponse getClientVouchers(int cardId){
+        return requestHelper.go(endpointList + "/" + cardId + "/vouchers", Method.GET, null, null);
+    }
+
+
+
     @Autowired private RequestHelper requestHelper;
 }

@@ -5,6 +5,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tng3.base.APIResponse;
+import tng3.guestapi.entity.Account;
+import tng3.guestapi.entity.Coupon;
+import tng3.guestapi.entity.Profile;
 import tng3.staffapi.action.ClientAction;
 import tng3.staffapi.action.ScheduleAction;
 import tng3.staffapi.entity.Client;
@@ -40,7 +43,68 @@ public class ClientTest extends BaseTest {
     }
 
 
+    @Test
+    public void searchClients(){
+        APIResponse response = clientAction.searchClients("Smith");
+        clientAction.checkResponseSuccess(response, true);
+        clientAction.validateResponsePayload(response, Client_.class, true);
+    }
 
+
+    @Test
+    public void searchWrongClients(){
+        APIResponse response = clientAction.searchClients("WRONGCLIENTSEARCH");
+        clientAction.checkResponseSuccess(response, true);
+        clientAction.checkResponsePayloadIsEmptyList(response);
+    }
+
+
+    @Test
+    public void getClientInfo(){
+        APIResponse response = clientAction.getClientInfo(data.cardID);
+        clientAction.checkResponseSuccess(response, true);
+        clientAction.validateResponsePayload(response, Profile.class, false);
+    }
+
+
+    @Test
+    public void getWrongClientInfo(){
+        APIResponse response = clientAction.getClientInfo(666);
+        clientAction.checkResponseSuccess(response, false);
+        clientAction.checkResponseErrorCode(response, 999);
+    }
+
+
+    @Test
+    public void getClientAccounts(){
+        APIResponse response = clientAction.getClientAccounts(data.cardID);
+        clientAction.checkResponseSuccess(response, true);
+        clientAction.validateResponsePayload(response, Account.class, true);
+    }
+
+
+    @Test
+    public void getWrongClientAccounts(){
+        APIResponse response = clientAction.getClientAccounts(666);
+        clientAction.checkResponseSuccess(response, true);
+        clientAction.checkResponsePayloadIsEmptyList(response);
+    }
+
+
+    @Test
+    public void getClientVouchers(){
+        APIResponse response = clientAction.getClientVouchers(data.cardID);
+        clientAction.checkResponseSuccess(response, true);
+        clientAction.validateResponsePayload(response, Coupon.class, true);
+    }
+
+
+    @Test
+    public void getWrongClientVouchers(){
+        APIResponse response = clientAction.getClientVouchers(666);
+        clientAction.checkResponseSuccess(response, true);
+        clientAction.checkResponsePayloadIsEmptyList(response);
+    }
 
 
     @Autowired private ClientAction clientAction;
