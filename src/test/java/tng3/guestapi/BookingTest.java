@@ -12,7 +12,7 @@ import tng3.common.entity.Payment;
 import tng3.common.entity.Payments;
 import tng3.guestapi.action.BillAction;
 import tng3.guestapi.action.BookingAction;
-import tng3.guestapi.entity.BookingComment;
+import tng3.common.entity.BookingComment;
 import tng3.guestapi.entity.BookingRate;
 
 import java.io.IOException;

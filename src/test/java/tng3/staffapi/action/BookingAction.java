@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import tng3.base.Action;
 import tng3.base.APIResponse;
+import tng3.common.entity.BookingComment;
 import tng3.helper.RequestHelper;
 
 import java.util.HashMap;
@@ -53,6 +54,10 @@ public class BookingAction extends Action {
         return requestHelper.go(endpoint + "/" + bookingId + "/complete", Method.POST, null, null);
     }
 
+
+    public APIResponse deleteBooking(int bookingId, String comment){
+        return requestHelper.go(endpoint + "/" + bookingId, Method.DELETE, new BookingComment(comment), null);
+    }
 
 
 

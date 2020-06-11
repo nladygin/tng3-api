@@ -84,6 +84,29 @@ public class BookingTest extends BaseTest {
     }
 
 
+    @Test
+    public void deleteBooking(){
+        APIResponse response = bookingAction.createBookingMS(
+                data.offerID,
+                data.cardID,
+                data.outletID,
+                utils.generateDateMS(1)
+        );
+        bookingAction.checkResponseSuccess(response, true);
+
+            int bookingId = (int) response.getPayload();
+
+            response = bookingAction.deleteBooking(bookingId, "deleted by API autotest");
+            bookingAction.checkResponseSuccess(response, true);
+    }
+
+
+    @Test
+    public void deleteWrongBooking(){
+        APIResponse response = bookingAction.deleteBooking(666, null);
+        bookingAction.checkResponseSuccess(response, false);
+        bookingAction.checkResponseErrorCode(response, 121);
+    }
 
 
 

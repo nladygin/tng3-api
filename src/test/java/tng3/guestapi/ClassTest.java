@@ -8,7 +8,7 @@ import tng3.base.APIResponse;
 import tng3.common.entity.Booking;
 import tng3.guestapi.action.BookingAction;
 import tng3.guestapi.action.ClassAction;
-import tng3.guestapi.entity.BookingComment;
+import tng3.common.entity.BookingComment;
 import tng3.guestapi.entity.Class;
 
 import java.io.IOException;
