@@ -71,7 +71,7 @@ public class ClientTest extends BaseTest {
     public void getWrongClientInfo(){
         APIResponse response = clientAction.getClientInfo(666);
         clientAction.checkResponseSuccess(response, false);
-        clientAction.checkResponseErrorCode(response, 999);
+        clientAction.checkResponseErrorCode(response, 404);
     }
 
 
@@ -86,8 +86,8 @@ public class ClientTest extends BaseTest {
     @Test
     public void getWrongClientAccounts(){
         APIResponse response = clientAction.getClientAccounts(666);
-        clientAction.checkResponseSuccess(response, true);
-        clientAction.checkResponsePayloadIsEmptyList(response);
+        clientAction.checkResponseSuccess(response, false);
+        clientAction.checkResponseErrorCode(response,404);
     }
 
 
@@ -102,8 +102,8 @@ public class ClientTest extends BaseTest {
     @Test
     public void getWrongClientVouchers(){
         APIResponse response = clientAction.getClientVouchers(666);
-        clientAction.checkResponseSuccess(response, true);
-        clientAction.checkResponsePayloadIsEmptyList(response);
+        clientAction.checkResponseSuccess(response, false);
+        clientAction.checkResponseErrorCode(response, 404);
     }
 
 
