@@ -1,6 +1,9 @@
 package tng3.common.entity;
 
 import tng3.base.Entity;
+import tng3.guestapi.entity.Items;
+
+import java.util.Map;
 
 public class Offer implements Entity {
 
@@ -16,6 +19,7 @@ public class Offer implements Entity {
     public String type;
     public int primaryOutletId;
     public String image;
-    public String offerClass;
+    public String offerClass;;
+    public Map<String, Integer> comboItems;
 
 }

@@ -109,6 +109,19 @@ public class OfferAction extends Action {
     }
 
 
+    public APIResponse getCombo(int outletID) {
+        return getCombo(outletID, true);
+    }
+
+    public APIResponse getCombo(int outletID, Boolean session) {
+        HashMap<String, String> additional = new HashMap<>();
+        additional.put("outlet_id", String.valueOf(outletID));
+        additional.put("tr", String.valueOf(false));
+        additional.put("co", String.valueOf(true));
+        return requestHelper.go(endpoint, Method.GET, null, additional, session);
+    }
+
+
 
     public APIResponse getOfferCapacity(int outletID, int offset, int count, int offerID, String from, Long fromMS) {
         HashMap<String, String> additional = new HashMap<>();

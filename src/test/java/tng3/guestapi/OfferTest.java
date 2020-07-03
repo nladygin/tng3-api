@@ -313,6 +313,28 @@ public class OfferTest extends BaseTest {
     }
 
 
+    @Test
+    public void getCombos() {
+        APIResponse response = offerAction.getCombo(
+                data.outletID
+        );
+        offerAction.checkResponseSuccess(response, true);
+        offerAction.validateResponsePayload(response, Offers.class, false);
+        offerAction.checkOnOffersNumber(response, 2);
+    }
+
+
+    @Test
+    public void getCombosWithoutSession() {
+        APIResponse response = offerAction.getCombo(
+                data.outletID,
+                false
+        );
+        offerAction.checkResponseSuccess(response, true);
+        offerAction.validateResponsePayload(response, Offers.class, false);
+        offerAction.checkOnOffersNumber(response, 2);
+    }
+
 
 
 
