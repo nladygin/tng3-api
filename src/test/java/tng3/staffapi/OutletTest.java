@@ -31,7 +31,7 @@ public class OutletTest extends BaseTest {
     public void changeToWrongOutlet() {
         APIResponse response = outletAction.changeOutlet(666);
         outletAction.checkResponseSuccess(response, false);
-        outletAction.checkResponseErrorCode(response, 0);
+        outletAction.checkResponseErrorCode(response, 404);
     }
 
 
