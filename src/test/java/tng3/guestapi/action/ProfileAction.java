@@ -47,5 +47,9 @@ public class ProfileAction extends Action {
         return requestHelper.go(endpoint + "/creditcards/" + id, Method.DELETE, null, null);
     }
 
+    public APIResponse getLinkedProfile(){
+        return requestHelper.go(endpoint + "/linked", Method.GET, null, null);
+    }
+
 
 }

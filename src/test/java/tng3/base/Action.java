@@ -86,6 +86,19 @@ public class Action {
         return this;
     }
 
+
+    public Action checkResponseElementsCountIsEqual(APIResponse response, int expectedCount) {
+        int c = ((List<Entity>)response.getPayload()).size();
+        assertThat(c, CoreMatchers.equalTo(expectedCount));
+        return this;
+    }
+
+
+    public int getResponseElementsCount(APIResponse response) {
+        return ((List<Entity>)response.getPayload()).size();
+    }
+
+
 /*
     public Action validateResponsePayload(APIResponse response, Object type){
         ObjectMapper mapper = new ObjectMapper();

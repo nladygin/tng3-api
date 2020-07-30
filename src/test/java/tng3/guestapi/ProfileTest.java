@@ -12,7 +12,6 @@ import tng3.guestapi.entity.Profile;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -489,7 +488,49 @@ public class ProfileTest extends BaseTest {
     }
 
 
+    @Test
+    public void createAndCheckLinkedProfile() throws IOException {
+        APIResponse response = profileAction.getLinkedProfile();
+        profileAction.validateResponsePayload(response, Profile.class, true);
+        int lp = profileAction.getResponseElementsCount(response);
 
+        Profile profile = new Profile(
+                0,
+                "API " + utils.generateString(),
+                "auto",
+                "test",
+                "M",
+                utils.generateDate("YYYY-MM-dd", -20*365),
+                "RU",
+                "620000",
+                "Lenina str 1-1",
+                "Ekb",
+                "1" + utils.generateDigits(10),
+                "1" + utils.generateDigits(10),
+                utils.generateString() + "@autotest.test",
+                "profile notes " + utils.generateString(),
+                "HRS",
+                "auto tester",
+                "ru_RU",
+                utils.generateString(10),
+                utils.generateDate("YYYY-MM-dd", 365),
+                data.cardType,
+                "Active",
+                utils.generateString(10),
+                "udfs 1 value",
+                new PrivacyOptions(),
+                null,
+                "123"
+        );
+        response = profileAction.createProfile(profile);
+        profileAction.checkResponseSuccess(response, true);
+        profileAction.validateResponsePayload(response, Profile.class, false);
+        profileAction.equalData(utils.toEntity(response, Profile.class), profile);
+
+            response = profileAction.getLinkedProfile();
+            profileAction.validateResponsePayload(response, Profile.class, true);
+            profileAction.checkResponseElementsCountIsEqual(response, lp+1);
+    }
 
 
 
