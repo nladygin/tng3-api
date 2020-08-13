@@ -10,6 +10,7 @@ public class Subcard implements Entity {
     public String magstripe;
     public String birthDate;
     public String validTill;
+    public String email;
 
 
     public Subcard(int id, String name, String cardType, String magstripe, String birthDate, String validTill) {
