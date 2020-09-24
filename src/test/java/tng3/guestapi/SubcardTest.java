@@ -34,7 +34,8 @@ public class SubcardTest extends BaseTest {
                 data.cardType,
                 utils.generateString(10),
                 utils.generateDate("YYYY-MM-dd", 0),
-                utils.generateDate("YYYY-MM-dd", 365)
+                utils.generateDate("YYYY-MM-dd", 365),
+                utils.generateString(6) + "@mail.mail"
         );
         APIResponse response = subcardAction.addSubcard(subcard);
         subcardAction.checkResponseSuccess(response, true);

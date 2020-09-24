@@ -23,12 +23,13 @@ public class Subcard implements Entity {
     }
 
 
-    public Subcard(String name, String cardType, String magstripe, String birthDate, String validTill) {
+    public Subcard(String name, String cardType, String magstripe, String birthDate, String validTill, String email) {
         this.name = name;
         this.cardType = cardType;
         this.magstripe = magstripe;
         this.birthDate = birthDate;
         this.validTill = validTill;
+        this.email = email;
     }
 
     public Subcard(){}
