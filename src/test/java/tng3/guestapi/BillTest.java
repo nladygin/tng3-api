@@ -1,5 +1,6 @@
 package tng3.guestapi;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -253,7 +254,7 @@ public class BillTest extends BaseTest {
     }
 
 
-    @Test
+    @Test @Ignore("changed to Stripe")
     public void paymentBillByCreditCard() throws IOException {
         APIResponse response = billAction.createBill(
                 data.outletID,
@@ -279,7 +280,7 @@ public class BillTest extends BaseTest {
     }
 
 
-    @Test
+    @Test @Ignore("changed to Stripe")
     public void paymentBillByPoorCreditCard() throws IOException {
         APIResponse response = billAction.createBill(
                 data.outletID,
@@ -304,7 +305,7 @@ public class BillTest extends BaseTest {
     }
 
 
-    @Test
+    @Test @Ignore("changed to Stripe")
     public void paymentBillByCreditCard3D() throws IOException {
         APIResponse response = billAction.createBill(
                 data.outletID,
@@ -337,7 +338,7 @@ public class BillTest extends BaseTest {
     }
 
 
-    @Test
+    @Test @Ignore("changed to Stripe")
     public void paymentBillByCreditCard3DWithWrong3DCode() throws IOException {
         APIResponse response = billAction.createBill(
                 data.outletID,
@@ -370,7 +371,7 @@ public class BillTest extends BaseTest {
     }
 
 
-    @Test
+    @Test @Ignore("changed to Stripe")
     public void paymentBillByPoorCreditCard3D() throws IOException {
         APIResponse response = billAction.createBill(
                 data.outletID,

@@ -14,5 +14,7 @@ public class EmployeeRestrictions implements Entity {
     public Boolean apiBilling;
     public Boolean apiBookingCompleteManual;
     public Boolean apiBookingCancel;
+    public Boolean shiftAdd;
+    public Boolean shiftDelete;
 
 }

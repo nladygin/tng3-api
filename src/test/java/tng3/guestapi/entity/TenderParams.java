@@ -12,5 +12,6 @@ public class TenderParams implements Entity {
     public String depositCode;
     public String provider;
     public String publicKey;
+    public String web_secret;
 
 }

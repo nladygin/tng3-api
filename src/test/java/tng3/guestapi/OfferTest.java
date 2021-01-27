@@ -257,7 +257,7 @@ public class OfferTest extends BaseTest {
         );
         offerAction.checkResponseSuccess(response, true);
         offerAction.validateResponsePayload(response, Offers.class, false);
-        offerAction.checkOnOffersNumber(response, 4);
+        offerAction.checkOnOffersNumber(response, 5);
     }
 
 
@@ -286,7 +286,7 @@ public class OfferTest extends BaseTest {
         );
         offerAction.checkResponseSuccess(response, true);
         offerAction.validateResponsePayload(response, Offers.class, false);
-        offerAction.checkOnOffersNumber(response, 4);
+        offerAction.checkOnOffersNumber(response, 5);
     }
 
 
@@ -297,7 +297,7 @@ public class OfferTest extends BaseTest {
         );
         offerAction.checkResponseSuccess(response, true);
         offerAction.validateResponsePayload(response, Offers.class, false);
-        offerAction.checkOnOffersNumber(response, 1);
+        offerAction.checkOnOffersNumber(response, 2);
     }
 
 
@@ -309,7 +309,7 @@ public class OfferTest extends BaseTest {
         );
         offerAction.checkResponseSuccess(response, true);
         offerAction.validateResponsePayload(response, Offers.class, false);
-        offerAction.checkOnOffersNumber(response, 1);
+        offerAction.checkOnOffersNumber(response, 2);
     }
 
 
@@ -320,7 +320,7 @@ public class OfferTest extends BaseTest {
         );
         offerAction.checkResponseSuccess(response, true);
         offerAction.validateResponsePayload(response, Offers.class, false);
-        offerAction.checkOnOffersNumber(response, 4);
+        offerAction.checkOnOffersNumber(response, 6);
     }
 
 
@@ -332,7 +332,7 @@ public class OfferTest extends BaseTest {
         );
         offerAction.checkResponseSuccess(response, true);
         offerAction.validateResponsePayload(response, Offers.class, false);
-        offerAction.checkOnOffersNumber(response, 4);
+        offerAction.checkOnOffersNumber(response, 6);
     }
 
 
