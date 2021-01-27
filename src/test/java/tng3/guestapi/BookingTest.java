@@ -66,9 +66,11 @@ public class BookingTest extends BaseTest {
         APIResponse response = bookingAction.createBooking(
                 data.outletID,
                 data.therapistID,
+                null,
                 data.offerID,
                 utils.generateDate("dd.MM.yyyy HH:mm", 0),
                 null,
+                "autotest API booking",
                 true
         );
         bookingAction.checkResponseSuccess(response, true);
@@ -81,9 +83,11 @@ public class BookingTest extends BaseTest {
         APIResponse response = bookingAction.createBooking(
                 data.outletID,
                 null,
+                null,
                 data.offerID,
                 utils.generateDate("dd.MM.yyyy HH:mm", 0),
                 null,
+                "autotest API booking",
                 true
         );
         bookingAction.checkResponseSuccess(response, true);
@@ -96,9 +100,11 @@ public class BookingTest extends BaseTest {
         APIResponse response = bookingAction.createBooking(
                 data.outletID,
                 data.therapistID,
+                null,
                 data.offerID,
                 null,
                 utils.generateDateMS(0),
+                "autotest API booking",
                 true
         );
         bookingAction.checkResponseSuccess(response, true);
@@ -111,9 +117,62 @@ public class BookingTest extends BaseTest {
         APIResponse response = bookingAction.createBooking(
                 data.outletID,
                 null,
+                null,
                 data.offerID,
                 null,
                 utils.generateDateMS(0),
+                "autotest API booking",
+                true
+        );
+        bookingAction.checkResponseSuccess(response, true);
+        bookingAction.validateResponsePayload(response, Booking.class, false);
+    }
+
+
+    @Test
+    public void createBookingWithFacilityFrom() {
+        APIResponse response = bookingAction.createBooking(
+                data.outletID,
+                null,
+                data.facilityID,
+                data.offerID,
+                utils.generateDate("dd.MM.yyyy HH:mm", 0),
+                null,
+                "autotest API booking",
+                true
+        );
+        bookingAction.checkResponseSuccess(response, true);
+        bookingAction.validateResponsePayload(response, Booking.class, false);
+    }
+
+
+    @Test
+    public void createBookingWithFacilityFromMS() {
+        APIResponse response = bookingAction.createBooking(
+                data.outletID,
+                null,
+                data.facilityID,
+                data.offerID,
+                null,
+                utils.generateDateMS(0),
+                "autotest API booking",
+                true
+        );
+        bookingAction.checkResponseSuccess(response, true);
+        bookingAction.validateResponsePayload(response, Booking.class, false);
+    }
+
+
+    @Test
+    public void createBookingWithTherapistAndFacilityFrom() {
+        APIResponse response = bookingAction.createBooking(
+                data.outletID,
+                data.therapistID,
+                data.facilityID,
+                data.offerID,
+                utils.generateDate("dd.MM.yyyy HH:mm", 0),
+                null,
+                "autotest API booking",
                 true
         );
         bookingAction.checkResponseSuccess(response, true);
@@ -126,9 +185,11 @@ public class BookingTest extends BaseTest {
         APIResponse response = bookingAction.createBooking(
                 data.outletID,
                 null,
+                null,
                 data.offerID,
                 utils.generateDate("dd.MM.yyyy HH:mm", 0),
                 null,
+                "autotest API booking",
                 true
         );
         bookingAction.checkResponseSuccess(response, true);
@@ -141,9 +202,11 @@ public class BookingTest extends BaseTest {
         APIResponse response = bookingAction.createBooking(
                 data.outletID,
                 null,
+                null,
                 data.spaPackageID,
                 null,
                 utils.generateDateMS(0),
+                "autotest API booking",
                 true
         );
         bookingAction.checkResponseSuccess(response, true);
@@ -156,9 +219,11 @@ public class BookingTest extends BaseTest {
         APIResponse response = bookingAction.createBooking(
                 data.outletID,
                 null,
+                null,
                 data.offerID,
                 null,
                 utils.generateDateMS(0),
+                "autotest API booking",
                 true
         );
         bookingAction.checkResponseSuccess(response, true);
@@ -181,9 +246,11 @@ public class BookingTest extends BaseTest {
         APIResponse response = bookingAction.createBooking(
                 data.outletID,
                 null,
+                null,
                 data.offerID,
                 null,
                 utils.generateDateMS(0),
+                "autotest API booking",
                 true
         );
         bookingAction.checkResponseSuccess(response, true);
@@ -206,9 +273,11 @@ public class BookingTest extends BaseTest {
         APIResponse response = bookingAction.createBooking(
                 data.outletID,
                 null,
+                null,
                 666,
                 null,
                 utils.generateDateMS(0),
+                "autotest API booking",
                 true
         );
         bookingAction.checkResponseSuccess(response, false);
@@ -245,9 +314,11 @@ public class BookingTest extends BaseTest {
         APIResponse response = bookingAction.createBooking(
                 data.outletID,
                 null,
+                null,
                 data.offerID,
                 null,
                 utils.generateDateMS(0),
+                "autotest API booking",
                 true
         );
         bookingAction.checkResponseSuccess(response, true);
@@ -270,9 +341,11 @@ public class BookingTest extends BaseTest {
         APIResponse response = bookingAction.createBooking(
                 data.outletID,
                 null,
+                null,
                 data.offerID,
                 null,
                 utils.generateDateMS(0),
+                "autotest API booking",
                 true
         );
         bookingAction.checkResponseSuccess(response, true);
@@ -305,9 +378,11 @@ public class BookingTest extends BaseTest {
         APIResponse response = bookingAction.createBooking(
                 data.outletID,
                 null,
+                null,
                 data.offerID,
                 utils.generateDate("dd.MM.yyyy HH:mm", 0),
                 null,
+                "autotest API booking",
                 true
         );
         bookingAction.checkResponseSuccess(response, true);
@@ -350,9 +425,11 @@ public class BookingTest extends BaseTest {
         APIResponse response = bookingAction.createBooking(
                 data.outletID,
                 null,
+                null,
                 data.offerID,
                 utils.generateDate("dd.MM.yyyy HH:mm", 0),
                 null,
+                "autotest API booking",
                 true
         );
         bookingAction.checkResponseSuccess(response, true);
@@ -395,9 +472,11 @@ public class BookingTest extends BaseTest {
         APIResponse response = bookingAction.createBooking(
                 data.outletID,
                 null,
+                null,
                 data.offerID,
                 utils.generateDate("dd.MM.yyyy HH:mm", 0),
                 null,
+                "autotest API booking",
                 true
         );
         bookingAction.checkResponseSuccess(response, true);

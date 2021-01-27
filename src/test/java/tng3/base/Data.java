@@ -26,6 +26,8 @@ public class Data {
     @Value("${empl_username}")                  public String emplUsername;
     @Value("${empl_password}")                  public String emplPassword;
 
+    @Value("${facility_id}")                   public int facilityID;
+
     @Value("${spa_package_id}")                 public int spaPackageID;
     @Value("${offer_id}")                       public int offerID;
     @Value("${offer_barcode}")                  public String offerBarcode;

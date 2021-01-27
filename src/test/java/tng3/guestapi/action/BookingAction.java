@@ -41,11 +41,14 @@ public class BookingAction extends Action {
 
 
 
-    public APIResponse createBooking(Integer outletID, Integer therapistID, int offerID, String from, Long fromMS, Boolean verbose) {
+    public APIResponse createBooking(Integer outletID, Integer therapistID, Integer facilityID, int offerID, String from, Long fromMS, String comment, Boolean verbose) {
         HashMap<String, String> additional = new HashMap<>();
             additional.put("outlet_id", String.valueOf(outletID));
             if (therapistID != null) {
                 additional.put("therapist_id", String.valueOf(therapistID));
+            }
+            if (facilityID != null) {
+                additional.put("facility_id", String.valueOf(facilityID));
             }
             additional.put("offer_id", String.valueOf(offerID));
             if (from != null) {
@@ -53,6 +56,9 @@ public class BookingAction extends Action {
             }
             if (fromMS != null) {
                 additional.put("from_ms", String.valueOf(fromMS));
+            }
+            if (comment != null) {
+                additional.put("comment", comment);
             }
             additional.put("verbose", String.valueOf(verbose));
 
