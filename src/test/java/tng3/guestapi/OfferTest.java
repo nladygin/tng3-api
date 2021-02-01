@@ -257,7 +257,7 @@ public class OfferTest extends BaseTest {
         );
         offerAction.checkResponseSuccess(response, true);
         offerAction.validateResponsePayload(response, Offers.class, false);
-        offerAction.checkOnOffersNumber(response, 5);
+        offerAction.checkOnOffersNumber(response, 4);
     }
 
 
@@ -286,7 +286,7 @@ public class OfferTest extends BaseTest {
         );
         offerAction.checkResponseSuccess(response, true);
         offerAction.validateResponsePayload(response, Offers.class, false);
-        offerAction.checkOnOffersNumber(response, 5);
+        offerAction.checkOnOffersNumber(response, 4);
     }
 
 
