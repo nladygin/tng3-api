@@ -8,7 +8,10 @@ import tng3.base.Entity;
 public class TenderParams implements Entity {
 
     public String fiscalSettleType;
+    public String fiscalAgentSendAlways;
     public String sendZeroPayment;
+    public String fiscalSkipZeroLines;
+    public String sendZeroPaymentFiscal;
     public String depositCode;
     public String provider;
     public String publicKey;

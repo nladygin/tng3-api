@@ -13,6 +13,7 @@ public class Coupon implements Entity {
     public String lastUse;
     public Outlet outlet;
     public String type;
+    public String status;
     public String description;
 
 }

@@ -254,7 +254,7 @@ public class BillTest extends BaseTest {
     }
 
 
-    @Test @Ignore("changed to Stripe")
+    @Test //@Ignore("changed to Stripe")
     public void paymentBillByCreditCard() throws IOException {
         APIResponse response = billAction.createBill(
                 data.outletID,

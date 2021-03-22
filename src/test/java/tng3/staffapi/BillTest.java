@@ -750,8 +750,7 @@ public class BillTest extends BaseTest {
                         null
                 );
 
-        billAction.checkResponseSuccess(response, true);
-        billAction.validateResponsePayload(response, Bill.class, false);
+        billAction.checkResponseSuccess(response, false);
     }
 
 

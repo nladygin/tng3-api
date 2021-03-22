@@ -29,6 +29,7 @@ public class Booking implements Entity {
     public String paymentStatus;
     public boolean confirmationRequired;
     public int docId;
+    public String bodyMap;
     public String therapistImage;
     public String treatmentImage;
 

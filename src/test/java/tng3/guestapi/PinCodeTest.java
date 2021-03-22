@@ -17,7 +17,7 @@ public class PinCodeTest extends BaseTest {
 
 
 
-    @Test
+    @Test @Ignore("Sending the email to the following server failed : smtp.yandex.ru:465")
     public void requestPinCodeByEmail() {
         PinCodeRequest pinCodeRequest = new PinCodeRequest(data.cardEmail, null);
         APIResponse response = pinCodeAction.requestPinCode(pinCodeRequest);
