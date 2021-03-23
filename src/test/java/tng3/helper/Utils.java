@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -80,8 +81,9 @@ public class Utils {
         LocalDateTime localDateTime = LocalDateTime.parse(generateDate("dd.MM.YYYY HH:mm", dayShift),
                 DateTimeFormatter.ofPattern("dd.MM.uuuu HH:mm") );
             return localDateTime
-                        .atZone(ZoneId.systemDefault())
-                        .toInstant().toEpochMilli();
+//                        .atZone(ZoneId.systemDefault())
+//                        .toInstant().toEpochMilli();
+                        .toInstant(ZoneOffset.ofHours(0)).toEpochMilli();
     }
 
 

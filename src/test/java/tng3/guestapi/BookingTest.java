@@ -186,7 +186,7 @@ public class BookingTest extends BaseTest {
                 data.outletID,
                 null,
                 null,
-                data.offerID,
+                data.spaPackageID,
                 utils.generateDate("dd.MM.yyyy HH:mm", 0),
                 null,
                 "autotest API booking",
