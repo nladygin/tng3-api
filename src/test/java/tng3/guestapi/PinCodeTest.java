@@ -47,7 +47,7 @@ public class PinCodeTest extends BaseTest {
         PinCodeRequest pinCodeRequest = new PinCodeRequest("wrongemail@email.email", null);
         APIResponse response = pinCodeAction.requestPinCode(pinCodeRequest);
         pinCodeAction.checkResponseSuccess(response, false);
-        pinCodeAction.checkResponseErrorCode(response, 121);
+        pinCodeAction.checkResponseErrorCode(response, 161);
     }
 
 
@@ -56,7 +56,7 @@ public class PinCodeTest extends BaseTest {
         PinCodeRequest pinCodeRequest = new PinCodeRequest(null, "12345678900");
         APIResponse response = pinCodeAction.requestPinCode(pinCodeRequest);
         pinCodeAction.checkResponseSuccess(response, false);
-        pinCodeAction.checkResponseErrorCode(response, 121);
+        pinCodeAction.checkResponseErrorCode(response, 161);
     }
 
 

@@ -1,6 +1,7 @@
 package tng3.guestapi.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import tng3.base.Entity;
 
 
@@ -16,5 +17,7 @@ public class TenderParams implements Entity {
     public String provider;
     public String publicKey;
     public String web_secret;
+    @JsonProperty("FCC TerminalId") public String fccTerminalId;
+    @JsonProperty("HPC TerminalId") public String hpcTerminalId;
 
 }
