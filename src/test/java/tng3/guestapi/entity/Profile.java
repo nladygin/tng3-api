@@ -1,9 +1,10 @@
 package tng3.guestapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import tng3.base.Entity;
 import java.util.Objects;
 
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Profile implements Entity {
 
     public int id;

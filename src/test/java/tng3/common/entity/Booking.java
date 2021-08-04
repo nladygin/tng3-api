@@ -30,6 +30,7 @@ public class Booking implements Entity {
     public boolean confirmationRequired;
     public int docId;
     public String bodyMap;
+    public boolean assignPending;
     public String therapistImage;
     public String treatmentImage;
 
