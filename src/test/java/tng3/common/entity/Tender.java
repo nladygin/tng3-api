@@ -1,9 +1,9 @@
 package tng3.common.entity;
 
 import tng3.base.Entity;
-import tng3.guestapi.entity.Account;
-import tng3.guestapi.entity.CreditCard;
-import tng3.guestapi.entity.TenderParams;
+import tng3.tests.guestapi.entity.Account;
+import tng3.tests.guestapi.entity.CreditCard;
+import tng3.tests.guestapi.entity.TenderParams;
 
 import java.util.List;
 

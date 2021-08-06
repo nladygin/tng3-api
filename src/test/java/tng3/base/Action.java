@@ -30,6 +30,11 @@ public class Action {
         return this;
     }
 
+    public Action checkResponseErrorMessage(APIResponse response, String expected) {
+        assertThat(response.getErrorMessage(), CoreMatchers.equalTo(expected));
+        return this;
+    }
+
 
     public Action validateResponsePayload(APIResponse response, Class cl, boolean isList) {
         ObjectMapper mapper = new ObjectMapper();

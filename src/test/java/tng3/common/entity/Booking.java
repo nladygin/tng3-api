@@ -1,7 +1,7 @@
 package tng3.common.entity;
 
 import tng3.base.Entity;
-import tng3.staffapi.entity.Client;
+import tng3.tests.staffapi.entity.Client;
 
 import java.util.Date;
 import java.util.List;

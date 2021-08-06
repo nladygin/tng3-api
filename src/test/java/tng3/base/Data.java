@@ -1,8 +1,6 @@
 package tng3.base;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
@@ -48,6 +46,10 @@ public class Data {
     @Value("${online_tender_token_poor_3ds}")   public String onlineTenderTokenPoor3Ds;
     @Value("${cardholder_name}")                public String cardholderName;
 
+    @Value("${med_registry_id}")                public int medRegistryId;
+    @Value("${med_emr_id}")                     public long medEMRId;
+    @Value("${med_sign_employee}")              public String medSignEmployee;
+    @Value("${med_sign_organization}")          public String medSignOrganization;
 
 
     public Data(){}
