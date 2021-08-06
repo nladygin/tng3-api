@@ -16,11 +16,10 @@ public class ListOfValuesTest extends BaseTest {
 
 
     @Test
-    public void appendNewValueIntoExistLOV() {
+    public void updateOldAndAppendNewValueIntoExistLOV() {
         ListOfValues listOfValues = new ListOfValues();
-            listOfValues.add(new Value("code1", "Value #1"));
-            listOfValues.add(new Value("code2", "Value #2"));
-            listOfValues.add(new Value("code3", "Value #3"));
+            listOfValues.add(new Value("code1", utils.generateString()));
+            listOfValues.add(new Value("code2", utils.generateString()));
             listOfValues.add(new Value(utils.generateString(3), utils.generateString(10)));
         APIResponse response = listOfValuesAction.syncLov("autotest", listOfValues);
         listOfValuesAction.checkResponseSuccess(response, true);
