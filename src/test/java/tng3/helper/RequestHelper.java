@@ -14,7 +14,6 @@ import tng3.base.Entity;
 import java.util.HashMap;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.request;
 import static org.apache.http.HttpStatus.SC_OK;
 
 
@@ -56,27 +55,30 @@ public class RequestHelper {
 
 
     public APIResponse go(String endpoint, Method method, Entity body, HashMap<String, String> additional){
-        return go(endpoint, method, body, additional, true);
+        return go(endpoint, method, body, additional, true, ContentType.JSON, SC_OK);
     }
 
-    public APIResponse go(String endpoint, Method method, Entity body, HashMap<String, String> additional, Boolean withSession){
+    public APIResponse go(String endpoint, Method method, Entity body, HashMap<String, String> additional, Boolean session){
+        return go(endpoint, method, body, additional, session, ContentType.JSON, SC_OK);
+    }
+
+    public APIResponse go(String endpoint, Method method, Entity body, HashMap<String, String> additional, Boolean withSession, ContentType requestContentType, int responseStatus){
         String url = makeURL(endpoint, additional, withSession);
         LogManager.getLogger().info(method + " " + url);
 
         String b = (body != null) ? body.asJsonString() : "";
         RequestSpecification requestSpecification =
                 given()
-                        .contentType(ContentType.JSON)
+                        .contentType(requestContentType)
                         .body(b);
         LogManager.getLogger().info("BODY: " + b);
 
         Response response = requestSpecification.request(method, url);
-//        Response response = request(method, url);
 
         LogManager.getLogger().info("RESULT: " + response.getBody().asString());
         return response
                 .then()
-                .statusCode(SC_OK)
+                .statusCode(responseStatus)
                 .extract()
                 .as(APIResponse.class);
     }
