@@ -254,7 +254,7 @@ public class BillTest extends BaseTest {
     }
 
 
-    @Test
+    @Test @Ignore("new token needed")
     public void paymentBillByCreditCard() throws IOException {
         APIResponse response = billAction.createBill(
                 data.outletID,

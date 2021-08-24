@@ -14,7 +14,7 @@ public class EMR {
     public List<EMRSection> sections;
     public List<EMRValue> records;
     public byte[] pdf;
-    public byte[] doctorSignature;
-    public byte[] organizationSignature;
+    public byte[] doctorSignatureBase64;
+    public byte[] organizationSignatureBase64;
 
 }
