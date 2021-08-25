@@ -105,7 +105,7 @@ public class MedTest extends BaseTest {
 
     @Test
     public void signEMRByNonexistentSignType() {
-        APIResponse response = medAction.signEMR(data.medEMRId, "devil", data.medSignEmployee, 200);
+        APIResponse response = medAction.signEMR(data.medEMRId, "devil", data.medSignEmployee, 400);
         medAction.checkResponseSuccess(response, false);
         medAction.checkResponseErrorMessage(response, "Unknown type");
     }

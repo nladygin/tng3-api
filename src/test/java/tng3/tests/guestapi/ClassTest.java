@@ -47,7 +47,7 @@ public class ClassTest extends BaseTest {
     }
 
 
-    @Test
+    @Test //Class 247328 at 31.12.20
     public void subscribeAndUnsubscribeClass() throws IOException {
         APIResponse response = classAction.subscribeClass(data.classID, true);
         classAction.checkResponseSuccess(response, true);
