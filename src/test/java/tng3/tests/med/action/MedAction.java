@@ -12,7 +12,7 @@ import java.util.HashMap;
 @Component
 public class MedAction extends Action {
 
-    private final String endpoint = "/api/med";  // "/directory/{name}/content";
+    private final String endpoint = "/staffapi/med";  // "/directory/{name}/content";
 
 
 

@@ -80,7 +80,7 @@ public class BookingTest extends BaseTest {
     public void completeWrongBooking(){
         APIResponse response = bookingAction.completeBooking(666);
         bookingAction.checkResponseSuccess(response, false);
-        bookingAction.checkResponseErrorCode(response, 999);
+        bookingAction.checkResponseErrorCode(response, 121);
     }
 
 

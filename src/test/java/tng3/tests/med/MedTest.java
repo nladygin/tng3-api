@@ -84,13 +84,13 @@ public class MedTest extends BaseTest {
 //        medAction.validateResponsePayload(response, EMR.class, false);
     }
 
-    @Test
+    @Test @Ignore("hung up")
     public void signEMRByEmployee() {
         APIResponse response = medAction.signEMR(data.medEMRId, "doctor", data.medSignEmployee, 200);
         medAction.checkResponseSuccess(response, true);
     }
 
-    @Test
+    @Test @Ignore("hung up")
     public void signEMRByOrganization() {
         APIResponse response = medAction.signEMR(data.medEMRId, "organization", data.medSignEmployee, 200);
         medAction.checkResponseSuccess(response, true);
