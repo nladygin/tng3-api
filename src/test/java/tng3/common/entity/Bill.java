@@ -21,10 +21,12 @@ public class Bill implements Entity {
     public Double total;
     public Double ttlDue;
     public Double discount;
+    public Double serviceCharge;
     public String coupon;
     public boolean closed;
     public List<Item> items;
     public List<Payment> payments;
+    public List<BillTax> taxes;
     public PurchaseType purchaseType;
     public String account;
     public Integer voucherTypeId;
